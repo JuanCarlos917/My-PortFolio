@@ -33,7 +33,47 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const {} = sequelize.models;
+// En sequelize.models están todos los modelos importados como propiedades
+// Para relacionarlos hacemos un destructuring
+const {
+	About,
+	Category,
+	Client,
+	Contact,
+	CV,
+	Education,
+	Gallery,
+	Project,
+	Tag,
+} = sequelize.models;
+
+//Relaciones
+
+//Relación Uno a Uno (One-to-One):
+// En el modelo About
+About.hasOne(CV);
+// En el modelo CV
+CV.belongsTo(About);
+
+//Relación Uno a Muchos (One-to-Many):
+// En el modelo Category
+Category.hasMany(Project);
+// En el modelo Project
+Project.belongsTo(Category);
+// En el modelo Client
+Client.hasMany(Project);
+// En el modelo Project
+Project.belongsTo(Client);
+// En el modelo Education
+Education.belongsTo(CV);
+// En el modelo Resume
+CV.hasMany(Education);
+
+//Relación Muchos a Muchos (Many-to-Many):
+// En el modelo Project
+Project.belongsToMany(Tag, { through: 'ProjectTag' });
+// En el modelo Tag
+Tag.belongsToMany(Project, { through: 'ProjectTag' });
 
 module.exports = {
   ...sequelize.models,
