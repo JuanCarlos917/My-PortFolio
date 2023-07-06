@@ -2,12 +2,8 @@ const { DataTypes } = require('sequelize');
 
 //Este modelo permitira almacenar información sobre mi, como una biografía, habilidades, experiencia laboral, formación académica, entre otros detalles relevantes.
 module.exports = (sequelize) => {
-	sequelize.define('About', {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true,
-		},
+	const About = sequelize.define('About', {
+		// Definición de los campos del modelo
 		bio: {
 			type: DataTypes.TEXT,
 			allowNull: false,
@@ -21,4 +17,5 @@ module.exports = (sequelize) => {
 			allowNull: false,
 		},
 	});
+	return About;
 };
