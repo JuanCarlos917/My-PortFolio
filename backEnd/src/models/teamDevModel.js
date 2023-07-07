@@ -9,7 +9,6 @@ module.exports = (sequelize) => {
 				type: DataTypes.UUID,
 				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true,
-				autoIncrement: true,
 			},
 			name: {
 				type: DataTypes.TEXT,
@@ -19,9 +18,14 @@ module.exports = (sequelize) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
-			phone: {
+			social_network: {
 				type: DataTypes.STRING,
 				allowNull: false,
+				validate: {
+					isUrl: {
+						msg: 'La URL de la red social no es válida.',
+					},
+				},
 			},
 		},
 		{

@@ -6,9 +6,9 @@ module.exports = (sequelize) => {
 		'Category',
 		{
 			id: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true,
-				autoIncrement: true,
 			},
 			name: {
 				type: DataTypes.TEXT,
