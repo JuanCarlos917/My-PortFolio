@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express();
-const { getAbout, updateAbout } = require('../controllers/AboutController');
+const {
+	getAbout,
+	updateAbout,
+	createAbout,
+} = require('../controllers/AboutController');
 const {
 	updateAboutValidations,
 	handleValidationErrors,
@@ -8,7 +12,8 @@ const {
 
 // Ruta para obtener la información de "Acerca de mí"
 router.get('/', getAbout);
-
+// Rutas para crear y actualizar el contenido del apartado acerca de
+router.post('/', updateAboutValidations, handleValidationErrors, createAbout);
 // Ruta para actualizar la información de "Acerca de mí". handleValidationErrors, updateAbout son validaciones de express-validator
 router.put('/', updateAboutValidations, handleValidationErrors, updateAbout);
 
