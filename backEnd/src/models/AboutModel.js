@@ -6,6 +6,12 @@ module.exports = (sequelize) => {
 		'About',
 		{
 			// Definición de los campos del modelo
+			id: {
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
+				primaryKey: true,
+                unique: true,
+			},
 			bio: {
 				type: DataTypes.TEXT,
 				allowNull: false,

@@ -26,11 +26,17 @@ const createCategory = async (req, res) => {
 		const { name } = req.body;
 
 		if (!name) {
-			return res
-				.status(400)
-				.json({
-					message: 'El nombre de la categoría no puede estar vacío.',
-				});
+			return res.status(400).json({
+				message: 'El nombre de la categoría no puede estar vacío.',
+			});
+		}
+
+		const existingCategory = await Category.findOne({ where: { name } });
+
+		if (existingCategory) {
+			return res.status(400).json({
+				message: 'La categoría ya existe.',
+			});
 		}
 
 		const newCategory = await Category.create({ name });
@@ -42,6 +48,7 @@ const createCategory = async (req, res) => {
 		});
 	}
 };
+
 
 //controlado para eliminar la categoria de la base de datos mediante id
 const deleteCategory = async (req, res) => {
