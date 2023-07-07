@@ -4,9 +4,9 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
 	sequelize.define('Education', {
 		id: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
-			autoIncrement: true,
 		},
 		degree: {
 			type: DataTypes.STRING,

@@ -9,7 +9,7 @@ const {
 // Ruta para obtener la información de "Acerca de mí"
 router.get('/', getAbout);
 
-// Ruta para actualizar la información de "Acerca de mí"
+// Ruta para actualizar la información de "Acerca de mí". handleValidationErrors, updateAbout son validaciones de express-validator
 router.put('/', updateAboutValidations, handleValidationErrors, updateAbout);
 
 module.exports = router;
