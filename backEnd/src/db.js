@@ -38,7 +38,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 const {
 	About,
 	Category,
-	Client,
+	TeamDev,
 	Contact,
 	CV,
 	Education,
@@ -60,10 +60,10 @@ CV.belongsTo(About);
 Category.hasMany(Project);
 // En el modelo Project
 Project.belongsTo(Category);
-// En el modelo Client
-Client.hasMany(Project);
+// En el modelo TeamDev
+TeamDev.hasMany(Project);
 // En el modelo Project
-Project.belongsTo(Client);
+Project.belongsTo(TeamDev);
 // En el modelo Education
 Education.belongsTo(CV);
 // En el modelo Resume
