@@ -10,15 +10,16 @@ module.exports = (sequelize) => {
 				type: DataTypes.UUID,
 				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true,
-                unique: true,
+				unique: true,
 			},
 			bio: {
 				type: DataTypes.TEXT,
 				allowNull: false,
 			},
 			skills: {
-				type: DataTypes.STRING,
+				type: DataTypes.JSONB,
 				allowNull: false,
+				defaultValue: {},
 			},
 			experience: {
 				type: DataTypes.STRING,
