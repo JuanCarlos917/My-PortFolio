@@ -4,7 +4,7 @@ const {
 	getAbout,
 	updateAbout,
 	createAbout,
-} = require('../controllers/AboutController');
+} = require('../controllers/aboutController');
 const {
 	updateAboutValidations,
 	handleValidationErrors,
