@@ -1,36 +1,69 @@
-const { CV, About } = require('../db');
+// Importar los modelos necesarios
+const { CV, About, Education } = require('../db');
+// Importar las librerías requeridas
+const winston = require('winston');
+require('winston-daily-rotate-file');
+
+const logger = winston.createLogger({
+	level: 'error',
+	format: winston.format.json(),
+	transports: [
+		new winston.transports.Console(),
+		new winston.transports.DailyRotateFile({
+			filename: 'logs/error-%DATE%.log',
+			datePattern: 'YYYY-MM-DD',
+			zippedArchive: true,
+			maxSize: '20m',
+			maxFiles: '14d',
+		}),
+	],
+});
+
 
 const getCV = async (req, res) => {
 	try {
+		// Buscar un CV con información de "About" y "Education" incluida
 		const cv = await CV.findOne({
-			include: [About], // Incluir el modelo "About" en la consulta
+			include: [About, Education],
 		});
 
 		if (!cv) {
+			// Si no se encuentra ningún CV, responder con estado 404 y un mensaje de error
 			return res.status(404).json({
 				message: 'No se encontró el CV.',
 			});
 		}
 
 		if (!cv.About) {
+			// Si no se encuentra información de "About" asociada al CV, responder con estado 404 y un mensaje de error
 			return res.status(404).json({
 				message:
 					'No se encontró información de "About" asociada al CV. Debes crear un "About" primero.',
 			});
 		}
 
+		if (!cv.Education) {
+			// Si no se encuentra información de "Education" asociada al CV, responder con estado 404 y un mensaje de error
+			return res.status(404).json({
+				message:
+					'No se encontró información de "Education" asociada al CV. Debes crear un "Education" primero.',
+			});
+		}
+
+		// Responder con el CV encontrado en formato JSON
 		res.json(cv);
 	} catch (error) {
-		console.error(error);
+		// Manejar errores y responder con estado 500 y un mensaje de error
+		winston.error(error);
 		res.status(500).json({
 			message: 'Ha ocurrido un error al obtener el CV.',
 		});
 	}
 };
 
-
 const createCV = async (req, res) => {
 	try {
+		// Obtener los datos del cuerpo de la solicitud
 		const {
 			name,
 			lastName,
@@ -38,11 +71,11 @@ const createCV = async (req, res) => {
 			phone,
 			social_media,
 			proyects,
-			education,
 			experience,
 			skills,
 		} = req.body;
 
+		// Validar que todos los campos requeridos estén presentes en el cuerpo de la solicitud
 		if (
 			!name ||
 			!lastName ||
@@ -50,7 +83,6 @@ const createCV = async (req, res) => {
 			!phone ||
 			!social_media ||
 			!proyects ||
-			!education ||
 			!experience ||
 			!skills
 		) {
@@ -59,22 +91,36 @@ const createCV = async (req, res) => {
 			});
 		}
 
+		// Buscar un CV existente por nombre y apellido
 		const existingCV = await CV.findOne({ where: { name, lastName } });
 		if (existingCV) {
+			// Si se encuentra un CV existente, responder con estado 400 y un mensaje de error
 			return res.status(400).json({
 				message: 'El CV ya existe. Se debe modificar el que existe.',
 			});
 		}
 
-		const about = await About.findOne(); // Obtén el primer registro de "About"
-
+		// Obtener la información de "About"
+		const about = await About.findOne();
 		if (!about) {
+			// Si no se encuentra información de "About", responder con estado 404 y un mensaje de error
 			return res.status(404).json({
 				message:
 					'No se encontró información de "About". Debes crear un "About" primero.',
 			});
 		}
 
+		// Obtener la información de "Education"
+		const education = await Education.findOne();
+		if (!education) {
+			// Si no se encuentra información de "Education", responder con estado 404 y un mensaje de error
+			return res.status(404).json({
+				message:
+					'No se encontró información de "Education". Debes crear una "Education" primero.',
+			});
+		}
+
+		// Crear un nuevo CV con los datos proporcionados y asociar el ID de "About"
 		const newCV = await CV.create({
 			name,
 			lastName,
@@ -82,15 +128,17 @@ const createCV = async (req, res) => {
 			phone,
 			social_media,
 			proyects,
-			education,
 			experience,
 			skills,
-			AboutId: about.id, // Utiliza el ID del registro de "Abouts" creado previamente
+			AboutId: about.id,
+			EducationId: education.id,
 		});
 
+		// Responder con el nuevo CV en formato JSON
 		res.json(newCV);
 	} catch (error) {
-		console.error(error);
+		// Manejar errores y responder con estado 500 y un mensaje de error
+		logger.error(error);
 		res.status(500).json({
 			message: 'Ha ocurrido un error al crear el CV.',
 		});
@@ -100,56 +148,63 @@ const createCV = async (req, res) => {
 
 const updateCV = async (req, res) => {
 	try {
+		// Obtener los datos del cuerpo de la solicitud
 		const cvData = req.body;
+
+		// Buscar un CV existente
 		let cv = await CV.findOne();
-
 		if (!cv) {
+			// Si no se encuentra un CV existente, crear uno nuevo con los datos proporcionados
 			cv = await CV.create(cvData);
+			res.status(201).json({ message: 'CV creado exitosamente.' });
 		} else {
-			let hasChanges = false;
-
-			// Compara los valores campo por campo
-			Object.keys(cvData).forEach((key) => {
-				if (cv[key] !== cvData[key]) {
-					cv[key] = cvData[key]; // Actualiza el valor en el objeto cv
-					hasChanges = true; // Marca que ha habido cambios
-				}
+			// Si se encuentra un CV existente, actualizar los datos
+			const [rowsUpdated, updatedCv] = await CV.update(cvData, {
+				where: {
+					id: cv.id,
+				},
+				returning: true,
 			});
-
-			if (!hasChanges) {
-				return res.json({
-					message:
-						'No se ha realizado ninguna modificación en el CV.',
+			if (rowsUpdated === 0) {
+				// Si no se actualiza ningún registro, responder con estado 200 y un mensaje indicando que no se encontró el CV
+				res.status(200).json({ message: 'CV no encontrado.' });
+			} else {
+				// Si se actualiza el CV correctamente, seleccionar los campos necesarios y responder con estado 200 y el CV actualizado
+				const {
+					id,
+					name,
+					lastName,
+					email,
+					phone,
+					social_media,
+					proyects,
+					experience,
+				} = updatedCv[0];
+				res.status(200).json({
+					message: 'CV actualizado exitosamente.',
+					cv: {
+						id,
+						name,
+						lastName,
+						email,
+						phone,
+						social_media,
+						proyects,
+						experience,
+					},
 				});
 			}
-
-			// Verifica si hay cambios en los datos, excluyendo el campo "id" y "AboutId"
-			const isSameData = Object.keys(cvData)
-				.filter((key) => key !== 'id' && key !== 'AboutId')
-				.every((key) => cv[key] === cvData[key]);
-
-			if (isSameData) {
-				return res.json({
-					message:
-						'No se ha realizado ninguna modificación en el CV.',
-				});
-			}
-
-			await cv.save(); // Guarda los cambios en la base de datos
 		}
-
-		res.json({ message: 'CV actualizada correctamente.' });
 	} catch (error) {
-		console.error(error);
+		// Manejar errores y responder con estado 500 y un mensaje de error
+		winston.error(error);
 		res.status(500).json({
 			message: 'Ha ocurrido un error al actualizar el CV.',
 		});
 	}
 };
 
-
-
-
+// Exportar las funciones de los controladores
 module.exports = {
 	getCV,
 	createCV,

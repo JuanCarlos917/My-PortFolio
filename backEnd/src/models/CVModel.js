@@ -77,18 +77,6 @@ module.exports = (sequelize) => {
 					},
 				},
 			},
-			education: {
-				type: DataTypes.JSONB,
-				allowNull: false,
-				defaultValue: {},
-				get() {
-					const rawValue = this.getDataValue('education');
-					return rawValue ? JSON.parse(rawValue) : {};
-				},
-				set(value) {
-					this.setDataValue('education', JSON.stringify(value));
-				},
-			},
 			experience: {
 				type: DataTypes.JSONB,
 				allowNull: false,
@@ -102,7 +90,9 @@ module.exports = (sequelize) => {
 
 	CV.associate = (models) => {
 		CV.belongsTo(models.About);
+		CV.belongsToMany(models.Education, { through: 'CV_Education' });
 	};
+
 
 	return CV;
 };

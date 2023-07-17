@@ -15,9 +15,9 @@ const updateCVValidations = [
 		.notEmpty()
 		.withMessage('El campo social media es obligatorio'),
 	body('proyects').notEmpty().withMessage('El campo proyects es obligatorio'),
-	body('education')
-		.notEmpty()
-		.withMessage('El campo education es obligatorio'),
+	// body('education')
+	// 	.notEmpty()
+	// 	.withMessage('El campo education es obligatorio'),
 	body('experience')
 		.notEmpty()
 		.withMessage('El campo experience es obligatorio'),
