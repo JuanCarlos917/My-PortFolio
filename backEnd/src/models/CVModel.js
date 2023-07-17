@@ -87,12 +87,5 @@ module.exports = (sequelize) => {
 			timestamps: false,
 		},
 	);
-
-	CV.associate = (models) => {
-		CV.belongsTo(models.About);
-		CV.belongsToMany(models.Education, { through: 'CV_Education' });
-	};
-
-
 	return CV;
 };
