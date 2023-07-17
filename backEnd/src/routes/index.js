@@ -5,6 +5,7 @@ const teamDevRoutes = require('./teamDevRoutes')
 const contactRoutes = require('./contactRoutes')
 const cvRoutes = require('./cvRoutes')
 const educationRoutes = require('./educationRoutes')
+const galleryRoutes = require('./galleryRoutes');
 
 const app = Router();
 
@@ -20,6 +21,8 @@ app.use('/contact', contactRoutes);
 app.use('/cv', cvRoutes);
 // Rutas relacionadas con education
 app.use('/education', educationRoutes);
+// Rutas relacionadas con gallery
+app.use('/gallery', galleryRoutes);
 
 
 module.exports = app;
