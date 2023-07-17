@@ -52,8 +52,11 @@ const {
 //Relación Uno a Uno (One-to-One):
 // En el modelo About
 About.hasOne(CV);
+// En el modelo Education
+// Education.hasOne(CV);
 // En el modelo CV
 CV.belongsTo(About);
+// CV.belongsTo(Education);
 
 //Relación Uno a Muchos (One-to-Many):
 // En el modelo Category
@@ -64,10 +67,9 @@ Project.belongsTo(Category);
 TeamDev.hasMany(Project);
 // En el modelo Project
 Project.belongsTo(TeamDev);
-// En el modelo Education
-Education.belongsTo(CV);
-// En el modelo Resume
-CV.hasMany(Education);
+
+Education.hasMany(CV, { foreignKey: 'EducationId' });
+CV.belongsTo(Education, { foreignKey: 'EducationId' });
 
 //Relación Muchos a Muchos (Many-to-Many):
 // En el modelo Project
