@@ -21,7 +21,7 @@ router.post(
 	createGallery,
 );
 router.put(
-	'/',
+	'/:id',
 	updateGalleryValidations,
 	handleValidationErrors,
 	updateGallery,

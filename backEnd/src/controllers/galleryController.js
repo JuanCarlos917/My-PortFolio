@@ -54,59 +54,56 @@ const createGallery = async (req, res) => {
 	}
 };
 
-// controlador para actualizar los datos de gallery
+// Declaramos la función asíncrona 'updateGallery'
 const updateGallery = async (req, res) => {
 	try {
-		// Extrae los datos de gallery del cuerpo de la solicitud
-		const galleryData = req.body;
-		// Busca el registro de gallery a actualizar
-		const gallery = await Gallery.findOne();
-		// Si no existe gallery se genera un 404
-		if (!gallery) {
-			gallery = await Gallery.create(galleryData);
-			return res.status(201).json({
-				message: 'La Galleria ha sido creada.',
-				gallery,
+		// Extraemos el ID de la galeria de los parámetros de la ruta
+		const { id } = req.params;
+
+		// Extraemos los campos del cuerpo de la solicitud
+		const { title, description, images } = req.body;
+
+		// Busca una galeria existente en la base de datos
+		let existingGallery = await Gallery.findOne({ where: { id } });
+
+		// Si no se encuentra ninguna galeria, devuelve un estado 400
+		// y un mensaje indicando que la galeria no fue encontrada
+		if (!existingGallery) {
+			return res.status(400).json({
+				message:
+					'No se encontró un registro de la galeria existente para modificar. Por favor, asegúrate de que el ID de la galeria proporcionado es correcto y que el registro de la galeria ya existe en la base de datos.',
 			});
-		} else {
-			// Si se encuentra una galleria, actualiza el registro existente
-			const [rowsUpdated, updatedGallery] = await Gallery.update(
-				galleryData,
-				{
-					where: { id: gallery.id },
-					returning: true,
-				},
-			);
-
-			//si no se actualiza ningun registro, se envia un mensaje de gallery no encontrada
-			if (rowsUpdated === 0) {
-				return res.status(404).json({
-					message: 'No se encontró la galería',
-				});
-			} else {
-				// Si se actualiza el registro correctamente, se envía un mensaje de éxito y los datos de la educación actualizada
-				const { id, title, description, images } = updatedGallery[0];
-
-				res.status(200).json({
-					message: 'La galería ha sido actualizada correctamente.',
-					gallery: {
-						id,
-						title,
-						description,
-						images,
-					},
-				});
-			}
 		}
+
+		// Si la galeria existe, actualizamos la galeria con los nuevos datos
+		await Gallery.update(
+			{
+				title,
+				description,
+				images,
+			},
+			{
+				where: { id },
+			},
+		);
+
+		// Recuperamos los datos actualizados de la galeria de la base de datos
+		const updatedGallery = await Gallery.findOne({ where: { id } });
+
+		// Respondemos con un mensaje de éxito y los datos actualizados de la galeria
+		return res.status(200).json({
+			message: 'Se modifico correctamente los datos de la galeria.',
+			galleryUpdated: updatedGallery,
+		});
 	} catch (error) {
-		// Registrar el error detallado en el servidor
+		// En caso de error, lo registramos y respondemos con un mensaje de error
 		winston.error(error);
-		// Devolver un mensaje de error genérico al cliente
 		res.status(500).json({
 			message: 'Ha ocurrido un error al actualizar la galería',
 		});
 	}
 };
+
 
 // controlador para eliminar los datos de gallery
 const deleteGallery = async (req, res) => {
