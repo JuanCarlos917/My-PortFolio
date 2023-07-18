@@ -1,4 +1,4 @@
-const { Education } = require('../db');
+const { Education, CV } = require('../db');
 const winston = require('winston');
 const Joi = require('joi');
 
@@ -11,8 +11,8 @@ const getEducation = async (req, res, next) => {
 		}
 
 		// Buscar la información de educación
-		const education = await Education.findOne();
-		if (!education) {
+		const education = await Education.findAll();
+		if (education.length === 0) {
 			return res.status(404).json({
 				message: 'No se encontró la Educación',
 			});
@@ -42,7 +42,17 @@ const createEducation = async (req, res, next) => {
 			field_of_study,
 			startDate,
 			endDate,
+			CVId,
 		} = req.body;
+		// Obtener la información de "CV"
+		const cv = await CV.findOne();
+		if (!cv) {
+			// Si no se encuentra información de "CV", responder con estado 404 y un mensaje de error
+			return res.status(404).json({
+				message:
+					'No se encontró información de "CV". Se debe agregar primero un "CV"',
+			});
+		}
 
 		// Crea un nuevo registro de educación utilizando el modelo de la base de datos
 		const newEducation = await Education.create({
@@ -52,6 +62,7 @@ const createEducation = async (req, res, next) => {
 			field_of_study,
 			startDate,
 			endDate,
+			CVId: cv.id,
 		});
 
 		// Envía la respuesta JSON con los datos de la nueva educación creada
@@ -70,67 +81,53 @@ const createEducation = async (req, res, next) => {
 	}
 };
 
-
 //controlador para modificar los datos de educación
 const updateEducation = async (req, res) => {
 	try {
 		// Extrae los datos de la educación del cuerpo de la solicitud
-		const educationData = req.body;
+		const { id } = req.params;
+		// Extraemos los campos del cuerpo de la solicitud
+		const {
+			degree,
+			description,
+			institution,
+			field_of_study,
+			startDate,
+			endDate,
+		} = req.body;
 
 		// Busca una educación existente en la base de datos
-		let education = await Education.findOne();
+		let existingEducation = await Education.findOne({ where: { id } });
 
-		// Si no se encuentra ninguna educación, crea un nuevo registro
-		if (!education) {
-			education = await Education.create(educationData);
-			res.status(201).json({
-				message: 'La Educación ha sido creada.',
-				education,
+		// Si no se encuentra ninguna educación, devuelve un estado 400
+		if (!existingEducation) {
+			return res.status(400).json({
+				message:
+					'No se encontró un registro de educación existente para modificar. Por favor, asegúrate de que el ID de la educación proporcionado es correcto y que el registro de educación ya existe en la base de datos.',
 			});
-		} else {
-			// Si se encuentra una educación, actualiza el registro existente
-			const [rowsUpdated, updatedEducation] = await Education.update(
-				educationData,
-				{
-					where: { id: education.id },
-					returning: true,
-				},
-			);
-
-			// Si no se actualiza ningún registro, se envía un mensaje de educación no encontrada
-			if (rowsUpdated === 0) {
-				res.status(200).json({
-					message: 'La Educación no fue encontrada.',
-				});
-			} else {
-				// Si se actualiza el registro correctamente, se envía un mensaje de éxito y los datos de la educación actualizada
-				const {
-					id,
-					degree,
-					description,
-					institution,
-					field_of_study,
-					startDate,
-					endDate,
-				} = updatedEducation[0];
-
-				res.status(200).json({
-					message: 'La Educación ha sido modificada.',
-					education: {
-						id,
-						degree,
-						description,
-						institution,
-						field_of_study,
-						startDate,
-						endDate,
-					},
-				});
-			}
 		}
+		// Si se actualiza el registro correctamente, se envía un mensaje de éxito y los datos de la educación actualizada
+		await Education.update(
+			{
+				degree,
+				description,
+				institution,
+				field_of_study,
+				startDate,
+				endDate,
+			},
+			{ where: { id } },
+		);
+		// Recuperamos los datos actualizados de la educacion de la base de datos
+		const updatedEducation = await Education.findOne({ where: { id } });
+		// Respondemos con un mensaje de éxito y los datos actualizados del contacto
+		return res.status(200).json({
+			message: 'Se modifico correctamente los datos de contacto.',
+			educationUpdated: updatedEducation,
+		});
 	} catch (error) {
 		// Registra el error utilizando la biblioteca de registro (winston)
-		winston.error(error);
+		console.error(error);
 
 		// Envía una respuesta de estado 500 con un mensaje de error genérico
 		res.status(500).json({
@@ -138,7 +135,6 @@ const updateEducation = async (req, res) => {
 		});
 	}
 };
-
 
 //controlador para eliminar los datos de educación
 const deleteEducation = async (req, res) => {

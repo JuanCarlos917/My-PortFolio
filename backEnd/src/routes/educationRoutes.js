@@ -22,10 +22,10 @@ router.post(
 );
 // Ruta para actualizar la información de Educación
 router.put(
-    '/',
-    updateEducationValidations,
-    handleValidationErrors,
-    updateEducation
+	'/:id',
+	updateEducationValidations,
+	handleValidationErrors,
+	updateEducation,
 );
 // Ruta para eliminar la información de Educación
 router.delete('/:id', deleteEducation);

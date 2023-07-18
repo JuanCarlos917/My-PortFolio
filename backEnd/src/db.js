@@ -68,8 +68,8 @@ TeamDev.hasMany(Project);
 // En el modelo Project
 Project.belongsTo(TeamDev);
 
-Education.hasMany(CV, { foreignKey: 'EducationId' });
-CV.belongsTo(Education, { foreignKey: 'EducationId' });
+CV.hasMany(Education, { foreignKey: 'CVId' });
+Education.belongsTo(CV, { foreignKey: 'CVId' });
 
 //Relación Muchos a Muchos (Many-to-Many):
 // En el modelo Project
