@@ -42,11 +42,10 @@ const getCV = async (req, res) => {
 			});
 		}
 
-		if (!cv.Education) {
+		if (cv.Education.length === 0) {
 			// Si no se encuentra información de "Education" asociada al CV, responder con estado 404 y un mensaje de error
 			return res.status(404).json({
-				message:
-					'No se encontró información de "Education" asociada al CV. Debes crear un "Education" primero.',
+				message: 'Recueda agregar la educacion',
 			});
 		}
 
@@ -110,16 +109,6 @@ const createCV = async (req, res) => {
 			});
 		}
 
-		// Obtener la información de "Education"
-		const education = await Education.findOne();
-		if (!education) {
-			// Si no se encuentra información de "Education", responder con estado 404 y un mensaje de error
-			return res.status(404).json({
-				message:
-					'No se encontró información de "Education". Debes crear una "Education" primero.',
-			});
-		}
-
 		// Crear un nuevo CV con los datos proporcionados y asociar el ID de "About"
 		const newCV = await CV.create({
 			name,
@@ -131,7 +120,6 @@ const createCV = async (req, res) => {
 			experience,
 			skills,
 			AboutId: about.id,
-			EducationId: education.id,
 		});
 
 		// Responder con el nuevo CV en formato JSON

@@ -56,28 +56,34 @@ const createContact = async (req, res) => {
 }
 
 //controlador para modificar los datos de contacto
+// Controlador para actualizar un contacto
 const updateContact = async (req, res) => {
     try {
+        // Extraemos el ID del contacto de los parámetros de la ruta
         const { id } = req.params;
 
+        // Extraemos los campos del cuerpo de la solicitud
         const { name, email, phone, social_media } = req.body;
 
+        // Verificamos que todos los campos estén presentes, de lo contrario respondemos con un error
         if (!name || !email || !phone || !social_media) {
             return res.status(400).json({
-                message:
-                    'El nombre, el email el telefono y las redes sociales del contacto no pueden estar vacíos.',
+                message: 'El nombre, el email, el telefono y las redes sociales del contacto no pueden estar vacíos.',
             });
         }
 
+        // Buscamos el contacto existente en la base de datos
         const existingContact = await Contact.findOne({ where: { id } });
 
+        // Si el contacto no existe, respondemos con un error
         if (!existingContact) {
             return res.status(400).json({
                 message: 'El contacto no existe.',
             });
         }
 
-        const updatedContact = await Contact.update(
+        // Actualizamos los datos del contacto en la base de datos
+        await Contact.update(
             {
                 name,
                 email,
@@ -85,20 +91,26 @@ const updateContact = async (req, res) => {
                 social_media,
             },
             { where: { id } },
-
         );
-        return res.status(200).json({
-			message: 'Se modifico correctamente los datos de contacto.',
-		});
 
-        res.json(updatedContact);
+        // Recuperamos los datos actualizados del contacto de la base de datos
+        const updatedContact = await Contact.findOne({ where: { id } });
+
+        // Respondemos con un mensaje de éxito y los datos actualizados del contacto
+        return res.status(200).json({
+            message: 'Se modifico correctamente los datos de contacto.',
+            contactUpdated: updatedContact,
+        });
     } catch (error) {
+        // Si ocurre un error, lo registramos y respondemos con un mensaje de error
         console.error(error);
         res.status(500).json({
             message: 'Ha ocurrido un error al actualizar el contacto.',
         });
     }
 }
+
+
 
 //controlador para eliminar los datos de contacto
 const deleteContact = async (req, res) => {
