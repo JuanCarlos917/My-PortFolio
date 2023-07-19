@@ -84,7 +84,7 @@ const createEducation = async (req, res, next) => {
 //controlador para modificar los datos de educación
 const updateEducation = async (req, res) => {
 	try {
-		// Extrae los datos de la educación del cuerpo de la solicitud
+		// Extrae 'id' de los parámetros de la solicitud
 		const { id } = req.params;
 		// Extraemos los campos del cuerpo de la solicitud
 		const {

@@ -49,33 +49,50 @@ const {
 
 //Relaciones
 
-//Relación Uno a Uno (One-to-One):
-// En el modelo About
+// Define una relación uno a uno entre los modelos 'About' y 'CV'
+// Un registro 'About' puede tener asociado un único registro 'CV'
 About.hasOne(CV);
-// En el modelo Education
-// Education.hasOne(CV);
-// En el modelo CV
+
+// Define una relación de pertenencia entre los modelos 'CV' y 'About'
+// Un registro 'CV' puede pertenecer a un único registro 'About'
 CV.belongsTo(About);
-// CV.belongsTo(Education);
 
-//Relación Uno a Muchos (One-to-Many):
-// En el modelo Category
-Category.hasMany(Project);
-// En el modelo Project
-Project.belongsTo(Category);
-// En el modelo TeamDev
-TeamDev.hasMany(Project);
-// En el modelo Project
-Project.belongsTo(TeamDev);
-
+// Define una relación uno a muchos entre 'CV' y 'Education' utilizando la clave foránea 'CVId'
+// Un registro 'CV' puede tener asociados múltiples registros 'Education'
 CV.hasMany(Education, { foreignKey: 'CVId' });
+
+// Define una relación de pertenencia entre 'Education' y 'CV' utilizando la clave foránea 'CVId'
+// Un registro 'Education' puede pertenecer a un único registro 'CV'
 Education.belongsTo(CV, { foreignKey: 'CVId' });
 
-//Relación Muchos a Muchos (Many-to-Many):
-// En el modelo Project
+
+
+// Define una relación muchos a muchos entre 'Project' y 'Category' a través de la tabla intermedia 'CategoryProject'
+// Un registro 'Project' puede tener asociados múltiples registros 'Category', y viceversa
+Project.belongsToMany(Category, { through: 'CategoryProject', foreignKey: 'projectId' });
+
+// Define una relación muchos a muchos entre 'Category' y 'Project' a través de la tabla intermedia 'CategoryProject'
+// Un registro 'Category' puede tener asociados múltiples registros 'Project', y viceversa
+Category.belongsToMany(Project, { through: 'CategoryProject', foreignKey: 'categoryId' });
+
+
+// Define una relación uno a muchos entre 'TeamDev' y 'Project'
+// Un registro 'TeamDev' puede tener asociados múltiples registros 'Project'
+TeamDev.hasMany(Project, { foreignKey: 'teamDevId' });
+
+// Define una relación de pertenencia entre 'Project' y 'TeamDev'
+// Un registro 'Project' puede pertenecer a un único registro 'TeamDev'
+Project.belongsTo(TeamDev, { foreignKey: 'teamDevId' });
+
+// Define una relación muchos a muchos entre 'Project' y 'Tag' a través de la tabla intermedia 'ProjectTag'
+// Un registro 'Project' puede tener asociados múltiples registros 'Tag', y viceversa
 Project.belongsToMany(Tag, { through: 'ProjectTag' });
-// En el modelo Tag
+
+// Define una relación muchos a muchos entre 'Tag' y 'Project' a través de la tabla intermedia 'ProjectTag'
+// Un registro 'Tag' puede tener asociados múltiples registros 'Project', y viceversa
 Tag.belongsToMany(Project, { through: 'ProjectTag' });
+
+
 
 module.exports = {
   ...sequelize.models,
