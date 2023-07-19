@@ -12,6 +12,7 @@ const getEducation = async (req, res, next) => {
 
 		// Buscar la información de educación
 		const education = await Education.findAll();
+
 		if (education.length === 0) {
 			return res.status(404).json({
 				message: 'No se encontró la Educación',
@@ -106,7 +107,7 @@ const updateEducation = async (req, res) => {
 					'No se encontró un registro de educación existente para modificar. Por favor, asegúrate de que el ID de la educación proporcionado es correcto y que el registro de educación ya existe en la base de datos.',
 			});
 		}
-		// Si se actualiza el registro correctamente, se envía un mensaje de éxito y los datos de la educación actualizada
+		// Se actualiza el registro
 		await Education.update(
 			{
 				degree,

@@ -76,13 +76,13 @@ Project.belongsToMany(Category, { through: 'CategoryProject', foreignKey: 'proje
 Category.belongsToMany(Project, { through: 'CategoryProject', foreignKey: 'categoryId' });
 
 
-// Define una relación uno a muchos entre 'TeamDev' y 'Project'
-// Un registro 'TeamDev' puede tener asociados múltiples registros 'Project'
-TeamDev.hasMany(Project, { foreignKey: 'teamDevId' });
 
-// Define una relación de pertenencia entre 'Project' y 'TeamDev'
-// Un registro 'Project' puede pertenecer a un único registro 'TeamDev'
-Project.belongsTo(TeamDev, { foreignKey: 'teamDevId' });
+// Un 'TeamDev' puede estar asociado a muchos 'Projects'.
+TeamDev.belongsToMany(Project, { through: 'ProjectTeamDevs', foreignKey: 'teamDevId', otherKey: 'projectId' });
+
+// Un 'Project' puede estar asociado a muchos 'TeamDev'.
+Project.belongsToMany(TeamDev, { through: 'ProjectTeamDevs', foreignKey: 'projectId', otherKey: 'teamDevId' });
+
 
 // Define una relación muchos a muchos entre 'Project' y 'Tag' a través de la tabla intermedia 'ProjectTag'
 // Un registro 'Project' puede tener asociados múltiples registros 'Tag', y viceversa
