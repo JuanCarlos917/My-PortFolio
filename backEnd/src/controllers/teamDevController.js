@@ -1,4 +1,4 @@
-const { TeamDev } = require('../db');
+const { TeamDev, Project } = require('../db');
 
 //controlador para obtener el equipo de desarrolladores del proyecti desde la base de datos
 const getTeamDevs = async (req, res) => {
@@ -44,6 +44,7 @@ const createTeamDev = async (req, res) => {
 			name,
 			email,
 			social_network,
+
 		});
 		res.json(newTeamDev);
 	} catch (error) {
@@ -112,7 +113,6 @@ const deleteTeamDev = async (req, res) => {
 		});
 	}
 };
-
 
 module.exports = {
 	getTeamDevs,

@@ -22,6 +22,11 @@ const logger = winston.createLogger({
 
 const getCV = async (req, res) => {
 	try {
+		//Validar el objeto de solicitud
+		if (!req) {
+			throw new Error('Invalid request object');
+		}
+
 		// Buscar un CV con información de "About" y "Education" incluida
 		const cv = await CV.findOne({
 			include: [About, Education],
