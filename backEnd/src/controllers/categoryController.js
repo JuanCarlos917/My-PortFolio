@@ -25,8 +25,8 @@ const getCategories = async (req, res) => {
 };
 
 //controlador para modificar los datos Categoria - funcion asincrónica
-const updateCategory = async (req, res) => {
-	try {
+const updateCategory = async(req, res) =>{
+    try {
 		// Extrae 'id' de los parámetros de la solicitud
 		const { id } = req.params;
 
@@ -58,15 +58,13 @@ const updateCategory = async (req, res) => {
 			});
 		}
 	} catch (error) {
-		// Si hay un error, imprímelo en la consola
-		console.error(error);
+        // Si hay un error, imprímelo en la consola
+        console.error(error);
 
-		// Envía un mensaje de error al cliente
-		res.status(500).json({
-			message: 'Ha ocurrido un error al actualizar la categoría.',
-		});
-	}
-};
+        // Envía un mensaje de error al cliente
+        res.status(500).json({ message: 'Ha ocurrido un error al actualizar la categoría.' });
+    }
+}
 
 //controlador para crear una nueva categoria y agregarla a la base de datos
 const createCategory = async (req, res) => {
@@ -79,18 +77,8 @@ const createCategory = async (req, res) => {
 				message: 'La categoría ya existe.',
 			});
 		}
-		const project = await Project.findOne();
-        console.log(project);
-		if (!project) {
-			return res.status(400).json({
-				message: 'No se encontró el proyecto.',
-			});
-		}
 
-		const newCategory = await Category.create({
-			name,
-			CategoryProject: project.id,
-		});
+		const newCategory = await Category.create({ name });
 		res.json(newCategory);
 	} catch (error) {
 		console.error(error);
@@ -99,6 +87,7 @@ const createCategory = async (req, res) => {
 		});
 	}
 };
+
 
 //controlado para eliminar la categoria de la base de datos mediante id
 const deleteCategory = async (req, res) => {
@@ -122,6 +111,8 @@ const deleteCategory = async (req, res) => {
 		});
 	}
 };
+
+
 
 module.exports = {
 	getCategories,

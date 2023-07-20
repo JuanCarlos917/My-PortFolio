@@ -36,7 +36,6 @@ const getTags = async (req, res) => {
 const createTag = async (req, res) => {
 	try {
 		const { name, projectId } = req.body;
-		console.log(req.body);
 		if (!name) {
 			return res.status(400).json({
 				message: 'El nombre del Tag no puede estar vacío',
@@ -47,7 +46,6 @@ const createTag = async (req, res) => {
 			name,
 			ProjectId: projectId,
 		});
-		console.log(newTag);
 
 		res.json(newTag);
 	} catch (error) {
@@ -57,6 +55,46 @@ const createTag = async (req, res) => {
 		});
 	}
 };
+
+const updateTag = async (req, res) => {
+    try {
+        // Extrae 'id' de los parámetros de la solicitud
+        const { id } = req.params;
+
+        // Extraemos los campos del cuerpo de la solicitud
+        const { name } = req.body;
+
+        // Busca un Tag existente en la base de datos
+        const existingTag = await Tag.findOne({ where: { id } });
+
+        // Si no se encuentra ningún Tag, devuelve un estado 400
+        if (!existingTag) {
+            return res.status(404).json({
+                message: `No se encontró el Tag con ID ${id} existente para modificar. Asegúrate de que el ID del Tag proporcionado sea correcta y que el registro del Tag ya exista en la base de datos.`,
+            });
+        }
+        // Intenta actualizar el Tag en la base de datos
+        const tag = await Tag.update({ name }, { where: { id } });
+
+        // Comprueba si la operación de actualización fue exitosa
+        if (tag) {
+            // Si fue exitosa, envía un mensaje de éxito al cliente
+            res.json({
+                message: `El Tag con ID ${id} se actualizó correctamente.`,
+            });
+        } else {
+            // Si no fue exitosa, envía un mensaje de error al cliente
+            res.status(404).json({
+                message: `No se encontró el Tag con ID ${id}.`,
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Ha ocurrido un error al actualizar el Tag',
+        });
+    }
+}
 
 //controlador para eliminar los datos de los Tags
 const deleteTag = async (req, res) => {
@@ -113,4 +151,5 @@ module.exports = {
 	getTags,
 	createTag,
 	deleteTag,
+	updateTag,
 };
