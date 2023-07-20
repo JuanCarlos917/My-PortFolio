@@ -6,6 +6,8 @@ const contactRoutes = require('./contactRoutes')
 const cvRoutes = require('./cvRoutes')
 const educationRoutes = require('./educationRoutes')
 const galleryRoutes = require('./galleryRoutes');
+const projectRoutes = require('./projectRoutes')
+const tagRoutes = require('./tagRoutes')
 
 const app = Router();
 
@@ -23,6 +25,10 @@ app.use('/cv', cvRoutes);
 app.use('/education', educationRoutes);
 // Rutas relacionadas con gallery
 app.use('/gallery', galleryRoutes);
+// Rutas relacionadas con projects
+app.use('/project', projectRoutes);
+// Rutas relacionadas con tags
+app.use('/tag', tagRoutes);
 
 
 module.exports = app;

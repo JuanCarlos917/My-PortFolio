@@ -4,6 +4,7 @@ const {
 	getCategories,
 	createCategory,
 	deleteCategory,
+	updateCategory,
 } = require('../controllers/categoryController');
 const {
 	createCategoryValidations,
@@ -26,6 +27,13 @@ router.delete(
 	'/:id',
 	handleValidationErrors,
 	deleteCategory,
+);
+
+// Ruta para actualizar una categoría. handleValidationErrors es una validacion de express-validator
+router.put(
+    '/:id',
+    handleValidationErrors,
+    updateCategory,
 );
 
 module.exports = router;
