@@ -8,6 +8,7 @@ const educationRoutes = require('./educationRoutes')
 const galleryRoutes = require('./galleryRoutes');
 const projectRoutes = require('./projectRoutes')
 const tagRoutes = require('./tagRoutes')
+const s3MediaRoutes = require('./s3MediaRoutes');
 
 const app = Router();
 
@@ -29,6 +30,8 @@ app.use('/gallery', galleryRoutes);
 app.use('/project', projectRoutes);
 // Rutas relacionadas con tags
 app.use('/tag', tagRoutes);
+// Rutas relacionadas con s3Upload
+app.use('/s3Media', s3MediaRoutes);
 
 
 module.exports = app;

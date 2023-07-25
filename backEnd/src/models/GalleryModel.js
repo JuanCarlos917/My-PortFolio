@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
 			description: {
 				type: DataTypes.TEXT,
 			},
-			images: {
+			imagesIdS3: {
 				type: DataTypes.ARRAY(DataTypes.STRING),
 			},
 		},
