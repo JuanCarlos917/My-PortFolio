@@ -1,20 +1,20 @@
 require('dotenv').config();
-const multer = require('multer');
-
 // Carga las variables de entorno para AWS S3 desde el archivo .env
 const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
 const AWS_BUCKET_REGION = process.env.AWS_BUCKET_REGION;
 const AWS_PUBLIC_KEY = process.env.AWS_PUBLIC_KEY;
 const AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
 
+const multer = require('multer');
 // Importa las funciones SDK de AWS
 const {
 	S3Client,
 	GetObjectCommand,
 	PutObjectCommand,
 	ListObjectsCommand,
+	HeadObjectCommand,
+	DeleteObjectCommand,
 } = require('@aws-sdk/client-s3');
-
 // Importa la función para generar URLs firmadas de S3
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 
@@ -90,13 +90,35 @@ const uploadFile = async (req, res) => {
 		const fileContent = req.file.buffer;
 		const s3FileName = req.file.originalname;
 
+		// Comprueba si un archivo con el mismo nombre ya existe en el bucket
+		const headCommand = new HeadObjectCommand({
+			Bucket: AWS_BUCKET_NAME,
+			Key: s3FileName,
+		});
+
+		try {
+			await client.send(headCommand);
+
+			// Si no se lanzó ninguna excepción, entonces el objeto existe
+			res.status(400).json({
+				message: 'Ya existe un archivo con ese nombre.',
+			});
+			return;
+		} catch (error) {
+			if (error.name !== 'NotFound') {
+				// Se produjo otro error al intentar obtener los metadatos del objeto
+				throw error;
+			}
+			// Si el error es 'NotFound', entonces el archivo no existe y podemos continuar
+		}
+
 		// Define los parámetros para la operación de carga en S3
 		const input = {
 			Bucket: AWS_BUCKET_NAME,
 			Key: s3FileName, // Este será el nombre del archivo en S3
 			Body: fileContent, // Y este es el contenido del archivo
 			ContentDisposition: 'inline', // Asegurarse de que el archivo se muestre en lugar de descargarse
-            ContentType: 'image/jpeg'
+			ContentType: 'image/jpeg', // Este es el tipo de contenido del archivo
 		};
 
 		// Define el comando para cargar el archivo en S3
@@ -108,7 +130,6 @@ const uploadFile = async (req, res) => {
 			message: 'El archivo se ha cargado correctamente en S3',
 			data: response,
 		});
-
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({
@@ -117,6 +138,27 @@ const uploadFile = async (req, res) => {
 	}
 };
 
+const delteFileS3 = async (req, res) => {
+    try {
+	// Crea un nuevo comando DeleteObjectCommand
+	const command = new DeleteObjectCommand({
+		Bucket: AWS_BUCKET_NAME, // Nombre del bucket
+		Key: req.params.key, // Nombre del archivo (clave del objeto en S3)
+	});
+	// Envía el comando al cliente de S3 y espera la respuesta
+		const data = await client.send(command);
+
+		// Si todo sale bien, responde con un mensaje de éxito y los datos de la respuesta de S3
+		res.status(200).json({
+			message: 'Archivo eliminado correctamente',
+			data: data,
+		});
+	} catch (error) {
+		// Si algo sale mal, registra el error y responde con un mensaje de error
+		console.error(error);
+		res.status(500).json({ message: 'Error al eliminar el archivo' });
+	}
+};
 
 module.exports = {
 	generateSignedUrl,
@@ -124,4 +166,5 @@ module.exports = {
 	upload,
 	listFiles,
 	generateSignedUrlMiddleware,
+	delteFileS3,
 };
