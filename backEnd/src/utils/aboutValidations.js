@@ -5,9 +5,7 @@ const updateAboutValidations = [
 	body('bio')
 		.isLength({ min: 5 })
 		.withMessage('El campo bio debe tener al menos 5 caracteres'),
-	body('skills')
-		.isLength({ min: 5 })
-		.withMessage('El campo skills debe tener al menos 5 caracteres'),
+	body('skills').notEmpty().withMessage('El campo skills es obligatorio '),
 	body('experience')
 		.isLength({ min: 5 })
 		.withMessage('El campo experience debe tener al menos 5 caracteres'),

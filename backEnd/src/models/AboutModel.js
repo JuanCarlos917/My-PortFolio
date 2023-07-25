@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
 				defaultValue: {},
 			},
 			experience: {
-				type: DataTypes.STRING,
+				type: DataTypes.TEXT,
 				allowNull: false,
 			},
 		},
