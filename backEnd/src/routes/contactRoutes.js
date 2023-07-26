@@ -7,7 +7,10 @@ const {
 	deleteContact,
 } = require('../controllers/contactController');
 
-const { createContactValidations, handleValidationErrors } = require('../utils/ContactValidations')
+const {
+	createContactValidations,
+	handleValidationErrors,
+} = require('../utils/contactValidations');
 	// Ruta para obtener todos los datos de contacto
 	router.get('/', getContact);
 // Rutas para crear un nuevo registro en la base de datos y actualizar uno existente
