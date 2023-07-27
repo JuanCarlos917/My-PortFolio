@@ -17,8 +17,4 @@ COPY . .
 EXPOSE 3001
 
 # Define el comando que se ejecutará cuando el contenedor de Docker se inicie
-CMD [ "node", "app.js" ]
-
-
-
-
+CMD [ "npm", "start" ]
