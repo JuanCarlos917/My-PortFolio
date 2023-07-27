@@ -1,9 +1,7 @@
 require('dotenv').config();
 // Carga las variables de entorno para AWS S3 desde el archivo .env
-const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
-const AWS_BUCKET_REGION = process.env.AWS_BUCKET_REGION;
-const AWS_PUBLIC_KEY = process.env.AWS_PUBLIC_KEY;
-const AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
+const { AWS_BUCKET_NAME, AWS_BUCKET_REGION, AWS_PUBLIC_KEY, AWS_SECRET_KEY } =
+	process.env;
 
 const multer = require('multer');
 // Importa las funciones SDK de AWS
@@ -139,13 +137,13 @@ const uploadFile = async (req, res) => {
 };
 
 const delteFileS3 = async (req, res) => {
-    try {
-	// Crea un nuevo comando DeleteObjectCommand
-	const command = new DeleteObjectCommand({
-		Bucket: AWS_BUCKET_NAME, // Nombre del bucket
-		Key: req.params.key, // Nombre del archivo (clave del objeto en S3)
-	});
-	// Envía el comando al cliente de S3 y espera la respuesta
+	try {
+		// Crea un nuevo comando DeleteObjectCommand
+		const command = new DeleteObjectCommand({
+			Bucket: AWS_BUCKET_NAME, // Nombre del bucket
+			Key: req.params.key, // Nombre del archivo (clave del objeto en S3)
+		});
+		// Envía el comando al cliente de S3 y espera la respuesta
 		const data = await client.send(command);
 
 		// Si todo sale bien, responde con un mensaje de éxito y los datos de la respuesta de S3
