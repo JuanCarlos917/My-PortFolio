@@ -13,8 +13,8 @@ RUN npm install
 # Copia el resto de los archivos de la aplicación en el directorio de trabajo
 COPY . .
 
-# Expone el puerto en el que nuestra aplicación se ejecutará
-EXPOSE 3001
+# # Expone el puerto en el que nuestra aplicación se ejecutará
+# EXPOSE 3001
 
 # Define el comando que se ejecutará cuando el contenedor de Docker se inicie
 CMD [ "npm", "start" ]
