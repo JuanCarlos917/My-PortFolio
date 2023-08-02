@@ -81,17 +81,36 @@ const loginUser = async (req, res) => {
 				{
 					id: existingUser.id,
 					email: existingUser.email,
-
 				},
 				process.env.JWT_SECRET,
 				{ expiresIn: '1d' },
+			);
+			// res.cookie se utiliza para enviar una cookie al cliente junto con la respuesta HTTP.
+			// En este caso, se esta enviando una cookie llamada 'token'.
+			res.cookie(
+				// El primer argumento es el nombre de la cookie. En este caso, 'token'.
+				'token',
+
+				// El segundo argumento es el valor de la cookie. En este caso, estamos pasando el token que hemos firmado previamente.
+				token,
+
+				// El tercer argumento es un objeto de opciones que nos permite configurar cómo se maneja la cookie.
+				{
+					// La opción 'httpOnly' es una medida de seguridad que evita que la cookie sea accedida o manipulada mediante JavaScript en el lado del cliente. Esto puede ayudar a prevenir ciertos ataques de cross-site scripting (XSS).
+					httpOnly: true,
+
+					// La opción 'secure' asegura que la cookie solo se envíe si la solicitud se realiza a través de una conexión segura (HTTPS). Esto protege la cookie de ser interceptada durante su transmisión por conexiones no seguras.
+					secure: true,
+
+					// La opción 'sameSite' define cómo se debe manejar la cookie cuando se hacen solicitudes a sitios diferentes al que creó la cookie. Si se configura como 'strict', la cookie sólo se enviará en solicitudes que se originen desde el mismo sitio que la cookie.
+					sameSite: 'strict',
+				},
 			);
 
 			// Se envía una respuesta al cliente con un mensaje de éxito y el token de JWT. El cliente deberá
 			// incluir este token en las solicitudes subsiguientes para autenticarse.
 			return res.json({
 				message: 'Inicio de sesión exitoso.',
-				token: token,
 			});
 		}
 
