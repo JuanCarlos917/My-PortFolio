@@ -23,10 +23,10 @@ const getAbout = async (req, res) => {
 
 const createAbout = async (req, res) => {
     try {
-        const { bio, skills, experience } = req.body;
-        if(!bio ||!skills || !experience){
+        const { bio, skills } = req.body;
+        if(!bio ||!skills){
             return res.status(400).json({
-                message: 'La biografía, las habilidades y la experiencia no pueden estar vacías.',
+                message: 'La biografía, las habilidades no pueden estar vacías.',
             });
         }
         const existingAbout = await About.findOne({where: {bio}})
@@ -38,7 +38,6 @@ const createAbout = async (req, res) => {
         const newAbout = await About.create({
             bio,
             skills,
-            experience,
         });
         res.json(newAbout);
     } catch (error) {

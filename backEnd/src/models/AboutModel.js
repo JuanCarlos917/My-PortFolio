@@ -21,10 +21,6 @@ module.exports = (sequelize) => {
 				allowNull: false,
 				defaultValue: {},
 			},
-			experience: {
-				type: DataTypes.TEXT,
-				allowNull: false,
-			},
 		},
 		{
 			timestamps: false,
