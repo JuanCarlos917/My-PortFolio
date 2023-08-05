@@ -7,7 +7,6 @@ const FormValidationsAbout = Yup.object().shape({
 		backend: Yup.string().required('Required'),
 		database: Yup.string().required('Required'),
 	}),
-	experience: Yup.string().required('Required'),
 });
 
 export default FormValidationsAbout;

@@ -50,26 +50,30 @@ const createAbout = async (req, res) => {
 
 // Controlador para actualizar la información de "Acerca de mí"
 const updateAbout = async (req, res) => {
-	try {
-		const aboutData = req.body;
-		let about = await About.findOne();
-		if (!about) {
-			about = await About.create(aboutData);
-		} else {
-			about = await About.update(aboutData, {
-				where: {
-					id: about.id,
-				},
-			});
-		}
-		res.json({ message: 'Información actualizada correctamente.', about });
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({
-			message:
-				'Ha ocurrido un error al actualizar la información de Acerca de mí.',
-		});
-	}
+    try{
+        const {id} = req.params
+        const {bio, skills} = req.body
+        if(!bio || !skills){
+            return res.status(400).json({
+                message: 'La biografía, las habilidades no pueden estar vacías.',
+            });
+        }
+        const about = await About.findOne({where: {id}})
+        if(!about){
+            return res.status(404).json({
+                message: 'No se encontró información de Acerca de mí.',
+            });
+        }
+        about.bio = bio
+        about.skills = skills
+        await about.save()
+        res.json(about)
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Ha ocurrido un error al actualizar la información de Acerca de mí.',
+        });
+    }
 };
 
 module.exports = {

@@ -21,9 +21,10 @@ export const AboutMe = () => {
 	} else if (status === 'succeeded') {
 		content = (
 			<div>
-				<h2>Biografía: {aboutInfo?.bio}</h2>
-				<h2>Habilidades:</h2>
-				<h2>Diseño Front end:</h2>
+				<h2>Biografía:</h2>
+                <p>{aboutInfo?.bio}</p>
+				<h2>Habilidades </h2>
+				<h3>Diseño Front end:</h3>
 				<ul>
 					{aboutInfo?.skills?.frontend?.map((skill, index) => (
 						<li key={index}>{skill}</li>
@@ -41,7 +42,6 @@ export const AboutMe = () => {
 						<li key={index}>{skill}</li>
 					))}
 				</ul>
-				<h3>Experiencia: {aboutInfo?.experience}</h3>
 			</div>
 		);
 	} else if (status === 'failed') {
