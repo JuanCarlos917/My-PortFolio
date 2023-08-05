@@ -48,6 +48,7 @@ const {
 	Gallery,
 	Project,
 	Tag,
+    User
 } = sequelize.models;
 
 //Relaciones

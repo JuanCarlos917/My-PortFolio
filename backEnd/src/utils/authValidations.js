@@ -1,13 +1,15 @@
 const { body, validationResult } = require('express-validator');
 
-// Validaciones para la ruta PUT de "Acerca de mí"
-const updateAboutValidations = [
-	body('bio')
-		.isLength({ min: 5 })
-		.withMessage('El campo bio debe tener al menos 5 caracteres'),
-	body('skills').notEmpty().withMessage('El campo skills es obligatorio '),
+const postAuthValidations = [
+	body('email')
+		.isEmail()
+		.withMessage('El campo email es obligatorio'),
+	body('password')
+		.isLength({ min: 8 })
+		.withMessage(
+			'El campo password es obligatorio y debe tener 8 caracteres ',
+		),
 ];
-
 // Función para manejar los errores de validación
 const handleValidationErrors = (req, res, next) => {
 	const errors = validationResult(req);
@@ -18,6 +20,6 @@ const handleValidationErrors = (req, res, next) => {
 };
 
 module.exports = {
-	updateAboutValidations,
+	postAuthValidations,
 	handleValidationErrors,
 };

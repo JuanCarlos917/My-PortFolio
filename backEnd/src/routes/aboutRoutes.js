@@ -15,6 +15,6 @@ router.get('/', getAbout);
 // Rutas para crear y actualizar el contenido del apartado acerca de
 router.post('/', updateAboutValidations, handleValidationErrors, createAbout);
 // Ruta para actualizar la información de "Acerca de mí". handleValidationErrors, updateAbout son validaciones de express-validator
-router.put('/', updateAboutValidations, handleValidationErrors, updateAbout);
+router.put('/:id', updateAboutValidations, handleValidationErrors, updateAbout);
 
 module.exports = router;
