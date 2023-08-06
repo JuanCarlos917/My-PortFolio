@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { NavBar } from './components/NavBar';
 import { AboutMe } from './components/AboutMe';
+import { Education } from './components/Education';
 import { Dashboard } from './dashboardAdmin/DashboardAdmin';
 import { FormAbout } from './dashboardAdmin/about/FormAbout';
 import { UpdateAbout } from './dashboardAdmin/about/UpdateAbout';
@@ -21,6 +22,7 @@ function App() {
 			<Route path='/' element={<Root />}>
 				<Route index element={<NavBar />} />
 				<Route path='/about' element={<AboutMe />} />
+                <Route path='/education' element={<Education />} />
 				<Route path='/dashboard' element={<Dashboard />}>
 					<Route path='form-about' element={<FormAbout />} />
 					<Route path='update-about' element={<UpdateAbout />} />
