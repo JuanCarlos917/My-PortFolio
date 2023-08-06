@@ -9,8 +9,11 @@ import {
 import { NavBar } from './components/NavBar';
 import { AboutMe } from './components/AboutMe';
 import { Dashboard } from './dashboardAdmin/DashboardAdmin';
-import { FormAbout } from './dashboardAdmin/FormAbout';
-import { UpdateAbout } from './dashboardAdmin/UpdateAbout';
+import { FormAbout } from './dashboardAdmin/about/FormAbout';
+import { UpdateAbout } from './dashboardAdmin/about/UpdateAbout';
+import { FormEducation } from './dashboardAdmin/education/FormEducation';
+import { UpdateEducation } from './dashboardAdmin/education/UpdateEducation';
+import { DeleteEducation } from './dashboardAdmin/education/DeleteEducation';
 
 function App() {
 	const router = createBrowserRouter(
@@ -21,6 +24,9 @@ function App() {
 				<Route path='/dashboard' element={<Dashboard />}>
 					<Route path='form-about' element={<FormAbout />} />
 					<Route path='update-about' element={<UpdateAbout />} />
+                    <Route path='form-education' element={<FormEducation />} />
+                    <Route path='update-education' element={<UpdateEducation />} />
+                    <Route path='delete-education' element={<DeleteEducation />} />
 				</Route>
 			</Route>,
 		),

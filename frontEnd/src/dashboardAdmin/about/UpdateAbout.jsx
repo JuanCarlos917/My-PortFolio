@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
-import UpdateValidationsAbout from '../utils/UpdateValidationsAbout'
-import { getAbout, updateAbout } from '../features/about/aboutSlice';
+import FormValidationsAbout from '../../utils/FormValidationsAbout';
+import { getAbout, updateAbout } from '../../features/about/aboutSlice';
 
 export const UpdateAbout = () => {
 	const dispatch = useDispatch();
-	const aboutInfo = useSelector((state) => state.about.aboutInfo);
+	const aboutInfo = useSelector((state) => state.about?.aboutInfo);
 	const id = useSelector((state) => state.about.id);
     const status = useSelector((state) => state.about.status);
 	const error = useSelector((state) => state.about.error);
@@ -45,7 +45,7 @@ export const UpdateAbout = () => {
 								aboutInfo?.skills?.database.join(', ') || '',
 						},
 					}}
-					validationSchema={UpdateValidationsAbout}
+					validationSchema={FormValidationsAbout}
 					onSubmit={(values) => {
 						const { bio, skills } = values;
 						const transformedSkills = {
