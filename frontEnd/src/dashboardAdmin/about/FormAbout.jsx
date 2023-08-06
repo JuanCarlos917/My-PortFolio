@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { createAbout, getAbout } from '../features/about/aboutSlice';
-import FormValidationsAbout from '../utils/FormValidationsAbout';
+import { createAbout, getAbout } from '../../features/about/aboutSlice';
+import FormValidationsAbout from '../../utils/FormValidationsAbout';
 import { Link } from 'react-router-dom';
 
 export const FormAbout = () => {
 	const dispatch = useDispatch();
-	const aboutInfo = useSelector((state) => state.about.aboutInfo);
+	const aboutInfo = useSelector((state) => state.about?.aboutInfo);
 	const status = useSelector((state) => state.about.status);
 	const error = useSelector((state) => state.about.error);
 
