@@ -23,11 +23,11 @@ export const Dashboard = () => {
 					to='/dashboard/form-cv'>
 					Form CV
 				</Link>
-				{/* <Link
+				<Link
                     className='block py-1 text-gray-800 hover:underline'
                     to='/dashboard/update-cv'>
                     Update CV
-                </Link> */}
+                </Link>
 				<h3>Education</h3>
 				<Link
 					className='block py-1 text-gray-800 hover:underline'

@@ -1,25 +1,30 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import FormValidationsEduca from '../../utils/FormValidationsEduca';
 import { useDispatch, useSelector } from 'react-redux';
-import  {createEducation, getEducation} from '../../features/education/educationSlice'
+import {
+	createEducation,
+	getEducation,
+} from '../../features/education/educationSlice';
 export const FormEducation = () => {
-    const dispatch = useDispatch()
-    const educationInfo = useSelector(
+	const dispatch = useDispatch();
+	const educationInfo = useSelector(
 		(state) => state.education?.educationInfo,
 	);
 
-    const status = useSelector((state) => state.education.status)
-    const error = useSelector((state) => state.education.error)
-    const modified = useSelector((state) => state.education.modified)
+	const status = useSelector((state) => state.education.status);
+	const error = useSelector((state) => state.education.error);
+	const educationAdded = useSelector(
+		(state) => state.education.educationAdded,
+	);
 
-    useEffect(() => {
-        if(!educationInfo){
-            dispatch(getEducation())
-        }
-    }, [dispatch, educationInfo])
+	useEffect(() => {
+		if (!educationInfo) {
+			dispatch(getEducation());
+		}
+	}, [dispatch, educationInfo]);
 
-    const initialValues = {
+	const initialValues = {
 		educations: [
 			{
 				degree: '',
@@ -31,9 +36,9 @@ export const FormEducation = () => {
 			},
 		],
 	};
-    return (
+	return (
 		<div>
-			{modified && <div>¡Modificación realizada con éxito!</div>}
+			{educationAdded && <div>¡Educación agregada con éxito!</div>}
 			{status === 'loading' && <div>Actualizando...</div>}
 			{status === 'failed' && <div>{error}</div>}
 			<Formik
@@ -71,4 +76,4 @@ export const FormEducation = () => {
 			</Formik>
 		</div>
 	);
-}
+};

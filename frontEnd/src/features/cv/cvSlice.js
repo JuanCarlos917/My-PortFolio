@@ -57,8 +57,24 @@ export const cvSlice = createSlice({
 				// Al obtener la información de 'Education', se establece el estado a 'succeeded'
 				state.status = 'succeeded';
 				state.cvInfo = action.payload;
+				state.id = action.payload.id;
 			})
 			.addCase(getCV.rejected, (state, action) => {
+				// Si ocurre un error al obtener la información de 'Education', se establece el estado a 'failed'
+				state.status = 'failed';
+				state.error = action.error.message;
+			})
+			.addCase(createCV.pending, (state) => {
+				// Al iniciar la petición, se establece el estado a 'loading'
+				state.status = 'loading';
+			})
+			.addCase(createCV.fulfilled, (state, action) => {
+				// Al obtener la información de 'Education', se establece el estado a 'succeeded'
+				state.status = 'succeeded';
+				state.cvInfo = action.payload;
+				state.id = action.payload.id;
+			})
+			.addCase(createCV.rejected, (state, action) => {
 				// Si ocurre un error al obtener la información de 'Education', se establece el estado a 'failed'
 				state.status = 'failed';
 				state.error = action.error.message;
@@ -80,21 +96,6 @@ export const cvSlice = createSlice({
 				state.status = 'failed';
 				state.error = action.error.message;
 				state.modified = false; // Se mantiene en false si la petición falla
-			})
-			.addCase(createCV.pending, (state) => {
-				// Al iniciar la petición, se establece el estado a 'loading'
-				state.status = 'loading';
-			})
-			.addCase(createCV.fulfilled, (state, action) => {
-				// Al obtener la información de 'Education', se establece el estado a 'succeeded'
-				state.status = 'succeeded';
-				state.cvInfo = action.payload;
-				state.id = action.payload.id;
-			})
-			.addCase(createCV.rejected, (state, action) => {
-				// Si ocurre un error al obtener la información de 'Education', se establece el estado a 'failed'
-				state.status = 'failed';
-				state.error = action.error.message;
 			});
 	},
 });

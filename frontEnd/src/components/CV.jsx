@@ -33,10 +33,12 @@ export const Cv = () => {
 				<div>
 					<AboutMe />
 				</div>
-				<ul>
-					<li>Linkedin: {cvInfo?.social_media?.linkedin}</li>
-					<li>Github: {cvInfo?.social_media?.github}</li>
-				</ul>
+                <h3>Redes sociales</h3>
+					<h4>Linkedin:</h4>
+                    <p>{cvInfo?.social_media?.linkedin}</p>
+                    <h4>Github:</h4>
+					<p>{cvInfo?.social_media?.github}</p>
+
 				<h3>Proyectos:</h3>
 				<ul>
 					<li>Proyecto 1: {cvInfo?.proyects?.proyect1}</li>

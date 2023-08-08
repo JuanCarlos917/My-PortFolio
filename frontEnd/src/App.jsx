@@ -22,6 +22,7 @@ import { UpdateEducations } from './dashboardAdmin/education/UpdateEducation';
 import { DeleteEducation } from './dashboardAdmin/education/DeleteEducation';
 import { FormCV } from './dashboardAdmin/cv/FormCv';
 import { AllEducations } from './dashboardAdmin/education/AllEducations';
+import { UpdateCV } from './dashboardAdmin/cv/UpdateCv';
 
 function App() {
 	const router = createBrowserRouter(
@@ -43,8 +44,9 @@ function App() {
 						path='delete-education/:id'
 						element={<DeleteEducation />}
 					/>
-					<Route path='form-cv' element={<FormCV />} />
 					<Route path='all-education' element={<AllEducations />} />
+					<Route path='form-cv' element={<FormCV />} />
+					<Route path='update-cv' element={<UpdateCV />} />
 				</Route>
 			</Route>,
 		),

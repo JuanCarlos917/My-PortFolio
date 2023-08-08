@@ -137,61 +137,46 @@ const createCV = async (req, res) => {
 
 
 const updateCV = async (req, res) => {
-	try {
-		// Obtener los datos del cuerpo de la solicitud
-		const cvData = req.body;
+    try {
+        const {id} = req.params
+        const {name, lastName, email, phone, social_media, proyects, experience} = req.body
+        if (!name || !lastName || !email || !phone || !social_media || !proyects || !experience) {
+            return res.status(400).json({
+                message: 'Todos los campos son obligatorios.'
+            })
+        }
+        const cv = await CV.findOne({where: {id}})
+        if (!cv) {
+            return res.status(404).json({
+                message: 'No se encontró el CV.'
+            })
+        }
+        const about = await About.findOne()
+        if (!about) {
+            return res.status(404).json({
+                message: 'No se encontró información de "About". Debes crear un "About" primero.'
+            })
+        }
+        await CV.update({
+            name,
+            lastName,
+            email,
+            phone,
+            social_media,
+            proyects,
+            experience,
+            AboutId: about.id
+        }, {where: {id}})
+        res.json({
+            message: 'CV actualizado con éxito.'
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            message: 'Ha ocurrido un error al actualizar el CV.'
+        })
 
-		// Buscar un CV existente
-		let cv = await CV.findOne();
-		if (!cv) {
-			// Si no se encuentra un CV existente, crear uno nuevo con los datos proporcionados
-			cv = await CV.create(cvData);
-			res.status(201).json({ message: 'CV creado exitosamente.' });
-		} else {
-			// Si se encuentra un CV existente, actualizar los datos
-			const [rowsUpdated, updatedCv] = await CV.update(cvData, {
-				where: {
-					id: cv.id,
-				},
-				returning: true,
-			});
-			if (rowsUpdated === 0) {
-				// Si no se actualiza ningún registro, responder con estado 200 y un mensaje indicando que no se encontró el CV
-				res.status(200).json({ message: 'CV no encontrado.' });
-			} else {
-				// Si se actualiza el CV correctamente, seleccionar los campos necesarios y responder con estado 200 y el CV actualizado
-				const {
-					id,
-					name,
-					lastName,
-					email,
-					phone,
-					social_media,
-					proyects,
-					experience,
-				} = updatedCv[0];
-				res.status(200).json({
-					message: 'CV actualizado exitosamente.',
-					cv: {
-						id,
-						name,
-						lastName,
-						email,
-						phone,
-						social_media,
-						proyects,
-						experience,
-					},
-				});
-			}
-		}
-	} catch (error) {
-		// Manejar errores y responder con estado 500 y un mensaje de error
-		winston.error(error);
-		res.status(500).json({
-			message: 'Ha ocurrido un error al actualizar el CV.',
-		});
-	}
+    }
 };
 
 // Exportar las funciones de los controladores
