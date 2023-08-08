@@ -6,14 +6,13 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 
 // Creando una acción asíncrona para obtener la información de 'Education'
 export const getEducation = createAsyncThunk('/education', async () => {
-    try {
-        const response = await axios.get(`${baseURL}/education`);
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-);
+	try {
+		const response = await axios.get(`${baseURL}/education`);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+});
 
 // Creando una acción asíncrona para actualizar la información de 'Education'
 export const updateEducation = createAsyncThunk(
@@ -106,7 +105,7 @@ export const educationSlice = createSlice({
                 // Al crear la información de 'Education', se establece el estado a 'succeeded'
                 state.status = 'succeeded';
                 state.educationInfo = action.payload;
-                state.modified = true;
+                state.id = action.payload.id;
             })
             .addCase(createEducation.rejected, (state, action) => {
                 // Si ocurre un error al crear la información de 'Education', se establece el estado a 'failed'

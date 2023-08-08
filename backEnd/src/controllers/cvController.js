@@ -76,7 +76,6 @@ const createCV = async (req, res) => {
 			social_media,
 			proyects,
 			experience,
-			skills,
 		} = req.body;
 
 		// Validar que todos los campos requeridos estén presentes en el cuerpo de la solicitud
@@ -87,8 +86,7 @@ const createCV = async (req, res) => {
 			!phone ||
 			!social_media ||
 			!proyects ||
-			!experience ||
-			!skills
+			!experience
 		) {
 			return res.status(400).json({
 				message: 'Todos los campos son obligatorios.',
@@ -123,7 +121,6 @@ const createCV = async (req, res) => {
 			social_media,
 			proyects,
 			experience,
-			skills,
 			AboutId: about.id,
 		});
 

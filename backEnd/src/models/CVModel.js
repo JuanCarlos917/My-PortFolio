@@ -35,17 +35,35 @@ module.exports = (sequelize) => {
 					isValidUrl(value) {
 						if (typeof value !== 'object') {
 							throw new Error(
-								'El campo social_media debe ser un objeto JSON.',
+								'El campo proyects debe ser un objeto JSON.',
 							);
 						}
 						for (const key in value) {
-							if (
-								!value[key].match(
-									/^https?:\/\/[^\s/$.?#].[^\s]*$/i,
-								)
-							) {
+							if (Array.isArray(value[key])) {
+								for (const url of value[key]) {
+									if (
+										!url.match(
+											/^https?:\/\/[^\s/$.?#].[^\s]*$/i,
+										)
+									) {
+										throw new Error(
+											'La URL del social_media no es válida.',
+										);
+									}
+								}
+							} else if (typeof value[key] === 'string') {
+								if (
+									!value[key].match(
+										/^https?:\/\/[^\s/$.?#].[^\s]*$/i,
+									)
+								) {
+									throw new Error(
+										'La URL del social_media no es válida.',
+									);
+								}
+							} else {
 								throw new Error(
-									'La URL de la red social no es válida.',
+									'El campo social_media debe contener solo cadenas URL o arrays de cadenas URL.',
 								);
 							}
 						}
@@ -64,13 +82,31 @@ module.exports = (sequelize) => {
 							);
 						}
 						for (const key in value) {
-							if (
-								!value[key].match(
-									/^https?:\/\/[^\s/$.?#].[^\s]*$/i,
-								)
-							) {
+							if (Array.isArray(value[key])) {
+								for (const url of value[key]) {
+									if (
+										!url.match(
+											/^https?:\/\/[^\s/$.?#].[^\s]*$/i,
+										)
+									) {
+										throw new Error(
+											'La URL del proyecto no es válida.',
+										);
+									}
+								}
+							} else if (typeof value[key] === 'string') {
+								if (
+									!value[key].match(
+										/^https?:\/\/[^\s/$.?#].[^\s]*$/i,
+									)
+								) {
+									throw new Error(
+										'La URL del proyecto no es válida.',
+									);
+								}
+							} else {
 								throw new Error(
-									'La URL del proyecto no es válida.',
+									'El campo proyects debe contener solo cadenas URL o arrays de cadenas URL.',
 								);
 							}
 						}

@@ -1,36 +1,41 @@
 import { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import FormValidationsEduca from '../../utils/FormValidationsEduca';
 import {
 	getEducation,
 	updateEducation,
 } from '../../features/education/educationSlice';
 
+export const UpdateEducations = () => {
+	const { id } = useParams();
+	const dispatch = useDispatch();
 
-export const UpdateEducation = () => {
-    const dispatch = useDispatch();
-    const educationInfo = useSelector(
-        (state) => state.education?.educationInfo,
-    );
-    const id = useSelector((state) => state.education.id);
-    const status = useSelector((state) => state.education.status);
-    const error = useSelector((state) => state.education.error);
-    const modified = useSelector((state) => state.education.modified);
+	// Obtén la lista completa de educaciones
+	const educationInfo = useSelector(
+		(state) => state.education?.educationInfo,
+	);
+	// Busca la educación específica basándote en el ID
+	const specificEducation = Array.isArray(educationInfo)
+		? educationInfo.find((edu) => edu.id.toString() === id)
+		: null;
 
-    useEffect(() => {
-        if (!educationInfo) {
-            dispatch(getEducation());
-        }
-    }, [dispatch, educationInfo]);
+	const status = useSelector((state) => state.education.status);
+	const error = useSelector((state) => state.education.error);
+	const modified = useSelector((state) => state.education.modified);
 
-    return (
+	// Solicita siempre la información de educación al cargar el componente
+	useEffect(() => {
+		dispatch(getEducation());
+	}, [dispatch]);
+
+	return (
 		<div>
 			{modified && <div>¡Modificación realizada con éxito!</div>}
 			{status === 'loading' && <div>Actualizando...</div>}
 			{status === 'failed' && <div>{error}</div>}
-			{!educationInfo ? (
+			{!specificEducation ? (
 				<div>
 					<p>No existe información de educación, para modificar.</p>
 					<Link to='/dashboard/form-education'>Crear</Link>
@@ -38,12 +43,12 @@ export const UpdateEducation = () => {
 			) : (
 				<Formik
 					initialValues={{
-						degree: educationInfo?.degree || '',
-						description: educationInfo?.description || '',
-						institution: educationInfo?.institution || '',
-						field_of_study: educationInfo?.field_of_study || '',
-						startDate: educationInfo?.startDate || '',
-						endDate: educationInfo?.endDate || '',
+						degree: specificEducation.degree,
+						description: specificEducation.description,
+						institution: specificEducation.institution,
+						field_of_study: specificEducation.field_of_study,
+						startDate: specificEducation.startDate,
+						endDate: specificEducation.endDate,
 					}}
 					validationSchema={FormValidationsEduca}
 					onSubmit={(values) => {
@@ -95,4 +100,4 @@ export const UpdateEducation = () => {
 			)}
 		</div>
 	);
-}
+};
