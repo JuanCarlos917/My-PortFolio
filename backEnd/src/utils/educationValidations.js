@@ -3,8 +3,8 @@ const { body, validationResult } = require('express-validator');
 const updateEducationValidations = [
 	body('degree').notEmpty().withMessage('El campo degree es obligatorio'),
 	body('description')
-		.notEmpty()
-		.withMessage('El campo description es obligatorio '),
+		.isLength({ min: 5 })
+		.withMessage('El campo description es obligatorio y debe tener minimo 5 caracteres '),
 	body('institution')
 		.notEmpty()
 		.withMessage('El campo institution es obligatorio'),

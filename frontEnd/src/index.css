@@ -1,8 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-@import 'normalize.css';
 
 body {
-	background-color: #f2f2f2;
+	background-color: #504545;
 }

@@ -11,6 +11,6 @@ router.get('/', getCV)
 // Rutas para crear y actualizar el contenido del CV
 router.post('/', updateCVValidations, handleValidationErrors, createCV)
 // Ruta para actualizar la información del CV
-router.put('/', updateCVValidations, handleValidationErrors, updateCV)
+router.put('/:id', updateCVValidations, handleValidationErrors, updateCV);
 
 module.exports=router;
