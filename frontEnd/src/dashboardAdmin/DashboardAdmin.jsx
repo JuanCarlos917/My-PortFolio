@@ -6,7 +6,7 @@ export const Dashboard = () => {
 		<div className='flex h-screen bg-gray-200'>
 			<div className='p-6 bg-white w-64'>
 				<h2 className='text-2xl font-semibold mb-5'>Menú</h2>
-                <h3>About</h3>
+				<h3>About</h3>
 				<Link
 					className='block py-1 text-gray-800 hover:underline'
 					to='/dashboard/form-about'>
@@ -17,22 +17,28 @@ export const Dashboard = () => {
 					to='/dashboard/update-about'>
 					Update About
 				</Link>
-                <h3>Education</h3>
-                <Link
+				<h3>CV</h3>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/form-cv'>
+					Form CV
+				</Link>
+				<Link
                     className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/form-education'>
-                    Form Education
+                    to='/dashboard/update-cv'>
+                    Update CV
                 </Link>
-                <Link
-                    className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/update-education'>
-                    Update Education
-                </Link>
-                <Link
-                    className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/delete-education'>
-                    Delete Education
-                </Link>
+				<h3>Education</h3>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/form-education'>
+					Form Education
+				</Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/all-education'>
+					Education List
+				</Link>
 			</div>
 			<div className='flex-grow p-6'>
 				<h1 className='text-3xl font-semibold'>Dashboard</h1>

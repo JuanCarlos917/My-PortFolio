@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export const FormAbout = () => {
 	const dispatch = useDispatch();
-	const aboutInfo = useSelector((state) => state.about?.aboutInfo);
+	const aboutInfo = useSelector((state) => state.about.aboutInfo);
 	const status = useSelector((state) => state.about.status);
 	const error = useSelector((state) => state.about.error);
 

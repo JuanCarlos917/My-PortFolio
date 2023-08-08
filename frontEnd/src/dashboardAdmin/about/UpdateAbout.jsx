@@ -7,7 +7,7 @@ import { getAbout, updateAbout } from '../../features/about/aboutSlice';
 
 export const UpdateAbout = () => {
 	const dispatch = useDispatch();
-	const aboutInfo = useSelector((state) => state.about?.aboutInfo);
+	const aboutInfo = useSelector((state) => state.about.aboutInfo);
 	const id = useSelector((state) => state.about.id);
     const status = useSelector((state) => state.about.status);
 	const error = useSelector((state) => state.about.error);
