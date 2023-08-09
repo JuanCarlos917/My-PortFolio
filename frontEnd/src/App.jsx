@@ -20,13 +20,17 @@ import { UpdateAbout } from './dashboardAdmin/about/UpdateAbout';
 import { FormEducation } from './dashboardAdmin/education/FormEducation';
 import { UpdateEducations } from './dashboardAdmin/education/UpdateEducation';
 import { DeleteEducation } from './dashboardAdmin/education/DeleteEducation';
-import { FormCV } from './dashboardAdmin/cv/FormCv';
 import { AllEducations } from './dashboardAdmin/education/AllEducations';
+import { FormCV } from './dashboardAdmin/cv/FormCv';
 import { UpdateCV } from './dashboardAdmin/cv/UpdateCv';
 import { FormCategory } from './dashboardAdmin/category/FormCategory';
 import { UpdateCategory } from './dashboardAdmin/category/UpdateCategory';
 import { AllCategories } from './dashboardAdmin/category/AllCategories';
 import { DeleteCategory } from './dashboardAdmin/category/DeleteCategory';
+import { FormTag } from './dashboardAdmin/tag/FormTag';
+import { UpdateTags } from './dashboardAdmin/tag/UpdateTags';
+import { AllTags } from './dashboardAdmin/tag/AllTags';
+import { DeleteTag } from './dashboardAdmin/tag/DeleteTag';
 
 function App() {
 	const router = createBrowserRouter(
@@ -61,6 +65,10 @@ function App() {
 						path='delete-category/:id'
 						element={<DeleteCategory />}
 					/>
+                    <Route path='form-tag' element={<FormTag />} />
+                    <Route path='update-tag/:id' element={<UpdateTags />} />
+                    <Route path='all-tags' element={<AllTags />} />
+                    <Route path='delete-tag/:id' element={<DeleteTag />} />
 				</Route>
 			</Route>,
 		),

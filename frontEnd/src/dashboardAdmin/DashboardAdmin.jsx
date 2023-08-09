@@ -40,6 +40,7 @@ export const Dashboard = () => {
 					Education List
 				</Link>
 				<h3>Pojects</h3>
+                <h4>Categories</h4>
 				<Link
 					className='block py-1 text-gray-800 hover:underline'
 					to='/dashboard/form-category'>
@@ -50,6 +51,17 @@ export const Dashboard = () => {
 					to='/dashboard/all-categories'>
 					Categories List
 				</Link>
+                <h4>Tags</h4>
+                <Link
+                    className='block py-1 text-gray-800 hover:underline'
+                    to='/dashboard/form-tag'>
+                    Form Tag
+                </Link>
+                <Link
+                    className='block py-1 text-gray-800 hover:underline'
+                    to='/dashboard/all-tags'>
+                    Tags List
+                </Link>
 			</div>
 			<div className='flex-grow p-6'>
 				<h1 className='text-3xl font-semibold'>Dashboard</h1>
