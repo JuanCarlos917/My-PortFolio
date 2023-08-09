@@ -74,7 +74,6 @@ Education.belongsTo(CV, { foreignKey: 'CVId' });
 TeamDev.belongsToMany(Project, {
 	through: 'ProjectTeamDevs',
 	foreignKey: 'teamDevId',
-	otherKey: 'projectId',
 });
 
 // Define una relación muchos a muchos entre 'Project' y 'TeamDev' a través de la tabla intermedia 'ProjectTeamDevs'
@@ -82,7 +81,6 @@ TeamDev.belongsToMany(Project, {
 Project.belongsToMany(TeamDev, {
 	through: 'ProjectTeamDevs',
 	foreignKey: 'projectId',
-	otherKey: 'teamDevId',
 });
 
 // Define una relación muchos a muchos entre 'Project' y 'Category' a través de la tabla intermedia 'ProjectCategory'

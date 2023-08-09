@@ -23,6 +23,10 @@ import { DeleteEducation } from './dashboardAdmin/education/DeleteEducation';
 import { FormCV } from './dashboardAdmin/cv/FormCv';
 import { AllEducations } from './dashboardAdmin/education/AllEducations';
 import { UpdateCV } from './dashboardAdmin/cv/UpdateCv';
+import { FormCategory } from './dashboardAdmin/category/FormCategory';
+import { UpdateCategory } from './dashboardAdmin/category/UpdateCategory';
+import { AllCategories } from './dashboardAdmin/category/AllCategories';
+import { DeleteCategory } from './dashboardAdmin/category/DeleteCategory';
 
 function App() {
 	const router = createBrowserRouter(
@@ -47,6 +51,16 @@ function App() {
 					<Route path='all-education' element={<AllEducations />} />
 					<Route path='form-cv' element={<FormCV />} />
 					<Route path='update-cv' element={<UpdateCV />} />
+					<Route path='form-category' element={<FormCategory />} />
+					<Route
+						path='update-category/:id'
+						element={<UpdateCategory />}
+					/>
+					<Route path='all-categories' element={<AllCategories />} />
+					<Route
+						path='delete-category/:id'
+						element={<DeleteCategory />}
+					/>
 				</Route>
 			</Route>,
 		),
@@ -57,7 +71,6 @@ function App() {
 		</div>
 	);
 }
-
 
 const Root = () => {
 	return (

@@ -1,24 +1,5 @@
 // Importar los modelos necesarios
 const { CV, About, Education } = require('../db');
-// Importar las librerías requeridas
-const winston = require('winston');
-require('winston-daily-rotate-file');
-
-const logger = winston.createLogger({
-	level: 'error',
-	format: winston.format.json(),
-	transports: [
-		new winston.transports.Console(),
-		new winston.transports.DailyRotateFile({
-			filename: 'logs/error-%DATE%.log',
-			datePattern: 'YYYY-MM-DD',
-			zippedArchive: true,
-			maxSize: '20m',
-			maxFiles: '14d',
-		}),
-	],
-});
-
 
 const getCV = async (req, res) => {
 	try {
@@ -58,7 +39,7 @@ const getCV = async (req, res) => {
 		res.json(cv);
 	} catch (error) {
 		// Manejar errores y responder con estado 500 y un mensaje de error
-		winston.error(error);
+		console.error(error);
 		res.status(500).json({
 			message: 'Ha ocurrido un error al obtener el CV.',
 		});
@@ -128,7 +109,7 @@ const createCV = async (req, res) => {
 		res.json(newCV);
 	} catch (error) {
 		// Manejar errores y responder con estado 500 y un mensaje de error
-		logger.error(error);
+		console.error(error);
 		res.status(500).json({
 			message: 'Ha ocurrido un error al crear el CV.',
 		});

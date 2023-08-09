@@ -24,10 +24,10 @@ export const Dashboard = () => {
 					Form CV
 				</Link>
 				<Link
-                    className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/update-cv'>
-                    Update CV
-                </Link>
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/update-cv'>
+					Update CV
+				</Link>
 				<h3>Education</h3>
 				<Link
 					className='block py-1 text-gray-800 hover:underline'
@@ -38,6 +38,17 @@ export const Dashboard = () => {
 					className='block py-1 text-gray-800 hover:underline'
 					to='/dashboard/all-education'>
 					Education List
+				</Link>
+				<h3>Pojects</h3>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/form-category'>
+					Form Category
+				</Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/all-categories'>
+					Categories List
 				</Link>
 			</div>
 			<div className='flex-grow p-6'>
