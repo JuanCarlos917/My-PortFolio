@@ -39,6 +39,12 @@ export const Dashboard = () => {
 					to='/dashboard/all-education'>
 					Education List
 				</Link>
+                <h3>Professional Experience</h3>
+                <Link
+                    className='block py-1 text-gray-800 hover:underline'
+                    to='/dashboard/form-professionalExp'>
+                    Form Professional Experience
+                </Link>
 				<h3>Pojects</h3>
 				<h4>Categories</h4>
 				<Link

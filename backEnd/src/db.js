@@ -48,7 +48,8 @@ const {
 	Gallery,
 	Project,
 	Tag,
-    User
+	User,
+	ProfessionalExp,
 } = sequelize.models;
 
 //Relaciones
@@ -68,6 +69,14 @@ CV.hasMany(Education, { foreignKey: 'CVId' });
 // Define una relación de pertenencia entre 'Education' y 'CV' utilizando la clave foránea 'CVId'
 // Un registro 'Education' puede pertenecer a un único registro 'CV'
 Education.belongsTo(CV, { foreignKey: 'CVId' });
+
+// Define una relación uno a muchos entre 'CV' y 'Experiencia Profesional' utilizando la clave foránea 'CVId'
+// Un registro 'CV' puede tener asociados múltiples registros 'Experiencia Profesional'
+CV.hasMany(ProfessionalExp, { foreignKey: 'CVId' });
+
+// Define una relación de pertenencia entre 'Experiencia Profesional' y 'CV' utilizando la clave foránea 'CVId'
+// Un registro 'Experiencia Profesional' puede pertenecer a un único registro 'CV'
+ProfessionalExp.belongsTo(CV, { foreignKey: 'CVId' });
 
 // Define una relación muchos a muchos entre 'TeamDev' y 'Project' a través de la tabla intermedia 'ProjectTeamDevs'
 // Un 'TeamDev' puede estar asociados múltiples registros 'Projects' y viceversa.

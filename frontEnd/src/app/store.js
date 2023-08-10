@@ -6,6 +6,7 @@ import categorySlice from '../features/category/categorySlice';
 import tagSlice from '../features/tag/tagSlice';
 import teamDevSlice from '../features/teamDev/teamDevSlice';
 import projectSlice from '../features/project/projectSlice';
+import professionalExpSlice from '../features/professionalExp/professionalExpSlice'
 
 export const store = configureStore({
 	reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
         tag: tagSlice,
         teamDev: teamDevSlice,
         project: projectSlice,
+        professionalExp: professionalExpSlice,
     },
 });

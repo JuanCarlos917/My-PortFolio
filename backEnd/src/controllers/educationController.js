@@ -123,7 +123,7 @@ const updateEducation = async (req, res) => {
 		const updatedEducation = await Education.findOne({ where: { id } });
 		// Respondemos con un mensaje de éxito y los datos actualizados del contacto
 		return res.status(200).json({
-			message: 'Se modifico correctamente los datos de contacto.',
+			message: 'Se modifico correctamente los datos de educacion.',
 			educationUpdated: updatedEducation,
 		});
 	} catch (error) {
