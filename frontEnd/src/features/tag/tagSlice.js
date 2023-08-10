@@ -86,7 +86,6 @@ const tagSlice = createSlice({
 		builder.addCase(updateTag.fulfilled, (state, action) => {
 			// Al obtener la información de 'Tag', se establece el estado a 'succeeded'
 			state.status = 'succeeded';
-			state.modified = true;
 			state.tagInfo = action.payload;
 			state.id = action.payload.id;
 			state.modified = true;
@@ -106,13 +105,14 @@ const tagSlice = createSlice({
 		builder.addCase(createTag.fulfilled, (state, action) => {
 			// Al obtener la información de 'Tag', se establece el estado a 'succeeded'
 			state.status = 'succeeded';
-			state.tagAdded = true;
+			state.tagyAdded = true;
 			state.tagInfo = action.payload;
 		});
 		builder.addCase(createTag.rejected, (state, action) => {
 			// Si ocurre un error al obtener la información de 'Category', se establece el estado a 'failed'
 			state.status = 'failed';
 			state.error = action.error.message;
+			state.tagyAdded = false; // Se mantiene en false si la petición falla
 		});
 
 		// Eliminando la información de 'Tag'

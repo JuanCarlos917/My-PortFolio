@@ -40,7 +40,7 @@ export const Dashboard = () => {
 					Education List
 				</Link>
 				<h3>Pojects</h3>
-                <h4>Categories</h4>
+				<h4>Categories</h4>
 				<Link
 					className='block py-1 text-gray-800 hover:underline'
 					to='/dashboard/form-category'>
@@ -51,16 +51,38 @@ export const Dashboard = () => {
 					to='/dashboard/all-categories'>
 					Categories List
 				</Link>
-                <h4>Tags</h4>
+				<h4>Tags</h4>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/form-tag'>
+					Form Tag
+				</Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/all-tags'>
+					Tags List
+				</Link>
+				<h4>Team Dev</h4>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/form-teamDevs'>
+					Form Team Dev
+				</Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/all-teamDevs'>
+					Team Dev List
+				</Link>
+				<h4>New Poject</h4>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/form-project'>
+					Form Project
+				</Link>
                 <Link
                     className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/form-tag'>
-                    Form Tag
-                </Link>
-                <Link
-                    className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/all-tags'>
-                    Tags List
+                    to='/dashboard/all-projects'>
+                    Project List
                 </Link>
 			</div>
 			<div className='flex-grow p-6'>

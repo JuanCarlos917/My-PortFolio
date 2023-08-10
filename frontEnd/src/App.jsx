@@ -3,7 +3,6 @@ import {
 	createRoutesFromElements,
 	Route,
 	RouterProvider,
-	Link,
 	Outlet,
 } from 'react-router-dom';
 
@@ -31,6 +30,12 @@ import { FormTag } from './dashboardAdmin/tag/FormTag';
 import { UpdateTags } from './dashboardAdmin/tag/UpdateTags';
 import { AllTags } from './dashboardAdmin/tag/AllTags';
 import { DeleteTag } from './dashboardAdmin/tag/DeleteTag';
+import { FormTeamDevs } from './dashboardAdmin/teamDevs/FormTeamDevs';
+import { UpdateTeamDevs } from './dashboardAdmin/teamDevs/UpdateTeamDevs';
+import { AllTeamDevs } from './dashboardAdmin/teamDevs/AllTeamDevs';
+import { DeleteTeamDevs } from './dashboardAdmin/teamDevs/DeleteTeamDevs';
+import { FormProject } from './dashboardAdmin/project/FormProject';
+import { AllProjects } from './dashboardAdmin/project/AllProjects';
 
 function App() {
 	const router = createBrowserRouter(
@@ -65,10 +70,22 @@ function App() {
 						path='delete-category/:id'
 						element={<DeleteCategory />}
 					/>
-                    <Route path='form-tag' element={<FormTag />} />
-                    <Route path='update-tag/:id' element={<UpdateTags />} />
-                    <Route path='all-tags' element={<AllTags />} />
-                    <Route path='delete-tag/:id' element={<DeleteTag />} />
+					<Route path='form-tag' element={<FormTag />} />
+					<Route path='update-tag/:id' element={<UpdateTags />} />
+					<Route path='all-tags' element={<AllTags />} />
+					<Route path='delete-tag/:id' element={<DeleteTag />} />
+					<Route path='form-teamDevs' element={<FormTeamDevs />} />
+					<Route
+						path='update-teamDevs/:id'
+						element={<UpdateTeamDevs />}
+					/>
+					<Route path='all-teamDevs' element={<AllTeamDevs />} />
+					<Route
+						path='delete-teamDev/:id'
+						element={<DeleteTeamDevs />}
+					/>
+					<Route path='form-project' element={<FormProject />} />
+					<Route path='all-projects' element={<AllProjects />} />
 				</Route>
 			</Route>,
 		),
@@ -84,7 +101,7 @@ const Root = () => {
 	return (
 		<>
 			<div>
-				<Link to='/'>{NavBar}</Link>
+				{NavBar}
 			</div>
 			<div>
 				<Outlet />
