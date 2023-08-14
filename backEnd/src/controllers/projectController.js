@@ -1,4 +1,4 @@
-const { Project, TeamDev, Category, Tag } = require('../db');
+const { Project, TeamDev, Category, Tag } = require('../index');
 const { checkEntitiesExistence } = require('../utils/entityUtilsProjectCreate');
 
 // Esta es una función asincrónica que se encarga de obtener los proyectos

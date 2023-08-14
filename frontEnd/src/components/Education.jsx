@@ -27,7 +27,7 @@ export const Education = () => {
 				<h3>Carrera:</h3>
 				<p>{edu.degree}</p>
 				<h3>Campo de estudio:</h3>
-				<p>{edu.fieldOfStudy}</p>
+				<p>{edu.field_of_study}</p>
 				<h3>Descripción:</h3>
 				<p>{edu.description}</p>
 				<h3>Fecha de inicio: </h3>

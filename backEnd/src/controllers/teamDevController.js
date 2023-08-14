@@ -1,4 +1,4 @@
-const { TeamDev, Project } = require('../db');
+const { TeamDev } = require('../index');
 
 //controlador para obtener el equipo de desarrolladores del proyecti desde la base de datos
 const getTeamDevs = async (req, res) => {

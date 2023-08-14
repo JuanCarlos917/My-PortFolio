@@ -1,5 +1,5 @@
 // Importar los modelos necesarios
-const { CV, About, Education, ProfessionalExp } = require('../db');
+const { CV, About, Education, ProfessionalExp } = require('../index');
 
 const getCV = async (req, res) => {
 	try {

@@ -20,17 +20,12 @@ export const AllProjects = () => {
 	useEffect(() => {
 		if (status === 'idle') {
 			dispatch(getProject());
-		}
-        if (status === 'idle') {
 			dispatch(getTag());
+			dispatch(getCategory());
+			dispatch(getTeamDev());
 		}
-        if (status === 'idle') {
-            dispatch(getCategory());
-        }
-        if (status === 'idle') {
-            dispatch(getTeamDev());
-        }
 	}, [status, dispatch]);
+
 
 	let content;
 
@@ -52,40 +47,31 @@ export const AllProjects = () => {
 					<h3>URL:</h3>
 					<p>{project.url}</p>
 					<h3>Equipo:</h3>
-					<p>
-						{Array.isArray(teamInfo)
-							? teamInfo.map((team, index) => (
-									<option key={index} value={team.id}>
-										{team.name}
-									</option>
-							))
-							: null}
-					</p>
+					<ul>
+						{Array.isArray(teamInfo) &&
+							teamInfo.map((team, teamIndex) => (
+								<li key={teamIndex}>{team.name}</li>
+							))}
+					</ul>
 					<h3>Tags:</h3>
-					<p>
-                        {Array.isArray(tagsInfo)
-                            ? tagsInfo.map((tag, index) => (
-                                    <option key={index} value={tag.id}>
-                                        {tag.name}
-                                    </option>
-                            ))
-                            : null}
-                    </p>
+					<ul>
+						{Array.isArray(tagsInfo) &&
+							tagsInfo.map((tag, tagIndex) => (
+								<li key={tagIndex}>{tag.name}</li>
+							))}
+					</ul>
 					<h3>Categorías:</h3>
-					<p>
-                        {Array.isArray(categoriesInfo)
-                            ? categoriesInfo.map((category, index) => (
-                                    <option key={index} value={category.id}>
-                                        {category.name}
-                                    </option>
-                            ))
-                            : null}
-                    </p>
+					<ul>
+						{Array.isArray(categoriesInfo) &&
+							categoriesInfo.map((category, categoryIndex) => (
+								<li key={categoryIndex}>{category.name}</li>
+							))}
+					</ul>
 
-					<Link to={`/dashboard/update-project/${project.id}`}>
+					<Link to={`/dashboard/update-projects/${project.id}`}>
 						Modificar
 					</Link>
-					<Link to={`/dashboard/delete-project/${project.id}`}>
+					<Link to={`/dashboard/delete-projects/${project.id}`}>
 						Eliminar
 					</Link>
 				</div>

@@ -1,4 +1,4 @@
-const { Gallery } = require('../db');
+const { Gallery } = require('../index');
 const winston = require('winston');
 const Joi = require('joi');
 

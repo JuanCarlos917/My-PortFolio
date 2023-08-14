@@ -1,4 +1,4 @@
-const { ProfessionalExp, CV } = require('../db');
+const { ProfessionalExp, CV } = require('../index');
 const Joi = require('joi');
 
 const getProfessionalExp = async (req, res) => {

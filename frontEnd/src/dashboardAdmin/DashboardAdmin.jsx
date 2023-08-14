@@ -17,16 +17,16 @@ export const Dashboard = () => {
 					to='/dashboard/update-about'>
 					Update About
 				</Link>
-				<h3>CV</h3>
+				<h3>Contact</h3>
 				<Link
 					className='block py-1 text-gray-800 hover:underline'
 					to='/dashboard/form-cv'>
-					Form CV
+					Form Contact
 				</Link>
 				<Link
 					className='block py-1 text-gray-800 hover:underline'
 					to='/dashboard/update-cv'>
-					Update CV
+					Update Contact
 				</Link>
 				<h3>Education</h3>
 				<Link
@@ -39,12 +39,12 @@ export const Dashboard = () => {
 					to='/dashboard/all-education'>
 					Education List
 				</Link>
-                <h3>Professional Experience</h3>
-                <Link
-                    className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/form-professionalExp'>
-                    Form Professional Experience
-                </Link>
+				<h3>Professional Experience</h3>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/form-professionalExp'>
+					Form Professional Experience
+				</Link>
 				<h3>Pojects</h3>
 				<h4>Categories</h4>
 				<Link
@@ -85,11 +85,11 @@ export const Dashboard = () => {
 					to='/dashboard/form-project'>
 					Form Project
 				</Link>
-                <Link
-                    className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/all-projects'>
-                    Project List
-                </Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/all-projects'>
+					Project List
+				</Link>
 			</div>
 			<div className='flex-grow p-6'>
 				<h1 className='text-3xl font-semibold'>Dashboard</h1>

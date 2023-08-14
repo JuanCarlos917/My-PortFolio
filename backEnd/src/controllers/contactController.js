@@ -1,4 +1,4 @@
-const { Contact } = require('../db');
+const { Contact } = require('../index');
 
 //controlador para obtener los datos de contacto
 const getContact = async (req, res) => {

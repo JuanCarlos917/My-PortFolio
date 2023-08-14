@@ -1,4 +1,4 @@
-const { Education, CV } = require('../db');
+const { Education, CV } = require('../index');
 const winston = require('winston');
 const Joi = require('joi');
 

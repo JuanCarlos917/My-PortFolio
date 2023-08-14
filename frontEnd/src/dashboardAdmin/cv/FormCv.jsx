@@ -31,7 +31,7 @@ export const FormCV = () => {
 			{cvInfo ? (
 				<div>
 					<p>
-						Ya existe información acerca CV. Por favor, modifíque la
+						Ya existe información de datos de contacto. Por favor, modifíque la
 						que ya existe.
 					</p>
 					<Link to='/dashboard/update-cv'>Editar</Link>
