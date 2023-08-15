@@ -42,6 +42,10 @@ import { AllExperiences } from './dashboardAdmin/professionalExp/AllExperiences'
 import { DeleteExperience } from './dashboardAdmin/professionalExp/DeleteExperience';
 import { UpdateProjects } from './dashboardAdmin/project/UpdateProject';
 import { DeleteProject } from './dashboardAdmin/project/DeleteProject';
+import { ImageList } from './dashboardAdmin/s3Media/ImageList';
+import { UploadImage } from './dashboardAdmin/s3Media/ImageUpload';
+import { DeleteImage } from './dashboardAdmin/s3Media/ImageDelete';
+import { GenerateUrl } from './dashboardAdmin/s3Media/UrlImageS3';
 
 function App() {
 	const router = createBrowserRouter(
@@ -96,23 +100,30 @@ function App() {
 						path='update-projects/:id'
 						element={<UpdateProjects />}
 					/>
-                    <Route path='delete-project/:id' element={<DeleteProject />} />
+					<Route
+						path='delete-project/:id'
+						element={<DeleteProject />}
+					/>
 					<Route
 						path='form-professionalExp'
 						element={<FormExperience />}
 					/>
-                    <Route
-                        path='all-professionalExp'
-                        element={<AllExperiences />}
-                    />
-                    <Route
-                        path='update-experience/:id'
-                        element={<UpdateExperience />}
-                    />
-                    <Route
-                        path='delete-professionalExp/:id'
-                        element={<DeleteExperience />}
-                    />
+					<Route
+						path='all-professionalExp'
+						element={<AllExperiences />}
+					/>
+					<Route
+						path='update-experience/:id'
+						element={<UpdateExperience />}
+					/>
+					<Route
+						path='delete-professionalExp/:id'
+						element={<DeleteExperience />}
+					/>
+					<Route path='image-list' element={<ImageList />} />
+                    <Route path='upload-image' element={<UploadImage />} />
+                    <Route path='delete-image' element={<DeleteImage />} />
+                    <Route path='generate-url' element={<GenerateUrl />} />
 				</Route>
 			</Route>,
 		),
@@ -127,9 +138,7 @@ function App() {
 const Root = () => {
 	return (
 		<>
-			<div>
-				{NavBar}
-			</div>
+			<div>{NavBar}</div>
 			<div>
 				<Outlet />
 			</div>
