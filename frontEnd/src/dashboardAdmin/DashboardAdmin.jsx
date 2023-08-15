@@ -45,11 +45,11 @@ export const Dashboard = () => {
 					to='/dashboard/form-professionalExp'>
 					Form Professional Experience
 				</Link>
-                <Link
-                    className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/all-professionalExp'>
-                    Professional Experience List
-                </Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/all-professionalExp'>
+					Professional Experience List
+				</Link>
 				<h3>Pojects</h3>
 				<h4>Categories</h4>
 				<Link
@@ -94,6 +94,27 @@ export const Dashboard = () => {
 					className='block py-1 text-gray-800 hover:underline'
 					to='/dashboard/all-projects'>
 					Project List
+				</Link>
+				<h4>Mdia S3</h4>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/image-list'>
+					Media List
+				</Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/upload-image'>
+					Upload Image
+				</Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/delete-image'>
+					Delete image
+				</Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/generate-url'>
+					generate-url
 				</Link>
 			</div>
 			<div className='flex-grow p-6'>
