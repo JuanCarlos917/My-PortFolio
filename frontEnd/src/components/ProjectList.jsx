@@ -6,7 +6,6 @@ export const ProjectList = () => {
 
 	const dispatch = useDispatch();
 	const projectInfo = useSelector((state) => state.project.projectInfo);
-    console.log(projectInfo);
 	const status = useSelector((state) => state.project.status);
 	const error = useSelector((state) => state.project.error);
 
@@ -31,12 +30,12 @@ export const ProjectList = () => {
 							<h4>Descripción: </h4>
 							<p>{project.description}</p>
 							<h4>Imagen: </h4>
-							<p>{project.image}</p>
+							<img src={project.image} alt={project.title} />
 							<h4>Url: </h4>
-							<p>{project.url}</p>
+							<a href={project.url}>{project.title}</a>
 							<h4>Tecnologías: </h4>
 							<p>{project.technologies}</p>
-                            <h3>Equipo:</h3>
+							<h3>Equipo:</h3>
 							<ul>
 								{Array.isArray(project.TeamDevs) &&
 									project.TeamDevs.map((team, teamIndex) => (
