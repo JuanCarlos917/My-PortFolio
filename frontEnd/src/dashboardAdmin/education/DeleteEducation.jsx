@@ -36,6 +36,7 @@ export const DeleteEducation = () => {
 				<>
 					{status === 'loading' && <div>Eliminando...</div>}
 					{status === 'failed' && <div>{error}</div>}
+
 					{!educationInfo ? (
 						<div>
 							<p>

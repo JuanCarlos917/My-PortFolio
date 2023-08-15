@@ -3,7 +3,6 @@ import {
 	createRoutesFromElements,
 	Route,
 	RouterProvider,
-	Link,
 	Outlet,
 } from 'react-router-dom';
 
@@ -20,9 +19,26 @@ import { UpdateAbout } from './dashboardAdmin/about/UpdateAbout';
 import { FormEducation } from './dashboardAdmin/education/FormEducation';
 import { UpdateEducations } from './dashboardAdmin/education/UpdateEducation';
 import { DeleteEducation } from './dashboardAdmin/education/DeleteEducation';
-import { FormCV } from './dashboardAdmin/cv/FormCv';
 import { AllEducations } from './dashboardAdmin/education/AllEducations';
+import { FormCV } from './dashboardAdmin/cv/FormCv';
 import { UpdateCV } from './dashboardAdmin/cv/UpdateCv';
+import { FormCategory } from './dashboardAdmin/category/FormCategory';
+import { UpdateCategory } from './dashboardAdmin/category/UpdateCategory';
+import { AllCategories } from './dashboardAdmin/category/AllCategories';
+import { DeleteCategory } from './dashboardAdmin/category/DeleteCategory';
+import { FormTag } from './dashboardAdmin/tag/FormTag';
+import { UpdateTags } from './dashboardAdmin/tag/UpdateTags';
+import { AllTags } from './dashboardAdmin/tag/AllTags';
+import { DeleteTag } from './dashboardAdmin/tag/DeleteTag';
+import { FormTeamDevs } from './dashboardAdmin/teamDevs/FormTeamDevs';
+import { UpdateTeamDevs } from './dashboardAdmin/teamDevs/UpdateTeamDevs';
+import { AllTeamDevs } from './dashboardAdmin/teamDevs/AllTeamDevs';
+import { DeleteTeamDevs } from './dashboardAdmin/teamDevs/DeleteTeamDevs';
+import { FormProject } from './dashboardAdmin/project/FormProject';
+import { AllProjects } from './dashboardAdmin/project/AllProjects';
+import { FormExperience } from './dashboardAdmin/professionalExp/FormExperience';
+import { UpdateProjects } from './dashboardAdmin/project/UpdateProject';
+import { DeleteProject } from './dashboardAdmin/project/DeleteProject';
 
 function App() {
 	const router = createBrowserRouter(
@@ -47,6 +63,41 @@ function App() {
 					<Route path='all-education' element={<AllEducations />} />
 					<Route path='form-cv' element={<FormCV />} />
 					<Route path='update-cv' element={<UpdateCV />} />
+					<Route path='form-category' element={<FormCategory />} />
+					<Route
+						path='update-category/:id'
+						element={<UpdateCategory />}
+					/>
+					<Route path='all-categories' element={<AllCategories />} />
+					<Route
+						path='delete-category/:id'
+						element={<DeleteCategory />}
+					/>
+					<Route path='form-tag' element={<FormTag />} />
+					<Route path='update-tag/:id' element={<UpdateTags />} />
+					<Route path='all-tags' element={<AllTags />} />
+					<Route path='delete-tag/:id' element={<DeleteTag />} />
+					<Route path='form-teamDevs' element={<FormTeamDevs />} />
+					<Route
+						path='update-teamDevs/:id'
+						element={<UpdateTeamDevs />}
+					/>
+					<Route path='all-teamDevs' element={<AllTeamDevs />} />
+					<Route
+						path='delete-teamDev/:id'
+						element={<DeleteTeamDevs />}
+					/>
+					<Route path='form-project' element={<FormProject />} />
+					<Route path='all-projects' element={<AllProjects />} />
+					<Route
+						path='update-projects/:id'
+						element={<UpdateProjects />}
+					/>
+                    <Route path='delete-project/:id' element={<DeleteProject />} />
+					<Route
+						path='form-professionalExp'
+						element={<FormExperience />}
+					/>
 				</Route>
 			</Route>,
 		),
@@ -58,12 +109,11 @@ function App() {
 	);
 }
 
-
 const Root = () => {
 	return (
 		<>
 			<div>
-				<Link to='/'>{NavBar}</Link>
+				{NavBar}
 			</div>
 			<div>
 				<Outlet />

@@ -1,6 +1,6 @@
 require('dotenv').config();
 // Importamos los modelos de la base de datos
-const { User } = require('../db');
+const { User } = require('../index');
 // Importamos bcrypt para el hashing de las contraseñas
 const bcrypt = require('bcryptjs');
 // Importamos jsonwebtoken para la autenticación

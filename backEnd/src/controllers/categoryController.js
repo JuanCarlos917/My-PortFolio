@@ -1,4 +1,4 @@
-const { Category, Project } = require('../db');
+const { Category } = require('../index');
 
 //controlador para obtener todas las categotias desde la base de datos
 const getCategories = async (req, res) => {

@@ -14,10 +14,6 @@ const updateCVValidations = [
 	body('social_media')
 		.notEmpty()
 		.withMessage('El campo social media es obligatorio'),
-	body('proyects').notEmpty().withMessage('El campo proyects es obligatorio'),
-	body('experience')
-		.notEmpty()
-		.withMessage('El campo experience es obligatorio'),
 ];
 // Función para manejar los errores de validación
 const handleValidationErrors = (req, res, next) => {

@@ -1,6 +1,5 @@
-const { Project, TeamDev, Category, Tag } = require('../db');
-const winston = require('winston');
-const Joi = require('joi');
+const { Project, TeamDev, Category, Tag } = require('../index');
+const { checkEntitiesExistence } = require('../utils/entityUtilsProjectCreate');
 
 // Esta es una función asincrónica que se encarga de obtener los proyectos
 const getProjects = async (req, res) => {
@@ -61,12 +60,9 @@ const getProjects = async (req, res) => {
 
 // Este controlador crea un nuevo proyecto y lo agrega a la base de datos.
 const createProject = async (req, res) => {
+	// Bloque try para manejar posibles errores durante la ejecución.
 	try {
-		// Se extraen las propiedades necesarias del cuerpo de la solicitud.
-		// El objeto `req.body` debe incluir `title`, `description`, `technologies`, `image`, `url`, `teamDevs`, `categories`, `tags`
-		// `teamDevs`, `categories` y `tags` son listas de identificadores que representan las relaciones del proyecto con
-		// los desarrolladores del equipo, las categorías y las etiquetas respectivamente.
-		// Estos son necesarios porque un proyecto en este contexto se considera incompleto sin estas relaciones.
+		// Desestructuración de la solicitud para extraer propiedades específicas del cuerpo de la solicitud.
 		const {
 			title,
 			description,
@@ -78,77 +74,20 @@ const createProject = async (req, res) => {
 			tags,
 		} = req.body;
 
-		// Se verifica si se proporcionaron teamDevs y si hay al menos uno.
+		// Verificar si se han proporcionado `teamDevs` y si su longitud es mayor que 0.
 		if (!teamDevs || teamDevs.length === 0) {
-			// Si no se proporcionaron, se responde con un mensaje de error.
+			// En caso de no haber `teamDevs` o tener longitud 0, se envía una respuesta de error.
 			return res.status(400).json({
-				message:
-					'Debe haber al menos un TeamDev asociado con el proyecto.',
+				message: 'Debe haber al menos un TeamDev asociado con el proyecto.',
 			});
 		}
 
-		// Se verifica que todos los teamDevs proporcionados existen en la base de datos.
-		const foundTeamDevs = await TeamDev.findAll({
-			where: {
-				id: teamDevs,
-			},
-		});
+		// Se verifica la existencia de las entidades (TeamDevs, Categories, Tags) en la base de datos usando `checkEntitiesExistence`.
+		const foundTeamDevs = await checkEntitiesExistence(TeamDev, teamDevs, 'TeamDevs');
+		const foundCategories = await checkEntitiesExistence(Category, categories, 'categorías');
+		const foundTags = await checkEntitiesExistence(Tag, tags, 'etiquetas');
 
-		// Si no se encontraron todos los teamDevs proporcionados, se responde con un mensaje de error.
-		if (foundTeamDevs.length !== teamDevs.length) {
-			return res.status(400).json({
-				message:
-					'Algunos TeamDevs proporcionados no existen en la base de datos.',
-			});
-		}
-
-		// Se verifica si se proporcionaron categorías y si hay al menos una.
-		if (!categories || categories.length === 0) {
-			return res.status(400).json({
-				message:
-					'Debe haber al menos una categoría asociada al proyecto',
-			});
-		}
-
-		// Se verifica que todas las categorías proporcionadas existen en la base de datos.
-		const foundCategory = await Category.findAll({
-			where: {
-				id: categories,
-			},
-		});
-
-		// Si no se encontraron todas las categorías proporcionadas, se responde con un mensaje de error.
-		if (foundCategory.length !== categories.length) {
-			return res.status(400).json({
-				message:
-					'Algunas categorías proporcionadas no existen en la base de datos',
-			});
-		}
-
-		// Se verifica si se proporcionaron etiquetas y si hay al menos una.
-		if (!tags || tags.length === 0) {
-			return res.status(400).json({
-				message:
-					'Debe haber al menos una etiqueta asociada al proyecto',
-			});
-		}
-
-		// Se verifica que todas las etiquetas proporcionadas existen en la base de datos.
-		const foundTag = await Tag.findAll({
-			where: {
-				id: tags,
-			},
-		});
-
-		// Si no se encontraron todas las etiquetas proporcionadas, se responde con un mensaje de error.
-		if (foundTag.length !== tags.length) {
-			return res.status(400).json({
-				message:
-					'Algunas etiquetas proporcionadas no existen en la base de datos',
-			});
-		}
-
-		// Se crea el nuevo proyecto con los datos proporcionados.
+		// Se crea un nuevo proyecto utilizando el modelo `Project`.
 		let newProject = await Project.create({
 			title,
 			description,
@@ -157,50 +96,32 @@ const createProject = async (req, res) => {
 			url,
 		});
 
-		// Se asocian los teamDevs encontrados con el nuevo proyecto.
+		// Se asocian las entidades encontradas con el proyecto recién creado.
 		await newProject.addTeamDevs(foundTeamDevs);
+		await newProject.addCategories(foundCategories);
+		await newProject.addTags(foundTags);
 
-		// Se asocian las categorías encontradas con el nuevo proyecto.
-		await newProject.addCategories(foundCategory);
-
-		// Se asocian las etiquetas encontradas con el nuevo proyecto.
-		await newProject.addTags(foundTag);
-
-		// Se recupera el nuevo proyecto de la base de datos, incluyendo los teamDevs, categorías y etiquetas asociados.
+		// Se recupera la información del proyecto con sus relaciones para devolverla en la respuesta.
 		newProject = await Project.findOne({
 			where: { id: newProject.id },
 			include: [
-				{
-					model: TeamDev,
-					through: {
-						attributes: [],
-					},
-				},
-				{
-					model: Category,
-					through: {
-						attributes: [],
-					},
-				},
-				{
-					model: Tag,
-					through: {
-						attributes: [],
-					},
-				},
+				{ model: TeamDev, through: { attributes: [] } },
+				{ model: Category, through: { attributes: [] } },
+				{ model: Tag, through: { attributes: [] } },
 			],
 		});
 
-		// Se envía el nuevo proyecto como respuesta.
+		// Se envía el proyecto como respuesta en formato JSON.
 		res.json(newProject);
 	} catch (error) {
-		// Si algo sale mal, se imprime el error y se envía un mensaje de error como respuesta.
+		// En caso de error, se muestra en la consola y se envía un mensaje de error al cliente.
 		console.error(error);
 		res.status(500).json({
-			message: 'Ha ocurrido un error al crear el proyecto.',
+			message: error.message || 'Ha ocurrido un error al crear el proyecto.',
 		});
 	}
 };
+
 
 //controlador para modificar los datos del pryecto, de las categorias, de los tags y del teamDev
 const updateProject = async (req, res) => {
@@ -219,10 +140,14 @@ const updateProject = async (req, res) => {
 			tags,
 		} = req.body;
 
+
+
 		// Si los campos teamDevs, categories o tags no están presentes en el cuerpo de la solicitud,
 		// lanza un error.
 		if (!teamDevs || !categories || !tags) {
-			throw new Error('El cuerpo de la solicitud debe contener teamDevs, categories y tags.');
+			throw new Error(
+				'El cuerpo de la solicitud debe contener teamDevs, categories y tags.',
+			);
 		}
 
 		// Busca en la base de datos si existe un proyecto con el ID proporcionado.
@@ -247,26 +172,42 @@ const updateProject = async (req, res) => {
 		// Obtiene la lista de teamDevs asociados al proyecto existente
 		const existingTeamDevs = await existingProject.getTeamDevs();
 		// Extrae los IDs de los teamDevs existentes
-		const existingTeamDevIds = existingTeamDevs.map((teamDev) => teamDev.id);
+		const existingTeamDevIds = existingTeamDevs.map(
+			(teamDev) => teamDev.id,
+		);
 		// Determina qué teamDevs deben ser añadidos y cuáles eliminados
-		const teamDevsToAdd = teamDevs.filter((teamDevId) => !existingTeamDevIds.includes(teamDevId));
-		const teamDevsToRemove = existingTeamDevIds.filter((teamDevId) => !teamDevs.includes(teamDevId));
+		const teamDevsToAdd = teamDevs.filter(
+			(teamDevId) => !existingTeamDevIds.includes(teamDevId),
+		);
+		const teamDevsToRemove = existingTeamDevIds.filter(
+			(teamDevId) => !teamDevs.includes(teamDevId),
+		);
 		// Añade y elimina los teamDevs correspondientes
 		await existingProject.addTeamDevs(teamDevsToAdd);
 		await existingProject.removeTeamDevs(teamDevsToRemove);
 
 		// El mismo proceso se repite para las categorías y tags
 		const existingCategories = await existingProject.getCategories();
-		const existingCategoryIds = existingCategories.map((category) => category.id);
-		const categoriesToAdd = categories.filter((categoryId) => !existingCategoryIds.includes(categoryId));
-		const categoriesToRemove = existingCategoryIds.filter((categoryId) => !categories.includes(categoryId));
+		const existingCategoryIds = existingCategories.map(
+			(category) => category.id,
+		);
+		const categoriesToAdd = categories.filter(
+			(categoryId) => !existingCategoryIds.includes(categoryId),
+		);
+		const categoriesToRemove = existingCategoryIds.filter(
+			(categoryId) => !categories.includes(categoryId),
+		);
 		await existingProject.addCategories(categoriesToAdd);
 		await existingProject.removeCategories(categoriesToRemove);
 
 		const existingTags = await existingProject.getTags();
 		const existingTagIds = existingTags.map((tag) => tag.id);
-		const tagsToAdd = tags.filter((tagId) => !existingTagIds.includes(tagId));
-		const tagsToRemove = existingTagIds.filter((tagId) => !tags.includes(tagId));
+		const tagsToAdd = tags.filter(
+			(tagId) => !existingTagIds.includes(tagId),
+		);
+		const tagsToRemove = existingTagIds.filter(
+			(tagId) => !tags.includes(tagId),
+		);
 		await existingProject.addTags(tagsToAdd);
 		await existingProject.removeTags(tagsToRemove);
 
@@ -302,38 +243,35 @@ const updateProject = async (req, res) => {
 };
 
 const deleteProject = async (req, res) => {
-    try {
-        // Extrae el ID del proyecto de los parámetros de la solicitud
-        const { id } = req.params;
+	try {
+		// Extrae el ID del proyecto de los parámetros de la solicitud
+		const { id } = req.params;
 
-        // Busca en la base de datos si existe un proyecto con el ID proporcionado.
-        const existingProject = await Project.findOne({ where: { id } });
+		// Busca en la base de datos si existe un proyecto con el ID proporcionado.
+		const existingProject = await Project.findOne({ where: { id } });
 
-        // Si el proyecto no existe en la base de datos, retorna un error.
-        if (!existingProject) {
-            return res.status(404).json({
-                message: `No se encontró el proyecto con ID ${id} para eliminar. Asegúrate de que el ID del proyecto proporcionado sea correcto y que el registro del proyecto ya exista en la base de datos.`,
-            });
-        }
+		// Si el proyecto no existe en la base de datos, retorna un error.
+		if (!existingProject) {
+			return res.status(404).json({
+				message: `No se encontró el proyecto con ID ${id} para eliminar. Asegúrate de que el ID del proyecto proporcionado sea correcto y que el registro del proyecto ya exista en la base de datos.`,
+			});
+		}
 
-        // Si el proyecto existe, lo elimina de la base de datos.
-        await existingProject.destroy();
+		// Si el proyecto existe, lo elimina de la base de datos.
+		await existingProject.destroy();
 
-        // Envía una respuesta con un mensaje de éxito.
-        res.json({
-            message: `El proyecto con ID ${id} se eliminó correctamente.`,
-        });
-    } catch (error) {
-        // Si ocurre algún error durante el proceso, lo registra y envía una respuesta con un mensaje de error.
-        console.error(error);
-        res.status(500).json({
-            message: `Error al eliminar el proyecto.`,
-        });
-    }
-}
-
-
-
+		// Envía una respuesta con un mensaje de éxito.
+		res.json({
+			message: `El proyecto con ID ${id} se eliminó correctamente.`,
+		});
+	} catch (error) {
+		// Si ocurre algún error durante el proceso, lo registra y envía una respuesta con un mensaje de error.
+		console.error(error);
+		res.status(500).json({
+			message: `Error al eliminar el proyecto.`,
+		});
+	}
+};
 
 module.exports = {
 	getProjects,

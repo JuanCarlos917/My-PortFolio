@@ -1,4 +1,4 @@
-const { About } = require('../db');
+const { About } = require('../index');
 
 // Controlador para obtener la información de "Acerca de mí"
 const getAbout = async (req, res) => {
