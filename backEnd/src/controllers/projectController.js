@@ -140,6 +140,8 @@ const updateProject = async (req, res) => {
 			tags,
 		} = req.body;
 
+
+
 		// Si los campos teamDevs, categories o tags no están presentes en el cuerpo de la solicitud,
 		// lanza un error.
 		if (!teamDevs || !categories || !tags) {

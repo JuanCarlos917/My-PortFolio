@@ -18,6 +18,7 @@ export const getProject = createAsyncThunk('/project', async () => {
 export const updateProject = createAsyncThunk(
 	'project/updateProject',
 	async ({ id, projectInfo }) => {
+        console.log('Enviando:', projectInfo);
 		try {
 			const response = await axios.put(
 				`${baseURL}/project/${id}`,

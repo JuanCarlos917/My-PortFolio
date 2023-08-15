@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProject } from '../../features/project/projectSlice';
 
-import { getTag } from '../../features/tag/tagSlice';
-import { getCategory } from '../../features/category/categorySlice';
-import { getTeamDev } from '../../features/teamDev/teamDevSlice';
 
 export const AllProjects = () => {
 	const dispatch = useDispatch();
@@ -13,16 +10,10 @@ export const AllProjects = () => {
 	const status = useSelector((state) => state.project.status);
 	const error = useSelector((state) => state.project.error);
 
-	const teamInfo = useSelector((state) => state.teamDev.teamDevInfo);
-	const tagsInfo = useSelector((state) => state.tag.tagInfo);
-	const categoriesInfo = useSelector((state) => state.category.categoryInfo);
 
 	useEffect(() => {
 		if (status === 'idle') {
 			dispatch(getProject());
-			dispatch(getTag());
-			dispatch(getCategory());
-			dispatch(getTeamDev());
 		}
 	}, [status, dispatch]);
 
@@ -48,30 +39,32 @@ export const AllProjects = () => {
 					<p>{project.url}</p>
 					<h3>Equipo:</h3>
 					<ul>
-						{Array.isArray(teamInfo) &&
-							teamInfo.map((team, teamIndex) => (
+						{Array.isArray(project.TeamDevs) &&
+							project.TeamDevs.map((team, teamIndex) => (
 								<li key={teamIndex}>{team.name}</li>
 							))}
 					</ul>
 					<h3>Tags:</h3>
 					<ul>
-						{Array.isArray(tagsInfo) &&
-							tagsInfo.map((tag, tagIndex) => (
+						{Array.isArray(project.Tags) &&
+							project.Tags.map((tag, tagIndex) => (
 								<li key={tagIndex}>{tag.name}</li>
 							))}
 					</ul>
 					<h3>Categorías:</h3>
 					<ul>
-						{Array.isArray(categoriesInfo) &&
-							categoriesInfo.map((category, categoryIndex) => (
-								<li key={categoryIndex}>{category.name}</li>
-							))}
+						{Array.isArray(project.Categories) &&
+							project.Categories.map(
+								(category, categoryIndex) => (
+									<li key={categoryIndex}>{category.name}</li>
+								),
+							)}
 					</ul>
 
 					<Link to={`/dashboard/update-projects/${project.id}`}>
 						Modificar
 					</Link>
-					<Link to={`/dashboard/delete-projects/${project.id}`}>
+					<Link to={`/dashboard/delete-project/${project.id}`}>
 						Eliminar
 					</Link>
 				</div>

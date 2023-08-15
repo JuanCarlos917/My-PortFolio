@@ -34,14 +34,33 @@ export const ProjectList = () => {
 							<p>{project.image}</p>
 							<h4>Url: </h4>
 							<p>{project.url}</p>
-                            <h4>Tecnologías: </h4>
-                            <p>{project.technologies}</p>
-                            <h4>Team Dev</h4>
-                            <p>{project.teamDevs}</p>
-                            <h4>Tags</h4>
-                            <p>{project.tags}</p>
-                            <h4>Categorías</h4>
-                            <p>{project.categories}</p>
+							<h4>Tecnologías: </h4>
+							<p>{project.technologies}</p>
+                            <h3>Equipo:</h3>
+							<ul>
+								{Array.isArray(project.TeamDevs) &&
+									project.TeamDevs.map((team, teamIndex) => (
+										<li key={teamIndex}>{team.name}</li>
+									))}
+							</ul>
+							<h3>Tags:</h3>
+							<ul>
+								{Array.isArray(project.Tags) &&
+									project.Tags.map((tag, tagIndex) => (
+										<li key={tagIndex}>{tag.name}</li>
+									))}
+							</ul>
+							<h3>Categorías:</h3>
+							<ul>
+								{Array.isArray(project.Categories) &&
+									project.Categories.map(
+										(category, categoryIndex) => (
+											<li key={categoryIndex}>
+												{category.name}
+											</li>
+										),
+									)}
+							</ul>
 						</div>
 					))}
 			</div>

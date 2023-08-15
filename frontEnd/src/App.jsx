@@ -38,6 +38,7 @@ import { FormProject } from './dashboardAdmin/project/FormProject';
 import { AllProjects } from './dashboardAdmin/project/AllProjects';
 import { FormExperience } from './dashboardAdmin/professionalExp/FormExperience';
 import { UpdateProjects } from './dashboardAdmin/project/UpdateProject';
+import { DeleteProject } from './dashboardAdmin/project/DeleteProject';
 
 function App() {
 	const router = createBrowserRouter(
@@ -92,7 +93,7 @@ function App() {
 						path='update-projects/:id'
 						element={<UpdateProjects />}
 					/>
-
+                    <Route path='delete-project/:id' element={<DeleteProject />} />
 					<Route
 						path='form-professionalExp'
 						element={<FormExperience />}
