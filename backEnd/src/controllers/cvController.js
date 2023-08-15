@@ -1,24 +1,5 @@
 // Importar los modelos necesarios
-const { CV, About, Education } = require('../db');
-// Importar las librerías requeridas
-const winston = require('winston');
-require('winston-daily-rotate-file');
-
-const logger = winston.createLogger({
-	level: 'error',
-	format: winston.format.json(),
-	transports: [
-		new winston.transports.Console(),
-		new winston.transports.DailyRotateFile({
-			filename: 'logs/error-%DATE%.log',
-			datePattern: 'YYYY-MM-DD',
-			zippedArchive: true,
-			maxSize: '20m',
-			maxFiles: '14d',
-		}),
-	],
-});
-
+const { CV, About, Education, ProfessionalExp } = require('../index');
 
 const getCV = async (req, res) => {
 	try {
@@ -29,7 +10,7 @@ const getCV = async (req, res) => {
 
 		// Buscar un CV con información de "About" y "Education" incluida
 		const cv = await CV.findOne({
-			include: [About, Education],
+			include: [About, Education, ProfessionalExp],
 		});
 
 		if (!cv) {
@@ -47,18 +28,26 @@ const getCV = async (req, res) => {
 			});
 		}
 
-		if (cv.Education.length === 0) {
+		if (!cv.Education || cv.Education.length === 0) {
 			// Si no se encuentra información de "Education" asociada al CV, responder con estado 404 y un mensaje de error
 			return res.status(404).json({
 				message: 'Recueda agregar la educacion',
 			});
 		}
 
+		//si se agrega esta validacion, la informacion llega undefined. y solo muestra el mensaje "Recuerda agregar la Experiencia profesional"
+
+		// if (!cv.ProfessionalExp || cv.ProfessionalExp.length === 0) {
+		// 	return res.status(404).json({
+		// 		message: 'Recuerda agregar la Experiencia profesional',
+		// 	});
+		// }
+
 		// Responder con el CV encontrado en formato JSON
 		res.json(cv);
 	} catch (error) {
 		// Manejar errores y responder con estado 500 y un mensaje de error
-		winston.error(error);
+		console.error(error);
 		res.status(500).json({
 			message: 'Ha ocurrido un error al obtener el CV.',
 		});
@@ -68,26 +57,10 @@ const getCV = async (req, res) => {
 const createCV = async (req, res) => {
 	try {
 		// Obtener los datos del cuerpo de la solicitud
-		const {
-			name,
-			lastName,
-			email,
-			phone,
-			social_media,
-			proyects,
-			experience,
-		} = req.body;
+		const { name, lastName, email, phone, social_media } = req.body;
 
 		// Validar que todos los campos requeridos estén presentes en el cuerpo de la solicitud
-		if (
-			!name ||
-			!lastName ||
-			!email ||
-			!phone ||
-			!social_media ||
-			!proyects ||
-			!experience
-		) {
+		if (!name || !lastName || !email || !phone || !social_media) {
 			return res.status(400).json({
 				message: 'Todos los campos son obligatorios.',
 			});
@@ -119,8 +92,6 @@ const createCV = async (req, res) => {
 			email,
 			phone,
 			social_media,
-			proyects,
-			experience,
 			AboutId: about.id,
 		});
 
@@ -128,55 +99,55 @@ const createCV = async (req, res) => {
 		res.json(newCV);
 	} catch (error) {
 		// Manejar errores y responder con estado 500 y un mensaje de error
-		logger.error(error);
+		console.error(error);
 		res.status(500).json({
 			message: 'Ha ocurrido un error al crear el CV.',
 		});
 	}
 };
 
-
 const updateCV = async (req, res) => {
-    try {
-        const {id} = req.params
-        const {name, lastName, email, phone, social_media, proyects, experience} = req.body
-        if (!name || !lastName || !email || !phone || !social_media || !proyects || !experience) {
-            return res.status(400).json({
-                message: 'Todos los campos son obligatorios.'
-            })
-        }
-        const cv = await CV.findOne({where: {id}})
-        if (!cv) {
-            return res.status(404).json({
-                message: 'No se encontró el CV.'
-            })
-        }
-        const about = await About.findOne()
-        if (!about) {
-            return res.status(404).json({
-                message: 'No se encontró información de "About". Debes crear un "About" primero.'
-            })
-        }
-        await CV.update({
-            name,
-            lastName,
-            email,
-            phone,
-            social_media,
-            proyects,
-            experience,
-            AboutId: about.id
-        }, {where: {id}})
-        res.json({
-            message: 'CV actualizado con éxito.'
-        })
-    } catch (error) {
-        console.error(error)
-        res.status(500).json({
-            message: 'Ha ocurrido un error al actualizar el CV.'
-        })
-
-    }
+	try {
+		const { id } = req.params;
+		const { name, lastName, email, phone, social_media } = req.body;
+		if (!name || !lastName || !email || !phone || !social_media) {
+			return res.status(400).json({
+				message: 'Todos los campos son obligatorios.',
+			});
+		}
+		const cv = await CV.findOne({ where: { id } });
+		if (!cv) {
+			return res.status(404).json({
+				message: 'No se encontró el CV.',
+			});
+		}
+		const about = await About.findOne();
+		if (!about) {
+			return res.status(404).json({
+				message:
+					'No se encontró información de "About". Debes crear un "About" primero.',
+			});
+		}
+		await CV.update(
+			{
+				name,
+				lastName,
+				email,
+				phone,
+				social_media,
+				AboutId: about.id,
+			},
+			{ where: { id } },
+		);
+		res.json({
+			message: 'CV actualizado con éxito.',
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({
+			message: 'Ha ocurrido un error al actualizar el CV.',
+		});
+	}
 };
 
 // Exportar las funciones de los controladores

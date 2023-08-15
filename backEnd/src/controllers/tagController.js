@@ -1,4 +1,4 @@
-const { Tag, Project } = require('../db');
+const { Tag, Project } = require('../index');
 const winston = require('winston');
 const Joi = require('joi');
 
