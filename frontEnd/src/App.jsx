@@ -37,6 +37,9 @@ import { DeleteTeamDevs } from './dashboardAdmin/teamDevs/DeleteTeamDevs';
 import { FormProject } from './dashboardAdmin/project/FormProject';
 import { AllProjects } from './dashboardAdmin/project/AllProjects';
 import { FormExperience } from './dashboardAdmin/professionalExp/FormExperience';
+import { UpdateExperience } from './dashboardAdmin/professionalExp/UpdateExperience';
+import { AllExperiences } from './dashboardAdmin/professionalExp/AllExperiences';
+import { DeleteExperience } from './dashboardAdmin/professionalExp/DeleteExperience';
 import { UpdateProjects } from './dashboardAdmin/project/UpdateProject';
 import { DeleteProject } from './dashboardAdmin/project/DeleteProject';
 
@@ -98,6 +101,18 @@ function App() {
 						path='form-professionalExp'
 						element={<FormExperience />}
 					/>
+                    <Route
+                        path='all-professionalExp'
+                        element={<AllExperiences />}
+                    />
+                    <Route
+                        path='update-experience/:id'
+                        element={<UpdateExperience />}
+                    />
+                    <Route
+                        path='delete-professionalExp/:id'
+                        element={<DeleteExperience />}
+                    />
 				</Route>
 			</Route>,
 		),

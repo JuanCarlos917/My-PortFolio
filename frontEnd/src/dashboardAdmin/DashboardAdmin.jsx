@@ -45,6 +45,11 @@ export const Dashboard = () => {
 					to='/dashboard/form-professionalExp'>
 					Form Professional Experience
 				</Link>
+                <Link
+                    className='block py-1 text-gray-800 hover:underline'
+                    to='/dashboard/all-professionalExp'>
+                    Professional Experience List
+                </Link>
 				<h3>Pojects</h3>
 				<h4>Categories</h4>
 				<Link

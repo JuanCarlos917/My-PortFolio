@@ -23,9 +23,9 @@ export const updateProfessionalExp = createAsyncThunk(
     async ({ id, professionalExpInfo }) => {
         try {
             const response = await axios.put(
-                `${baseURL}/professionalExp/${id}`,
-                professionalExpInfo,
-            );
+				`${baseURL}/professionalExp/${id}`,
+				professionalExpInfo,
+			);
             return response.data;
         } catch (error) {
             console.log(error);

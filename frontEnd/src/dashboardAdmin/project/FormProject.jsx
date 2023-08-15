@@ -13,7 +13,7 @@ export const FormProject = () => {
 	const projectInfo = useSelector((state) => state.project.projectInfo);
 	const status = useSelector((state) => state.project.status);
 	const error = useSelector((state) => state.project.error);
-	const projectAdded = useSelector((state) => state.category.projectAdded);
+	const projectAdded = useSelector((state) => state.project.projectAdded);
 
 	const teamInfo = useSelector((state) => state.teamDev.teamDevInfo);
 	const tagsInfo = useSelector((state) => state.tag.tagInfo);
@@ -56,12 +56,11 @@ export const FormProject = () => {
 			<Formik
 				initialValues={initialValues}
 				validationSchema={FormValidationsProject}
-
 				onSubmit={(values, { setSubmitting }) => {
 					// Agregar los IDs de team, tags y categories al objeto values
 					values.teamDevs = Array.isArray(values.team)
-                        ? values.team
-                        : [values.team];
+						? values.team
+						: [values.team];
 					values.tags = Array.isArray(values.tags)
 						? values.tags
 						: [values.tags];
@@ -100,9 +99,7 @@ export const FormProject = () => {
 						</div>
 						<div>
 							<label htmlFor='team'>Equipo</label>
-							<Field as='select' name='team'
-                                multiple={true}
-                            >
+							<Field as='select' name='team' multiple={true}>
 								{Array.isArray(teamInfo)
 									? teamInfo.map((team, index) => (
 											<option key={index} value={team.id}>
@@ -115,9 +112,7 @@ export const FormProject = () => {
 						</div>
 						<div>
 							<label htmlFor='tags'>Tags</label>
-							<Field as='select' name='tags'
-                                multiple={true}
-                            >
+							<Field as='select' name='tags' multiple={true}>
 								{Array.isArray(tagsInfo)
 									? tagsInfo.map((tag, index) => (
 											<option key={index} value={tag.id}>
@@ -130,9 +125,10 @@ export const FormProject = () => {
 						</div>
 						<div>
 							<label htmlFor='categories'>Categorías</label>
-							<Field as='select' name='categories'
-                                multiple={true}
-                            >
+							<Field
+								as='select'
+								name='categories'
+								multiple={true}>
 								{Array.isArray(categoriesInfo)
 									? categoriesInfo.map((category, index) => (
 											<option
