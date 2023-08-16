@@ -66,68 +66,64 @@ const s3MediaSlice = createSlice({
         loading: false,
         error: null,
     },
-    reducers: {},
-    extraReducers: {
-        [getListImages.pending]: (state) => {
+    reducers: {
+        clearUrl: (state) => {
+            state.url = '';
+        }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getListImages.pending, (state) => {
             state.loading = true;
-        }
-        ,
-        [getListImages.fulfilled]: (state, action) => {
+        });
+        builder.addCase(getListImages.fulfilled, (state, action) => {
             state.loading = false;
-            state.s3mediainfo = action.payload;
-        }
-        ,
-        [getListImages.rejected]: (state, action) => {
+            state.s3mediaInfo = action.payload;
+        });
+        builder.addCase(getListImages.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
-        }
-        ,
-        [getUrlImage.pending]: (state) => {
+        });
+        builder.addCase(getUrlImage.pending, (state) => {
             state.loading = true;
-        }
-        ,
-        [getUrlImage.fulfilled]: (state, action) => {
+        });
+        builder.addCase(getUrlImage.fulfilled, (state, action) => {
             state.loading = false;
             state.url = action.payload;
-        }
-        ,
-        [getUrlImage.rejected]: (state, action) => {
+        });
+        builder.addCase(getUrlImage.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
-        }
-        ,
-        [uploadImage.pending]: (state) => {
+        });
+        builder.addCase(uploadImage.pending, (state) => {
             state.loading = true;
-        }
-        ,
-        [uploadImage.fulfilled]: (state, action) => {
-            state.loading = false;
-            state.s3mediainfo.push(action.payload);
-        }
-        ,
-        [uploadImage.rejected]: (state, action) => {
+        });
+        builder.addCase(uploadImage.fulfilled, (state, action) => {
+			state.loading = false;
+			state.s3mediaInfo.push(action.payload);
+			state.loading = false;
+		});
+        builder.addCase(uploadImage.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
-        }
-        ,
-        [deleteImage.pending]: (state) => {
+        });
+        builder.addCase(deleteImage.pending, (state) => {
             state.loading = true;
-        }
-        ,
-        [deleteImage.fulfilled]: (state, action) => {
+        });
+        builder.addCase(deleteImage.fulfilled, (state, action) => {
             state.loading = false;
-            state.s3mediainfo = state.s3mediainfo.filter((item) => item.key !== action.payload.key);
-        }
-        ,
-        [deleteImage.rejected]: (state, action) => {
+            state.s3mediaInfo = state.s3mediaInfo.filter((item) => item.key !== action.payload.key);
+        });
+        builder.addCase(deleteImage.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
-        }
+        });
     }
 });
 
+// Exportando las acciones generadas
+export const { clearUrl } = s3MediaSlice.actions;
+
 // Exportando el reducer
 export default s3MediaSlice.reducer;
-
 
 

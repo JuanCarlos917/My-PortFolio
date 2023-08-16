@@ -8,7 +8,7 @@ import {
 export const GenerateUrl = () => {
 	const dispatch = useDispatch();
 	const { url, loading, error } = useSelector((state) => state.s3Media);
-	const s3mediainfo = useSelector((state) => state.s3Media?.s3mediainfo) || [];
+	const s3mediainfo = useSelector((state) => state.s3Media?.s3mediaInfo) || [];
 	// Estado local para la clave de la imagen seleccionada para generar su URL
 	const [selectedKey, setSelectedKey] = useState(null);
 

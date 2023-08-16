@@ -28,10 +28,8 @@ export const PersonalInfo = () => {
 				<h3>Email: {cvInfo?.email}</h3>
 				<h3>Teléfono: {cvInfo?.phone}</h3>
 				<h3>Redes sociales:</h3>
-				<h4>Linkedin:</h4>
-				<p>{cvInfo?.social_media?.linkedin}</p>
-				<h4>Github:</h4>
-				<p>{cvInfo?.social_media?.github}</p>
+				<a href={cvInfo?.social_media?.linkedin}>Linkedin</a>
+				<a href={cvInfo?.social_media?.github}>Github</a>
 			</div>
 		);
         } else if (
