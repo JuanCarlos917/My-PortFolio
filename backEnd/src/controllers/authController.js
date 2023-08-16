@@ -135,7 +135,23 @@ const loginUser = async (req, res) => {
 	}
 };
 
+const logoutUser = async (req, res) =>{
+    try {
+		// Borrar la cookie del token
+		res.clearCookie('token');
+		res.json({
+			message: 'Cierre de sesión exitoso.',
+		});
+	} catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Ha ocurrido un error al cerrar sesión.',
+        });
+    }
+}
+
 module.exports = {
 	registerUser,
 	loginUser,
+    logoutUser,
 };

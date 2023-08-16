@@ -4,6 +4,7 @@ import {
 	Route,
 	RouterProvider,
 	Outlet,
+	useMatch,
 } from 'react-router-dom';
 
 //client
@@ -13,6 +14,10 @@ import { Education } from './components/Education';
 import { Cv } from './components/CV';
 
 //dashboard
+import { SignIn } from './components/SignIn';
+import { Login } from './components/Login';
+import { Logout } from './components/Logout';
+
 import { Dashboard } from './dashboardAdmin/DashboardAdmin';
 import { FormAbout } from './dashboardAdmin/about/FormAbout';
 import { UpdateAbout } from './dashboardAdmin/about/UpdateAbout';
@@ -51,10 +56,16 @@ function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path='/' element={<Root />}>
+				{/* Client*/}
 				<Route index element={<NavBar />} />
 				<Route path='/about' element={<AboutMe />} />
 				<Route path='/education' element={<Education />} />
 				<Route path='/cv' element={<Cv />} />
+				<Route path='/signin' element={<SignIn />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/logout' element={<Logout />} />
+
+				{/* Dashboard */}
 				<Route path='/dashboard' element={<Dashboard />}>
 					<Route path='form-about' element={<FormAbout />} />
 					<Route path='update-about' element={<UpdateAbout />} />
@@ -121,9 +132,9 @@ function App() {
 						element={<DeleteExperience />}
 					/>
 					<Route path='image-list' element={<ImageList />} />
-                    <Route path='upload-image' element={<UploadImage />} />
-                    <Route path='delete-image' element={<DeleteImage />} />
-                    <Route path='generate-url' element={<GenerateUrl />} />
+					<Route path='upload-image' element={<UploadImage />} />
+					<Route path='delete-image' element={<DeleteImage />} />
+					<Route path='generate-url' element={<GenerateUrl />} />
 				</Route>
 			</Route>,
 		),
@@ -136,14 +147,34 @@ function App() {
 }
 
 const Root = () => {
-	return (
-		<>
-			<div>{NavBar}</div>
+	const match = useMatch('/dashboard/*');
+
+	if (match) {
+		return (
 			<div>
+				<div>
+					<SignIn />
+				</div>
+				<div>
+					<Login />
+				</div>
+				<div>
+					<Logout />
+				</div>
+
 				<Outlet />
 			</div>
-		</>
-	);
+		);
+	} else {
+		return (
+			<>
+				<NavBar />
+				<div>
+					<Outlet />
+				</div>
+			</>
+		);
+	}
 };
 
 export default App;

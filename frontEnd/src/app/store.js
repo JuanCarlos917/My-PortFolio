@@ -8,6 +8,7 @@ import teamDevSlice from '../features/teamDev/teamDevSlice';
 import projectSlice from '../features/project/projectSlice';
 import professionalExpSlice from '../features/professionalExp/professionalExpSlice'
 import s3MediaSlice from '../features/s3Media/s3MediaSlice';
+import authSlice from '../features/auth/authSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
         project: projectSlice,
         professionalExp: professionalExpSlice,
         s3Media: s3MediaSlice,
+        auth: authSlice,
     },
 });
