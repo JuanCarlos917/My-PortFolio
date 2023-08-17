@@ -4,7 +4,10 @@ import {
 	Route,
 	RouterProvider,
 	Outlet,
+	useMatch,
 } from 'react-router-dom';
+
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 //client
 import { NavBar } from './components/NavBar';
@@ -13,6 +16,10 @@ import { Education } from './components/Education';
 import { Cv } from './components/CV';
 
 //dashboard
+import { SignUp } from './components/SignUp';
+import { Login } from './components/Login';
+import { Logout } from './components/Logout';
+
 import { Dashboard } from './dashboardAdmin/DashboardAdmin';
 import { FormAbout } from './dashboardAdmin/about/FormAbout';
 import { UpdateAbout } from './dashboardAdmin/about/UpdateAbout';
@@ -55,7 +62,19 @@ function App() {
 				<Route path='/about' element={<AboutMe />} />
 				<Route path='/education' element={<Education />} />
 				<Route path='/cv' element={<Cv />} />
-				<Route path='/dashboard' element={<Dashboard />}>
+				<Route path='/signup' element={<SignUp />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/logout' element={<Logout />} />
+				{/* Dashboard */}
+				<Route
+					path='/dashboard'
+					element={
+						<ProtectedRoute>
+							{' '}
+							<Dashboard />
+						</ProtectedRoute>
+					}>
+					{/* <Route index element={<Dashboard />} /> */}
 					<Route path='form-about' element={<FormAbout />} />
 					<Route path='update-about' element={<UpdateAbout />} />
 					<Route path='form-education' element={<FormEducation />} />
@@ -121,9 +140,9 @@ function App() {
 						element={<DeleteExperience />}
 					/>
 					<Route path='image-list' element={<ImageList />} />
-                    <Route path='upload-image' element={<UploadImage />} />
-                    <Route path='delete-image' element={<DeleteImage />} />
-                    <Route path='generate-url' element={<GenerateUrl />} />
+					<Route path='upload-image' element={<UploadImage />} />
+					<Route path='delete-image' element={<DeleteImage />} />
+					<Route path='generate-url' element={<GenerateUrl />} />
 				</Route>
 			</Route>,
 		),
@@ -136,14 +155,25 @@ function App() {
 }
 
 const Root = () => {
-	return (
-		<>
-			<div>{NavBar}</div>
-			<div>
-				<Outlet />
-			</div>
-		</>
-	);
+	const match = useMatch('/dashboard/*');
+	if (!match) {
+		return (
+			<>
+				<NavBar />
+				<div>
+					<Outlet />
+				</div>
+			</>
+		);
+	} else {
+		return (
+			<>
+				<div>
+					<Outlet />
+				</div>
+			</>
+		);
+	}
 };
 
 export default App;

@@ -39,7 +39,17 @@ export const ProjectList = () => {
 							<ul>
 								{Array.isArray(project.TeamDevs) &&
 									project.TeamDevs.map((team, teamIndex) => (
-										<li key={teamIndex}>{team.name}</li>
+										<li key={teamIndex}>
+											{team.name}
+											{team.social_network && (
+												<a
+													href={team.social_network}
+													target='_blank'
+													rel='noopener noreferrer'>
+													Linkedin
+												</a>
+											)}
+										</li>
 									))}
 							</ul>
 							<h3>Tags:</h3>
