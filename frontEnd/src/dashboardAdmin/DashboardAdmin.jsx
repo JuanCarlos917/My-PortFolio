@@ -6,9 +6,10 @@ export const Dashboard = () => {
 	return (
 		<div className='flex h-screen bg-gray-200'>
 			<div className='p-6 bg-white w-64'>
-                <button>
-                    <Logout />
-                </button>
+				<div>
+					<Logout />
+				</div>
+
 				<h2 className='text-2xl font-semibold mb-5'>Menú</h2>
 				<h3>About</h3>
 				<Link
