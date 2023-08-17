@@ -22,18 +22,16 @@ export const AllTags = () => {
     } else if (status === 'succeeded') {
         if (tagInfo && Array.isArray(tagInfo)) {
             content = tagInfo.map((tag, index) => (
-                <div key={index}>
-                    <h2>Etiqueta {index + 1}:</h2>
-                    <h3>Nombre:</h3>
-                    <p>{tag.name}</p>
-                    <Link to={`/dashboard/update-tag/${tag.id}`}>
-                        Modificar
-                    </Link>
-                    <Link to={`/dashboard/delete-tag/${tag.id}`}>
-                        Eliminar
-                    </Link>
-                </div>
-            ));
+				<div key={index}>
+					<h2>Etiqueta {index + 1}:</h2>
+					<h3>Nombre:</h3>
+					<p>{tag.name}</p>
+					<Link to={`/dashboard/update-tag/${tag.id}`}>
+						Modificar
+					</Link>
+					<Link to={`/dashboard/delete-tag/${tag.id}`}>Eliminar</Link>
+				</div>
+			));
         } else {
             content = (
                 <div>

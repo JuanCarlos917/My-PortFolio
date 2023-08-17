@@ -1,17 +1,21 @@
 import { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../features/auth/authSlice';
 import FormValidationsSignIn  from '../utils/FormValidationsSignIn';
 
 
 export const Login = () => {
     const dispatch = useDispatch();
-    const { error } = useSelector(state => state.auth);
-
+    const navigate = useNavigate();
+    const { error, isLoggedIn } = useSelector((state) => state.auth);
+    // if user already logged in redirect to home page
     useEffect(() => {
-        document.title = 'Login';
-    }, []);
+        if (isLoggedIn !== false) {
+            navigate('/dashboard');
+        }
+    }, [isLoggedIn, navigate]);
 
     return (
 		<div className='container'>
@@ -65,6 +69,12 @@ export const Login = () => {
 					</Form>
 				)}
 			</Formik>
+			<div>
+				<p>
+					Don t have an account?
+					<Link to='/signup'> Sign Up</Link>
+				</p>
+			</div>
 		</div>
 	);
 }

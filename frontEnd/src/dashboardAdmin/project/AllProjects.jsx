@@ -34,9 +34,9 @@ export const AllProjects = () => {
 					<h3>Tecnologías:</h3>
 					<p>{project.technologies}</p>
 					<h3>Imagen:</h3>
-					<p>{project.image}</p>
+					<img src={project.image} alt={project.title} />
 					<h3>URL:</h3>
-					<p>{project.url}</p>
+					<a href={project.url}>{project.title}</a>
 					<h3>Equipo:</h3>
 					<ul>
 						{Array.isArray(project.TeamDevs) &&
