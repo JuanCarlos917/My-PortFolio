@@ -1,12 +1,18 @@
+
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../features/auth/authSlice';
-import FormValidationsSignIn from '../utils/FormValidationsSignIn'
+import FormValidationsSignIn from '../utils/FormValidationsSignIn';
 
-export const SignIn = () => {
+export const SignUp = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { error, status, isLoggedIn } = useSelector((state) => state.auth);
 
-	const { error, status } = useSelector((state) => state.auth);
+	if (isLoggedIn) {
+		navigate('/dashboard');
+	}
 
 	if (error) {
 		return <div>{error}</div>;
@@ -14,7 +20,7 @@ export const SignIn = () => {
 
 	return (
 		<div className='container'>
-			<h1>Sign In</h1>
+			<h1>Sign Up</h1>
 			{status === 'idle' ? (
 				<Formik
 					initialValues={{ email: '', password: '' }}
@@ -63,6 +69,11 @@ export const SignIn = () => {
 			) : (
 				<>
 					<div>Registro exitoso!</div>
+                    <button
+                        className='btn btn-primary'
+                        onClick={() => navigate('/login')}>
+                        Iniciar sesión
+                    </button>
 				</>
 			)}
 		</div>

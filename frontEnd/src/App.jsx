@@ -7,6 +7,8 @@ import {
 	useMatch,
 } from 'react-router-dom';
 
+import { ProtectedRoute } from './components/ProtectedRoute';
+
 //client
 import { NavBar } from './components/NavBar';
 import { AboutMe } from './components/AboutMe';
@@ -14,7 +16,7 @@ import { Education } from './components/Education';
 import { Cv } from './components/CV';
 
 //dashboard
-import { SignIn } from './components/SignIn';
+import { SignUp } from './components/SignUp';
 import { Login } from './components/Login';
 import { Logout } from './components/Logout';
 
@@ -56,17 +58,23 @@ function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path='/' element={<Root />}>
-				{/* Client*/}
 				<Route index element={<NavBar />} />
 				<Route path='/about' element={<AboutMe />} />
 				<Route path='/education' element={<Education />} />
 				<Route path='/cv' element={<Cv />} />
-				<Route path='/signin' element={<SignIn />} />
+				<Route path='/signup' element={<SignUp />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/logout' element={<Logout />} />
-
 				{/* Dashboard */}
-				<Route path='/dashboard' element={<Dashboard />}>
+				<Route
+					path='/dashboard'
+					element={
+						<ProtectedRoute>
+							{' '}
+							<Dashboard />
+						</ProtectedRoute>
+					}>
+					{/* <Route index element={<Dashboard />} /> */}
 					<Route path='form-about' element={<FormAbout />} />
 					<Route path='update-about' element={<UpdateAbout />} />
 					<Route path='form-education' element={<FormEducation />} />
@@ -148,27 +156,18 @@ function App() {
 
 const Root = () => {
 	const match = useMatch('/dashboard/*');
-
-	if (match) {
+	if (!match) {
 		return (
-			<div>
+			<>
+				<NavBar />
 				<div>
-					<SignIn />
+					<Outlet />
 				</div>
-				<div>
-					<Login />
-				</div>
-				<div>
-					<Logout />
-				</div>
-
-				<Outlet />
-			</div>
+			</>
 		);
 	} else {
 		return (
 			<>
-				<NavBar />
 				<div>
 					<Outlet />
 				</div>
