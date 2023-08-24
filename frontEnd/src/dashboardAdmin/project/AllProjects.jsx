@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProject } from '../../features/project/projectSlice';
 
+import { getTag } from '../../features/tag/tagSlice';
+import { getCategory } from '../../features/category/categorySlice';
+import { getTeamDev } from '../../features/teamDev/teamDevSlice';
+
 
 export const AllProjects = () => {
 	const dispatch = useDispatch();
@@ -12,10 +16,13 @@ export const AllProjects = () => {
 
 
 	useEffect(() => {
-		if (status === 'idle') {
+		if (status === 'idle' || status === 'failed') {
 			dispatch(getProject());
+			dispatch(getTeamDev());
+			dispatch(getTag());
+			dispatch(getCategory());
 		}
-	}, [status, dispatch]);
+	}, [ status, dispatch]);
 
 
 	let content;

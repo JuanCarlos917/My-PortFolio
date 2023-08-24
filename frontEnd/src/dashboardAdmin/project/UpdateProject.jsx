@@ -9,15 +9,26 @@ import { getTag } from '../../features/tag/tagSlice';
 import { getCategory } from '../../features/category/categorySlice';
 import { getTeamDev } from '../../features/teamDev/teamDevSlice';
 
+import {
+	saveToLocalStorage,
+	getFromLocalStorage,
+	removeFromLocalStorage,
+} from '../localStorageHelpers/localStorageHelpers';
+
 export const UpdateProjects = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 
+
 	// Obtén la lista completa de proyectos
 	const projectInfo = useSelector((state) => state.project?.projectInfo);
-	console.log(projectInfo);
-	// Busca el proyecto específico basándote en el ID
-	const specificProject = Array.isArray(projectInfo)
+
+	// Busca el proyecto especifico basdo en el ID
+	const localStoredProject = getFromLocalStorage(`project_${id}`);
+
+	const specificProject = localStoredProject
+		? localStoredProject
+		: Array.isArray(projectInfo)
 		? projectInfo.find((proj) => proj.id.toString() === id)
 		: null;
 
@@ -32,7 +43,7 @@ export const UpdateProjects = () => {
 
 	// Solicita siempre la información de proyectos al cargar el componente
 	useEffect(() => {
-		if (status === 'idle') {
+		if (status === 'idle' || status === 'failed') {
 			dispatch(getProject());
 			dispatch(getTeamDev());
 			dispatch(getTag());
@@ -40,10 +51,14 @@ export const UpdateProjects = () => {
 		}
 	}, [status, dispatch]);
 
+
 	return (
 		<div>
 			{modified ? (
-				<div>¡Modificación realizada con éxito!</div>
+				<div>
+					¡Modificación realizada con éxito!
+
+				</div>
 			) : (
 				<>
 					{status === 'loading' && <div>Actualizando...</div>}
@@ -96,6 +111,21 @@ export const UpdateProjects = () => {
 										},
 									}),
 								);
+								// Guardar el proyecto actualizado en localStorage
+								saveToLocalStorage(`project_${id}`, {
+									id: id,
+									title: values.title,
+									description: values.description,
+									technologies: values.technologies,
+									url: values.url,
+									image: values.image,
+									teamDevs: values.teamDevs,
+									categories: values.categories,
+									tags: values.tags,
+								});
+								if (modified) {
+									removeFromLocalStorage('projectInfo');
+								}
 							}}>
 							<Form>
 								<div>

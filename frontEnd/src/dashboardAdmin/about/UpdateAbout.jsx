@@ -1,12 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
 import FormValidationsAbout from '../../utils/FormValidationsAbout';
 import { getAbout, updateAbout } from '../../features/about/aboutSlice';
+import {
+	saveToLocalStorage,
+	removeFromLocalStorage,
+} from '../localStorageHelpers/localStorageHelpers';
 
 export const UpdateAbout = () => {
 	const dispatch = useDispatch();
+
+	const [showForm, setShowForm] = useState(true);
+	const [cancelledModification, setCancelledModification] = useState(false);
+
 	const aboutInfo = useSelector((state) => state.about.aboutInfo);
 	const id = useSelector((state) => state.about.id);
 	const status = useSelector((state) => state.about.status);
@@ -19,10 +27,31 @@ export const UpdateAbout = () => {
 		}
 	}, [dispatch, aboutInfo]);
 
+	useEffect(() => {
+		if (modified) {
+			removeFromLocalStorage('aboutInfoUpdate');
+			setShowForm(false); // Esconde el formulario después de una actualización exitosa
+		}
+	}, [modified]);
+
 	return (
 		<div>
-			{modified ? (
-				<div>¡Modificación realizada con éxito!</div>
+			{modified && showForm === false ? (
+				<div>
+					¡Modificación realizada con éxito!
+					<button onClick={() => setShowForm(true)}>Modificar</button>
+				</div>
+			) : cancelledModification ? ( // Comprobar si la modificación fue cancelada
+				<div>
+					¡No se modificó nada!
+					<button
+						onClick={() => {
+							setShowForm(true);
+							setCancelledModification(false); // Resetear el estado al intentar de nuevo
+						}}>
+						Modificar de nuevo
+					</button>
+				</div>
 			) : (
 				<>
 					{status === 'loading' && <div>Actualizando...</div>}
@@ -69,15 +98,29 @@ export const UpdateAbout = () => {
 										.map((skill) => skill.trim()),
 								};
 
-								dispatch(
-									updateAbout({
-										id: id,
-										aboutInfo: {
-											bio,
-											skills: transformedSkills,
-										},
-									}),
+								// Pide confirmación al usuario
+								const userConfirmed = window.confirm(
+									'¿Estás seguro de que deseas realizar la modificación?',
 								);
+
+								// Si el usuario confirma, envía los cambios y elimina los datos del localStorage
+								if (userConfirmed) {
+									dispatch(
+										updateAbout({
+											id: id,
+											aboutInfo: {
+												bio,
+												skills: transformedSkills,
+											},
+										}),
+									);
+								} else {
+									setCancelledModification(true); // Establecer el estado si se cancela la modificación
+									saveToLocalStorage('aboutInfoUpdate', {
+										bio,
+										skills: transformedSkills,
+									});
+								}
 							}}>
 							{() => (
 								<Form>
@@ -89,6 +132,7 @@ export const UpdateAbout = () => {
 											component='div'
 										/>
 									</label>
+
 									<label>
 										Skills - Frontend:
 										<Field
@@ -100,6 +144,7 @@ export const UpdateAbout = () => {
 											component='div'
 										/>
 									</label>
+
 									<label>
 										Skills - Backend:
 										<Field
@@ -111,6 +156,7 @@ export const UpdateAbout = () => {
 											component='div'
 										/>
 									</label>
+
 									<label>
 										Skills - Database:
 										<Field
