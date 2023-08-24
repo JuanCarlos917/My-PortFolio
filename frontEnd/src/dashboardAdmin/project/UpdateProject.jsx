@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -11,7 +11,6 @@ import { getTeamDev } from '../../features/teamDev/teamDevSlice';
 
 import {
 	saveToLocalStorage,
-	getFromLocalStorage,
 	removeFromLocalStorage,
 } from '../localStorageHelpers/localStorageHelpers';
 
@@ -19,16 +18,13 @@ export const UpdateProjects = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 
+	const [showForm, setShowForm] = useState(true);
+	const [cancelledModification, setCancelledModification] = useState(false);
 
 	// Obtén la lista completa de proyectos
 	const projectInfo = useSelector((state) => state.project?.projectInfo);
 
-	// Busca el proyecto especifico basdo en el ID
-	const localStoredProject = getFromLocalStorage(`project_${id}`);
-
-	const specificProject = localStoredProject
-		? localStoredProject
-		: Array.isArray(projectInfo)
+	const specificProject = Array.isArray(projectInfo)
 		? projectInfo.find((proj) => proj.id.toString() === id)
 		: null;
 
@@ -51,13 +47,30 @@ export const UpdateProjects = () => {
 		}
 	}, [status, dispatch]);
 
+	useEffect(() => {
+		if (modified) {
+			removeFromLocalStorage('projectInfoUpdate');
+			setShowForm(false); // Esconde el formulario después de una actualización exitosa
+		}
+	}, [modified]);
 
 	return (
 		<div>
-			{modified ? (
+			{modified && showForm === false ? (
 				<div>
 					¡Modificación realizada con éxito!
-
+					<button onClick={() => setShowForm(true)}>Modificar</button>
+				</div>
+			) : cancelledModification ? ( // Comprobar si la modificación fue cancelada
+				<div>
+					¡No se modificó nada!
+					<button
+						onClick={() => {
+							setShowForm(true);
+							setCancelledModification(false); // Resetear el estado al intentar de nuevo
+						}}>
+						Modificar de nuevo
+					</button>
 				</div>
 			) : (
 				<>
@@ -96,35 +109,40 @@ export const UpdateProjects = () => {
 							}}
 							validationSchema={FormValidationsProject}
 							onSubmit={(values) => {
-								dispatch(
-									updateProject({
-										id: id,
-										projectInfo: {
-											title: values.title,
-											description: values.description,
-											technologies: values.technologies,
-											url: values.url,
-											image: values.image,
-											teamDevs: values.teamDevs,
-											categories: values.categories,
-											tags: values.tags,
-										},
-									}),
+								// Pide confirmación al usuario
+								const userConfirmed = window.confirm(
+									'¿Estás seguro de que deseas realizar la modificación?',
 								);
-								// Guardar el proyecto actualizado en localStorage
-								saveToLocalStorage(`project_${id}`, {
-									id: id,
-									title: values.title,
-									description: values.description,
-									technologies: values.technologies,
-									url: values.url,
-									image: values.image,
-									teamDevs: values.teamDevs,
-									categories: values.categories,
-									tags: values.tags,
-								});
-								if (modified) {
-									removeFromLocalStorage('projectInfo');
+								if (userConfirmed) {
+									dispatch(
+										updateProject({
+											id: id,
+											projectInfo: {
+												title: values.title,
+												description: values.description,
+												technologies:
+													values.technologies,
+												url: values.url,
+												image: values.image,
+												teamDevs: values.teamDevs,
+												categories: values.categories,
+												tags: values.tags,
+											},
+										}),
+									);
+								} else {
+									setCancelledModification(true);
+									// Guardar el proyecto actualizado en localStorage
+									saveToLocalStorage('projectInfoUpdate', {
+										title: values.title,
+										description: values.description,
+										technologies: values.technologies,
+										url: values.url,
+										image: values.image,
+										teamDevs: values.teamDevs,
+										categories: values.categories,
+										tags: values.tags,
+									});
 								}
 							}}>
 							<Form>

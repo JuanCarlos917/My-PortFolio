@@ -1,16 +1,25 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import FormValidationsExp from '../../utils/FormValidationsExp';
+
 import {
 	getProfessionalExp,
 	updateProfessionalExp,
 } from '../../features/professionalExp/professionalExpSlice';
 
+import {
+	saveToLocalStorage,
+	removeFromLocalStorage,
+} from '../localStorageHelpers/localStorageHelpers';
+
 export const UpdateExperience = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
+
+	const [showForm, setShowForm] = useState(true);
+	const [cancelledModification, setCancelledModification] = useState(false);
 
 	// Obtén la lista completa de experiencias
 	const professionalExpInfo = useSelector(
@@ -30,10 +39,28 @@ export const UpdateExperience = () => {
 		dispatch(getProfessionalExp());
 	}, [dispatch]);
 
+    useEffect(() => {
+		if (modified) {
+			removeFromLocalStorage('experienceInfoUpdate');
+			setShowForm(false); // Esconde el formulario después de una actualización exitosa
+		}
+	}, [modified]);
+
 	return (
 		<div>
-			{modified ? (
+			{modified && showForm === false ? (
 				<div>¡Modificación realizada con éxito!</div>
+			) : cancelledModification ? ( // Comprobar si la modificación fue cancelada
+				<div>
+					¡No se modificó nada!
+					<button
+						onClick={() => {
+							setShowForm(true);
+							setCancelledModification(false); // Resetear el estado al intentar de nuevo
+						}}>
+						Modificar de nuevo
+					</button>
+				</div>
 			) : (
 				<>
 					{status === 'loading' && <div>Actualizando...</div>}
@@ -57,6 +84,11 @@ export const UpdateExperience = () => {
 							}}
 							validationSchema={FormValidationsExp}
 							onSubmit={(values) => {
+								// Pide confirmación al usuario
+								const userConfirmed = window.confirm(
+									'¿Estás seguro de que deseas realizar la modificación?',
+								);
+                                if(userConfirmed){
 								dispatch(
 									updateProfessionalExp({
 										id: id,
@@ -69,6 +101,19 @@ export const UpdateExperience = () => {
 										},
 									}),
 								);
+                                }else {
+									setCancelledModification(true);
+									// Guardar el proyecto actualizado en localStorage
+                                    saveToLocalStorage('experienceInfoUpdate', {
+										professionalExpInfo: {
+											company: values.company,
+											position: values.position,
+											description: values.description,
+											startDate: values.startDate,
+											endDate: values.endDate,
+										},
+									});
+								}
 							}}>
 							<Form>
 								<div>
