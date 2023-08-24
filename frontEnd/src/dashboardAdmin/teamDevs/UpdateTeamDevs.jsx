@@ -1,13 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import FormValidationsTeamDev from '../../utils/FormValidationsTeamDev';
 import { getTeamDev, updateTeamDev } from '../../features/teamDev/teamDevSlice';
 
+import {
+	saveToLocalStorage,
+	removeFromLocalStorage,
+} from '../localStorageHelpers/localStorageHelpers';
+
 export const UpdateTeamDevs = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
+
+    const [showForm, setShowForm] = useState(true);
+	const [cancelledModification, setCancelledModification] = useState(false);
 
 	// Obtén la lista completa de miembros
 	const teamDevInfo = useSelector((state) => state.teamDev?.teamDevInfo);
@@ -25,10 +33,28 @@ export const UpdateTeamDevs = () => {
 		dispatch(getTeamDev());
 	}, [dispatch]);
 
+    useEffect(() => {
+        if (modified) {
+            removeFromLocalStorage('teamDevInfoUpdate');
+            setShowForm(false); // Esconde el formulario después de una actualización exitosa
+        }
+    }, [modified]);
+
 	return (
 		<div>
-			{modified ? (
+			{modified && showForm === false ? (
 				<div>¡Modificación realizada con éxito!</div>
+			) : cancelledModification ? ( // Comprobar si la modificación fue cancelada
+				<div>
+					¡No se modificó nada!
+					<button
+						onClick={() => {
+							setShowForm(true);
+							setCancelledModification(false); // Resetear el estado al intentar de nuevo
+						}}>
+						Modificar de nuevo
+					</button>
+				</div>
 			) : (
 				<>
 					{status === 'loading' && <div>Actualizando...</div>}
@@ -50,6 +76,11 @@ export const UpdateTeamDevs = () => {
 							}}
 							validationSchema={FormValidationsTeamDev}
 							onSubmit={(values) => {
+								// Pide confirmación al usuario
+								const userConfirmed = window.confirm(
+									'¿Estás seguro de que deseas realizar la modificación?',
+								);
+                                if(userConfirmed) {
 								dispatch(
 									updateTeamDev({
 										id: id,
@@ -61,6 +92,18 @@ export const UpdateTeamDevs = () => {
 										},
 									}),
 								);
+                                }else{
+									setCancelledModification(true);
+									// Guardar el proyecto actualizado en localStorage
+                                    saveToLocalStorage('teamDevInfoUpdate', {
+										teamDevInfo: {
+											name: values.name,
+											email: values.email,
+											social_network:
+												values.social_network,
+										},
+									});
+								}
 							}}>
 							{() => (
 								<Form>

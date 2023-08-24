@@ -1,16 +1,25 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import FormValidationsCategory from '../../utils/FormValidationsCategory';
+
 import {
 	getCategory,
 	updateCategory,
 } from '../../features/category/categorySlice';
 
+import {
+	saveToLocalStorage,
+	removeFromLocalStorage,
+} from '../localStorageHelpers/localStorageHelpers';
+
 export const UpdateCategory = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
+
+    const [showForm, setShowForm] = useState(true);
+	const [cancelledModification, setCancelledModification] = useState(false);
 
 	// Obtén la lista completa de categorías
 	const categoryInfo = useSelector((state) => state.category?.categoryInfo);
@@ -28,10 +37,28 @@ export const UpdateCategory = () => {
 		dispatch(getCategory());
 	}, [dispatch]);
 
+    useEffect(() => {
+		if (modified) {
+			removeFromLocalStorage('categoryInfoUpdate');
+			setShowForm(false); // Esconde el formulario después de una actualización exitosa
+		}
+	}, [modified]);
+
 	return (
 		<div>
-			{modified ? (
+			{modified && showForm === false ? (
 				<div>¡Modificación realizada con éxito!</div>
+			) : cancelledModification ? ( // Comprobar si la modificación fue cancelada
+				<div>
+					¡No se modificó nada!
+					<button
+						onClick={() => {
+							setShowForm(true);
+							setCancelledModification(false); // Resetear el estado al intentar de nuevo
+						}}>
+						Modificar de nuevo
+					</button>
+				</div>
 			) : (
 				<>
 					{status === 'loading' && <div>Actualizando...</div>}
@@ -51,6 +78,11 @@ export const UpdateCategory = () => {
 							}}
 							validationSchema={FormValidationsCategory}
 							onSubmit={(values) => {
+								// Pide confirmación al usuario
+								const userConfirmed = window.confirm(
+									'¿Estás seguro de que deseas realizar la modificación?',
+								);
+                                if(userConfirmed) {
 								dispatch(
 									updateCategory({
 										id: id,
@@ -59,6 +91,15 @@ export const UpdateCategory = () => {
 										},
 									}),
 								);
+                                }else {
+									setCancelledModification(true);
+									// Guardar el proyecto actualizado en localStorage
+                                    saveToLocalStorage('categoryInfoUpdate', {
+										categoryInfo: {
+											name: values.name,
+										},
+									});
+								}
 							}}>
 							{() => (
 								<Form>

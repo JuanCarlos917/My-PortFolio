@@ -139,9 +139,7 @@ const updateCV = async (req, res) => {
 			},
 			{ where: { id } },
 		);
-		res.json({
-			message: 'CV actualizado con éxito.',
-		});
+		res.json(cv);
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({

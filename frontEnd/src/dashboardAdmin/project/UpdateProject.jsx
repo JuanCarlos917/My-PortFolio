@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -9,14 +9,21 @@ import { getTag } from '../../features/tag/tagSlice';
 import { getCategory } from '../../features/category/categorySlice';
 import { getTeamDev } from '../../features/teamDev/teamDevSlice';
 
+import {
+	saveToLocalStorage,
+	removeFromLocalStorage,
+} from '../localStorageHelpers/localStorageHelpers';
+
 export const UpdateProjects = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 
+	const [showForm, setShowForm] = useState(true);
+	const [cancelledModification, setCancelledModification] = useState(false);
+
 	// Obtén la lista completa de proyectos
 	const projectInfo = useSelector((state) => state.project?.projectInfo);
-	console.log(projectInfo);
-	// Busca el proyecto específico basándote en el ID
+
 	const specificProject = Array.isArray(projectInfo)
 		? projectInfo.find((proj) => proj.id.toString() === id)
 		: null;
@@ -32,7 +39,7 @@ export const UpdateProjects = () => {
 
 	// Solicita siempre la información de proyectos al cargar el componente
 	useEffect(() => {
-		if (status === 'idle') {
+		if (status === 'idle' || status === 'failed') {
 			dispatch(getProject());
 			dispatch(getTeamDev());
 			dispatch(getTag());
@@ -40,10 +47,31 @@ export const UpdateProjects = () => {
 		}
 	}, [status, dispatch]);
 
+	useEffect(() => {
+		if (modified) {
+			removeFromLocalStorage('projectInfoUpdate');
+			setShowForm(false); // Esconde el formulario después de una actualización exitosa
+		}
+	}, [modified]);
+
 	return (
 		<div>
-			{modified ? (
-				<div>¡Modificación realizada con éxito!</div>
+			{modified && showForm === false ? (
+				<div>
+					¡Modificación realizada con éxito!
+					<button onClick={() => setShowForm(true)}>Modificar</button>
+				</div>
+			) : cancelledModification ? ( // Comprobar si la modificación fue cancelada
+				<div>
+					¡No se modificó nada!
+					<button
+						onClick={() => {
+							setShowForm(true);
+							setCancelledModification(false); // Resetear el estado al intentar de nuevo
+						}}>
+						Modificar de nuevo
+					</button>
+				</div>
 			) : (
 				<>
 					{status === 'loading' && <div>Actualizando...</div>}
@@ -81,21 +109,41 @@ export const UpdateProjects = () => {
 							}}
 							validationSchema={FormValidationsProject}
 							onSubmit={(values) => {
-								dispatch(
-									updateProject({
-										id: id,
-										projectInfo: {
-											title: values.title,
-											description: values.description,
-											technologies: values.technologies,
-											url: values.url,
-											image: values.image,
-											teamDevs: values.teamDevs,
-											categories: values.categories,
-											tags: values.tags,
-										},
-									}),
+								// Pide confirmación al usuario
+								const userConfirmed = window.confirm(
+									'¿Estás seguro de que deseas realizar la modificación?',
 								);
+								if (userConfirmed) {
+									dispatch(
+										updateProject({
+											id: id,
+											projectInfo: {
+												title: values.title,
+												description: values.description,
+												technologies:
+													values.technologies,
+												url: values.url,
+												image: values.image,
+												teamDevs: values.teamDevs,
+												categories: values.categories,
+												tags: values.tags,
+											},
+										}),
+									);
+								} else {
+									setCancelledModification(true);
+									// Guardar el proyecto actualizado en localStorage
+									saveToLocalStorage('projectInfoUpdate', {
+										title: values.title,
+										description: values.description,
+										technologies: values.technologies,
+										url: values.url,
+										image: values.image,
+										teamDevs: values.teamDevs,
+										categories: values.categories,
+										tags: values.tags,
+									});
+								}
 							}}>
 							<Form>
 								<div>

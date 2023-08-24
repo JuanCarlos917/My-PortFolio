@@ -68,7 +68,8 @@ export const projectSlice = createSlice({
 		modified: false,
 		projectAdded: false,
 	},
-	reducers: {}, // No se definen reducers para las operaciones que no requieren un payload
+	reducers: {
+	},
 	extraReducers: (builder) => {
 		builder
 			// Obteniendo la información de 'Project'
