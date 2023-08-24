@@ -5,6 +5,9 @@ const { User } = require('../index');
 const bcrypt = require('bcryptjs');
 // Importamos jsonwebtoken para la autenticación
 const jwt = require('jsonwebtoken');
+// Importamos nodemailer para el envío de correos electrónicos
+const nodemailer = require('nodemailer');
+
 
 const registerUser = async (req, res) => {
 	try {
@@ -150,8 +153,63 @@ const logoutUser = async (req, res) =>{
     }
 }
 
+const forgotPassword = async (req, res) => {
+    try{
+        const { email } = req.body;
+        const user = await User.findOne({ where: { email } });
+        if(!user){
+            return res.status(400).json({
+                message: 'No existe una cuenta asociada a ese correo electrónico.',
+            });
+        }
+        // Generar token de reseteo de contraseña
+        const token = jwt.sign(
+            {
+                id: user.id,
+                email: user.email,
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' },
+        );
+        // Guardar el token en la base de datos
+        await user.update({
+            resetPasswordToken: token,
+            resetPasswordExpires: Date.now() + 3600000,
+        });
+        // Crear el transportador de nodemailer
+        const transporter = nodemailer.createTransport({
+			service: 'Outlook',
+			auth: {
+				user: process.env.OUTLOOK_USER,
+				pass: process.env.OUTLOOK_PASSWORD,
+			},
+		});
+        // Crear el mensaje de correo electrónico
+        const mailOptions = {
+			from: `Portfolio <${process.env.OUTLOOK_USER}>`,
+			to: user.email,
+			subject: 'Restablecer contraseña',
+			text: `Hola ${user.email},\n\n
+                Para restablecer la contraseña de tu cuenta, haz clic en el siguiente enlace o pégalo en tu navegador:\n\n
+                http://localhost:3000/auth/reset-password/${token}\n\n
+                Si no solicitaste restablecer la contraseña, ignora este correo electrónico y tu contraseña permanecerá sin cambios.\n`,
+		};
+        // Enviar el correo electrónico
+        await transporter.sendMail(mailOptions);
+        res.json({
+            message: 'Se ha enviado un correo electrónico a la dirección proporcionada con más instrucciones.',
+        });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({
+            message: 'Ha ocurrido un error al restablecer la contraseña.',
+        });
+    }
+}
+
 module.exports = {
 	registerUser,
 	loginUser,
     logoutUser,
+    forgotPassword,
 };

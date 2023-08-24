@@ -25,7 +25,15 @@ module.exports = (sequelize) => {
 				validate: {
 					len: [8],
 				},
-			}
+			},
+			resetPasswordToken: {
+				type: DataTypes.STRING,
+				allowNull: true,
+			},
+			resetPasswordExpires: {
+				type: DataTypes.DATE,
+				allowNull: true,
+			},
 		},
 		{
 			timestamps: false,

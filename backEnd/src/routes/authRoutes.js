@@ -4,6 +4,7 @@ const {
 	registerUser,
 	loginUser,
 	logoutUser,
+	forgotPassword,
 } = require('../controllers/authController');
 const {
 	postAuthValidations,
@@ -21,5 +22,7 @@ router.post(
 router.post('/login', postAuthValidations, handleValidationErrors, loginUser);
 // Ruta para cerrar sesión de un usuario
 router.get('/logout', logoutUser);
+// Ruta para solicitar un token de reseteo de contraseña
+router.post('/forgot-password', forgotPassword);
 
 module.exports = router;
