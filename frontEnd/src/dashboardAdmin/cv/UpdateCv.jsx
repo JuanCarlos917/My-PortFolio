@@ -1,12 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import FormValidationsCV from '../../utils/FormValidationsCV';
 import { Link } from 'react-router-dom';
 import { getCV, updateCV } from '../../features/cv/cvSlice';
+import {
+	saveToLocalStorage,
+	removeFromLocalStorage,
+} from '../localStorageHelpers/localStorageHelpers';
 
 export const UpdateCV = () => {
 	const dispatch = useDispatch();
+
+	const [showForm, setShowForm] = useState(true);
+	const [cancelledModification, setCancelledModification] = useState(false);
+
 	const cvInfo = useSelector((state) => state.cv.cvInfo);
 	const id = useSelector((state) => state.cv.id);
 	const status = useSelector((state) => state.cv.status);
@@ -18,10 +26,32 @@ export const UpdateCV = () => {
 			dispatch(getCV());
 		}
 	}, [dispatch, cvInfo]);
+
+	useEffect(() => {
+		if (modified) {
+			removeFromLocalStorage('contactInfoUpdate');
+			setShowForm(false); // Esconde el formulario después de una actualización exitosa
+		}
+	}, [modified]);
+
 	return (
 		<div>
-			{modified ? (
-				<div>¡Modificación realizada con éxito!</div>
+			{modified && showForm === false ? (
+				<div>
+					¡Modificación realizada con éxito!
+					<button onClick={() => setShowForm(true)}>Modificar</button>
+				</div>
+			) : cancelledModification ? ( // Comprobar si la modificación fue cancelada
+				<div>
+					¡No se modificó nada!
+					<button
+						onClick={() => {
+							setShowForm(true);
+							setCancelledModification(false); // Resetear el estado al intentar de nuevo
+						}}>
+						Modificar de nuevo
+					</button>
+				</div>
 			) : (
 				<>
 					{status === 'loading' && <div>Actualizando...</div>}
@@ -61,12 +91,22 @@ export const UpdateCV = () => {
 									phone,
 									social_media,
 								};
-								dispatch(
-									updateCV({
-										id: id,
-										cvInfo,
-									}),
+								const userConfirmed = window.confirm(
+									'¿Estás seguro de que deseas realizar la modificación?',
 								);
+								if (userConfirmed) {
+									dispatch(
+										updateCV({
+											id: id,
+											cvInfo
+										}),
+									);
+								} else {
+									setCancelledModification(true);
+									saveToLocalStorage('contactInfoUpdate', {
+										cvInfo,
+									});
+								}
 							}}>
 							{() => (
 								<Form>

@@ -20,19 +20,52 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk('auth/login', async (credentials) => {
-    try {
-
-        const response = await axios.post(`${baseURL}/auth/login`, credentials);
-        return response.data;
-    } catch (error) {
-        console.error(error)
-    }
+	try {
+		const response = await axios.post(`${baseURL}/auth/login`, credentials);
+		return response.data;
+	} catch (error) {
+		console.error(error);
+	}
 });
 
 export const logoutUser = createAsyncThunk('auth/logout', async () => {
-	const response = await axios.get(`${baseURL}/auth/logout`);
-	return response.data;
+	try {
+		const response = await axios.get(`${baseURL}/auth/logout`);
+		return response.data;
+	} catch (error) {
+		console.error(error);
+	}
 });
+
+export const forgotPassword = createAsyncThunk(
+	'auth/forgot-password',
+	async (email, { rejectWithValue }) => {
+		try {
+			const response = await axios.post(
+				`${baseURL}/auth/forgot-password`,
+				email,
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			return rejectWithValue(error.response.data);
+		}
+	},
+);
+export const resetPassword = createAsyncThunk(
+	'auth/reset-password',
+	async ({ token, password }) => {
+		try {
+			const response = await axios.post(
+				`${baseURL}/auth/reset-password/${token}`,
+				password,
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+		}
+	},
+);
 
 const authSlice = createSlice({
 	name: 'auth',
@@ -43,10 +76,14 @@ const authSlice = createSlice({
 		status: 'idle',
 		error: null,
 		loading: false,
+		isPasswordResetEmailSent: false,
 	},
 	reducers: {
 		setUser: (state, action) => {
 			state.email = action.payload;
+		},
+		passwordResetEmailSent: (state) => {
+			state.isPasswordResetEmailSent = true;
 		},
 	},
 	extraReducers: (builder) => {
@@ -87,10 +124,34 @@ const authSlice = createSlice({
 			.addCase(logoutUser.rejected, (state, action) => {
 				state.status = 'failed';
 				state.error = action.error.message;
+			})
+			.addCase(forgotPassword.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(forgotPassword.fulfilled, (state) => {
+				state.status = 'succeeded';
+				state.isPasswordResetEmailSent = true; // se indica que el correo se envió con éxito.
+			})
+			.addCase(forgotPassword.rejected, (state, action) => {
+				state.status = 'failed';
+				state.error = action.error.message;
+			})
+			.addCase(resetPassword.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(resetPassword.fulfilled, (state, action) => {
+				state.status = 'succeeded';
+				state.email = action.payload.email;
+				state.password = action.payload.password;
+				state.isLoggedIn = true;
+			})
+			.addCase(resetPassword.rejected, (state, action) => {
+				state.status = 'failed';
+				state.error = action.error.message;
 			});
 	},
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, passwordResetEmailSent } = authSlice.actions;
 
 export default authSlice.reducer;

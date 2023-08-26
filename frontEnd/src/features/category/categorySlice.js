@@ -18,7 +18,6 @@ export const getCategory = createAsyncThunk('/category', async () => {
 export const updateCategory = createAsyncThunk(
 	'category/updateCategory',
 	async ({ id, categoryInfo }) => {
-        console.log(id);
 		try {
 			const response = await axios.put(
 				`${baseURL}/category/${id}`,

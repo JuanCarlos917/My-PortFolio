@@ -1,13 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import FormValidationsTag from '../../utils/FormValidationsTag';
 import { getTag, updateTag } from '../../features/tag/tagSlice';
 
+import {
+	saveToLocalStorage,
+	removeFromLocalStorage,
+} from '../localStorageHelpers/localStorageHelpers';
+
 export const UpdateTags = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
+
+    const [showForm, setShowForm] = useState(true);
+	const [cancelledModification, setCancelledModification] = useState(false);
 
 	// Obtén la lista completa de etiquetas
 	const tagInfo = useSelector((state) => state.tag?.tagInfo);
@@ -25,10 +33,28 @@ export const UpdateTags = () => {
 		dispatch(getTag());
 	}, [dispatch]);
 
+    useEffect(() => {
+        if (modified) {
+            removeFromLocalStorage('tagInfoUpdate');
+            setShowForm(false); // Esconde el formulario después de una actualización exitosa
+        }
+    }, [modified]);
+
 	return (
 		<div>
-			{modified ? (
+			{modified && showForm === false ? (
 				<div>¡Modificación realizada con éxito!</div>
+			) : cancelledModification ? ( // Comprobar si la modificación fue cancelada
+				<div>
+					¡No se modificó nada!
+					<button
+						onClick={() => {
+							setShowForm(true);
+							setCancelledModification(false); // Resetear el estado al intentar de nuevo
+						}}>
+						Modificar de nuevo
+					</button>
+				</div>
 			) : (
 				<>
 					{status === 'loading' && <div>Actualizando...</div>}
@@ -48,6 +74,11 @@ export const UpdateTags = () => {
 							}}
 							validationSchema={FormValidationsTag}
 							onSubmit={(values) => {
+								// Pide confirmación al usuario
+								const userConfirmed = window.confirm(
+									'¿Estás seguro de que deseas realizar la modificación?',
+								);
+                                if(userConfirmed){
 								dispatch(
 									updateTag({
 										id: id,
@@ -56,6 +87,15 @@ export const UpdateTags = () => {
 										},
 									}),
 								);
+                                }else {
+									setCancelledModification(true);
+									// Guardar el proyecto actualizado en localStorage
+                                    saveToLocalStorage('tagInfoUpdate', {
+										tagInfo: {
+											name: values.name,
+										},
+									});
+								}
 							}}>
 							{() => (
 								<Form>

@@ -19,6 +19,8 @@ import { Cv } from './components/CV';
 import { SignUp } from './components/SignUp';
 import { Login } from './components/Login';
 import { Logout } from './components/Logout';
+import { ForgotPasswordAcount } from './components/ForgotPassword';
+import { ResetPassword } from './components/ResetPassword';
 
 import { Dashboard } from './dashboardAdmin/DashboardAdmin';
 import { FormAbout } from './dashboardAdmin/about/FormAbout';
@@ -65,6 +67,15 @@ function App() {
 				<Route path='/signup' element={<SignUp />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/logout' element={<Logout />} />
+				<Route
+					path='/forgot-password'
+					element={<ForgotPasswordAcount />}
+				/>
+				<Route
+					path='/reset-password/:token'
+					element={<ResetPassword />}
+				/>
+
 				{/* Dashboard */}
 				<Route
 					path='/dashboard'
