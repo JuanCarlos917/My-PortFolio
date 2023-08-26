@@ -3,26 +3,25 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../features/auth/authSlice';
-import FormValidationsSignIn  from '../utils/FormValidationsSignIn';
-
+import FormValidationsLogin from '../utils/FormValidationsLogin';
 
 export const Login = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { error, isLoggedIn } = useSelector((state) => state.auth);
-    // if user already logged in redirect to home page
-    useEffect(() => {
-        if (isLoggedIn !== false) {
-            navigate('/dashboard');
-        }
-    }, [isLoggedIn, navigate]);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { error, isLoggedIn } = useSelector((state) => state.auth);
+	// if user already logged in redirect to home page
+	useEffect(() => {
+		if (isLoggedIn !== false) {
+			navigate('/dashboard');
+		}
+	}, [isLoggedIn, navigate]);
 
-    return (
+	return (
 		<div className='container'>
 			<h1>Login</h1>
 			<Formik
 				initialValues={{ email: '', password: '' }}
-				validationSchema={FormValidationsSignIn}
+				validationSchema={FormValidationsLogin}
 				onSubmit={(values, { setSubmitting }) => {
 					dispatch(loginUser(values));
 					setSubmitting(false);
@@ -71,10 +70,14 @@ export const Login = () => {
 			</Formik>
 			<div>
 				<p>
+					Forgot your password?
+					<Link to='/forgot-password'> Reset Password</Link>
+				</p>
+				<p>
 					Don t have an account?
 					<Link to='/signup'> Sign Up</Link>
 				</p>
 			</div>
 		</div>
 	);
-}
+};

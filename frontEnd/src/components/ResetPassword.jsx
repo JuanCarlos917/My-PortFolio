@@ -1,18 +1,24 @@
-
+import { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../features/auth/authSlice';
-import FormValidationsSignIn from '../utils/FormValidationsSignIn';
+import { useNavigate, Link, useParams } from 'react-router-dom';
+import { resetPassword } from '../features/auth/authSlice';
+import FormValidationsResetP from '../utils/FormValidationsResetP';
 
-export const SignUp = () => {
+export const ResetPassword = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	// Extraer el token de la URL
+	const { token } = useParams();
+
 	const { error, status, isLoggedIn } = useSelector((state) => state.auth);
 
-	if (isLoggedIn) {
-		navigate('/dashboard');
-	}
+	useEffect(() => {
+		if (isLoggedIn) {
+			navigate('/login');
+		}
+	}, [isLoggedIn, navigate]);
 
 	if (error) {
 		return <div>{error}</div>;
@@ -20,30 +26,20 @@ export const SignUp = () => {
 
 	return (
 		<div className='container'>
-			<h1>Sign Up</h1>
-			{status === 'idle' ? (
+			<h1>Reset Password</h1>
+			{status === 'loading' ? (
+				<div>Loading...</div>
+			) : (
 				<Formik
-					initialValues={{ email: '', password: '' }}
-					validationSchema={FormValidationsSignIn}
+					initialValues={{ password: '', confirmPassword: '' }}
+					validationSchema={FormValidationsResetP}
 					onSubmit={(values, { setSubmitting }) => {
-						dispatch(registerUser(values));
+						// Enviar el token junto con los valores del formulario
+						dispatch(resetPassword({ token, ...values }));
 						setSubmitting(false);
 					}}>
 					{({ isSubmitting }) => (
 						<Form>
-							<div className='form-group'>
-								<label htmlFor='email'>Email</label>
-								<Field
-									className='form-control'
-									type='email'
-									name='email'
-								/>
-								<ErrorMessage
-									className='text-danger'
-									name='email'
-									component='div'
-								/>
-							</div>
 							<div className='form-group'>
 								<label htmlFor='password'>Password</label>
 								<Field
@@ -78,18 +74,12 @@ export const SignUp = () => {
 								disabled={isSubmitting}>
 								Submit
 							</button>
+							<p>
+								<Link to='/login'>Login</Link>
+							</p>
 						</Form>
 					)}
 				</Formik>
-			) : (
-				<>
-					<div>Registro exitoso!</div>
-					<button
-						className='btn btn-primary'
-						onClick={() => navigate('/login')}>
-						Iniciar sesión
-					</button>
-				</>
 			)}
 		</div>
 	);

@@ -5,6 +5,10 @@ const { User } = require('../index');
 const bcrypt = require('bcryptjs');
 // Importamos jsonwebtoken para la autenticación
 const jwt = require('jsonwebtoken');
+// Importamos nodemailer para el envío de correos electrónicos
+const nodemailer = require('nodemailer');
+// Importamos la función Op de sequelize para realizar consultas
+const { Op } = require('sequelize');
 
 const registerUser = async (req, res) => {
 	try {
@@ -135,23 +139,186 @@ const loginUser = async (req, res) => {
 	}
 };
 
-const logoutUser = async (req, res) =>{
-    try {
+const logoutUser = async (req, res) => {
+	try {
 		// Borrar la cookie del token
 		res.clearCookie('token');
 		res.json({
 			message: 'Cierre de sesión exitoso.',
 		});
 	} catch (error) {
-        console.error(error);
-        res.status(500).json({
-            message: 'Ha ocurrido un error al cerrar sesión.',
-        });
+		console.error(error);
+		res.status(500).json({
+			message: 'Ha ocurrido un error al cerrar sesión.',
+		});
+	}
+};
+
+const forgotPassword = async (req, res) => {
+	try {
+		const { email } = req.body;
+		const user = await User.findOne({ where: { email } });
+		if (!user) {
+			return res.status(400).json({
+				message:
+					'No existe una cuenta asociada a ese correo electrónico.',
+			});
+		}
+		// Generar token de reseteo de contraseña
+		const token = jwt.sign(
+			{
+				id: user.id,
+				email: user.email,
+			},
+			process.env.JWT_SECRET,
+			{ expiresIn: '1d' },
+		);
+		// Guardar el token en la base de datos
+		await user.update({
+			resetPasswordToken: token,
+			resetPasswordExpires: Date.now() + 3600000,
+		});
+		// Crear el transportador de nodemailer
+		const transporter = nodemailer.createTransport({
+			service: 'Outlook',
+			auth: {
+				user: process.env.OUTLOOK_USER,
+				pass: process.env.OUTLOOK_PASSWORD,
+			},
+		});
+		// Crear el mensaje de correo electrónico
+		const mailOptions = {
+			from: `Portfolio <${process.env.OUTLOOK_USER}>`,
+			to: user.email,
+			subject: 'Restablecer contraseña',
+			html: `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restablecimiento de Contraseña</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
     }
-}
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+    .button {
+      display: inline-block;
+      background-color: #1a73e8;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-align: center;
+      margin: 10px 0;
+      text-decoration: none;
+    }
+    @media screen and (max-width: 640px) {
+      .container {
+        margin: 20px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+    <a href="#" style="font-size:1.6em; font-weight:500; color: #202124;">My Portfolio</a>
+    <hr style="border:none;border-top:1px solid #eee;margin-top: 16px;" />
+    <p style="font-size:1.1em; color: #202124;">Hola ${user.email},</p>
+    <p style="color: #5f6368;">Para restablecer la contraseña de tu cuenta, haz clic en el siguiente enlace o pégalo en tu navegador:</p>
+    <a href="${process.env.VITE_BASE_URL}/reset-password/${token}" target="_blank" class="button">Restablecer Contraseña</a>
+    <p style="color: #5f6368;">Si no solicitaste restablecer la contraseña, ignora este correo electrónico y tu contraseña permanecerá sin cambios.</p>
+    <p style="font-size:0.9em; color: #5f6368;">Saludos,<br />Portfolio</p>
+    <hr style="border:none;border-top:1px solid #eee;margin-top: 24px;" />
+    <div style="padding:8px 0;color:#5f6368;font-size:0.8em;line-height:1.2;">
+      <p>My Portfolio</p>
+      <p>Redes sociales</p>
+    </div>
+</div>
+</body>
+</html>
+
+`,
+		};
+		// Enviar el correo electrónico
+		await transporter.sendMail(mailOptions);
+		res.json({
+			message:
+				'Se ha enviado un correo electrónico a la dirección proporcionada con más instrucciones.',
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({
+			message:
+				'Ha ocurrido un error al restablecer la contraseña. forgot',
+		});
+	}
+};
+
+const resetPassword = async (req, res) => {
+	try {
+		const { token } = req.params;
+		const { password } = req.body;
+
+		if (!token || !password) {
+			return res.status(400).json({
+				message:
+					'Token de restablecimiento de contraseña no válido o expirado.',
+			});
+		}
+		// Buscar usuario con el token de reseteo de contraseña
+		const user = await User.findOne({
+			where: {
+				resetPasswordToken: token,
+				resetPasswordExpires: { [Op.gt]: Date.now() },
+			},
+		});
+		if (!user) {
+			return res.status(400).json({
+				message:
+					'Token de restablecimiento de contraseña no válido o expirado.',
+			});
+		}
+		// Generar un 'salt' para el hashing de la contraseña
+		const salt = await bcrypt.genSalt(10);
+		// Crear un hash de la contraseña utilizando el salt
+		const hashedPassword = await bcrypt.hash(password, salt);
+		// Actualizar la contraseña del usuario
+		await user.update({
+			password: hashedPassword,
+			resetPasswordToken: null,
+			resetPasswordExpires: null,
+		});
+		res.json({
+			message: 'Se ha restablecido la contraseña correctamente.',
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({
+			message:
+				'Ha ocurrido un error al restablecer la contraseña. resetPassword',
+		});
+	}
+};
 
 module.exports = {
 	registerUser,
 	loginUser,
-    logoutUser,
+	logoutUser,
+	forgotPassword,
+	resetPassword,
 };
