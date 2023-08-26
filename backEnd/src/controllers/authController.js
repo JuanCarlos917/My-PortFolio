@@ -7,6 +7,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 // Importamos nodemailer para el envío de correos electrónicos
 const nodemailer = require('nodemailer');
+// Importamos la función Op de sequelize para realizar consultas
+const { Op } = require('sequelize');
+
 
 
 const registerUser = async (req, res) => {
@@ -191,7 +194,7 @@ const forgotPassword = async (req, res) => {
 			subject: 'Restablecer contraseña',
 			text: `Hola ${user.email},\n\n
                 Para restablecer la contraseña de tu cuenta, haz clic en el siguiente enlace o pégalo en tu navegador:\n\n
-                http://localhost:3000/auth/reset-password/${token}\n\n
+                ${process.env.VITE_BASE_URL}/reset-password/${token}\n\n
                 Si no solicitaste restablecer la contraseña, ignora este correo electrónico y tu contraseña permanecerá sin cambios.\n`,
 		};
         // Enviar el correo electrónico
@@ -202,7 +205,50 @@ const forgotPassword = async (req, res) => {
     }catch(error){
         console.error(error);
         res.status(500).json({
-            message: 'Ha ocurrido un error al restablecer la contraseña.',
+            message: 'Ha ocurrido un error al restablecer la contraseña. forgot',
+        });
+    }
+}
+
+const resetPassword = async(req, res) => {
+    try{
+        const { token } = req.params;
+        const { password } = req.body;
+
+        if(!token || !password ){
+            return res.status(400).json({
+                message: 'Token de restablecimiento de contraseña no válido o expirado.',
+            });
+        }
+        // Buscar usuario con el token de reseteo de contraseña
+        const user = await User.findOne({
+			where: {
+				resetPasswordToken: token,
+				resetPasswordExpires: { [Op.gt]: Date.now() },
+			},
+		});
+        if(!user){
+            return res.status(400).json({
+                message: 'Token de restablecimiento de contraseña no válido o expirado.',
+            });
+        }
+        // Generar un 'salt' para el hashing de la contraseña
+        const salt = await bcrypt.genSalt(10);
+        // Crear un hash de la contraseña utilizando el salt
+        const hashedPassword = await bcrypt.hash(password, salt);
+        // Actualizar la contraseña del usuario
+        await user.update({
+            password: hashedPassword,
+            resetPasswordToken: null,
+            resetPasswordExpires: null,
+        });
+        res.json({
+            message: 'Se ha restablecido la contraseña correctamente.',
+        });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({
+            message: 'Ha ocurrido un error al restablecer la contraseña. resetPassword',
         });
     }
 }
@@ -210,6 +256,7 @@ const forgotPassword = async (req, res) => {
 module.exports = {
 	registerUser,
 	loginUser,
-    logoutUser,
-    forgotPassword,
+	logoutUser,
+	forgotPassword,
+	resetPassword,
 };
