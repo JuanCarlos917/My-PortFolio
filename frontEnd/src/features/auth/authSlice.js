@@ -54,12 +54,13 @@ export const forgotPassword = createAsyncThunk(
 );
 export const resetPassword = createAsyncThunk(
 	'auth/reset-password',
-	async ({ token, password }) => {
+	async ({ verificationCode, password }) => {
 		try {
 			const response = await axios.post(
-				`${baseURL}/auth/reset-password/${token}`,
-				password,
+				`${baseURL}/auth/reset-password/${verificationCode}`,
+				{ verificationCode: verificationCode, password: password },
 			);
+			console.log(response);
 			return response.data;
 		} catch (error) {
 			console.error(error);
@@ -141,7 +142,6 @@ const authSlice = createSlice({
 			})
 			.addCase(resetPassword.fulfilled, (state, action) => {
 				state.status = 'succeeded';
-				state.email = action.payload.email;
 				state.password = action.payload.password;
 				state.isLoggedIn = true;
 			})

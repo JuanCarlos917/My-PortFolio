@@ -10,7 +10,7 @@ export const ResetPassword = () => {
 	const navigate = useNavigate();
 
 	// Extraer el token de la URL
-	const { token } = useParams();
+	const { verificationCode } = useParams();
 
 	const { error, status, isLoggedIn } = useSelector((state) => state.auth);
 
@@ -34,8 +34,13 @@ export const ResetPassword = () => {
 					initialValues={{ password: '', confirmPassword: '' }}
 					validationSchema={FormValidationsResetP}
 					onSubmit={(values, { setSubmitting }) => {
-						// Enviar el token junto con los valores del formulario
-						dispatch(resetPassword({ token, ...values }));
+						dispatch(
+							resetPassword({
+								verificationCode: verificationCode,
+								password: values.password,
+							}),
+						);
+
 						setSubmitting(false);
 					}}>
 					{({ isSubmitting }) => (
