@@ -9,6 +9,9 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 // Importamos la función Op de sequelize para realizar consultas
 const { Op } = require('sequelize');
+const {
+	generateVerificationToken,
+} = require('../helpers/helperGenerateVerificacionCode');
 
 const registerUser = async (req, res) => {
 	try {
@@ -34,9 +37,10 @@ const registerUser = async (req, res) => {
 
 		// Generamos un 'salt' para el hashing de la contraseña
 		const salt = await bcrypt.genSalt(10);
+		console.log('salt', salt);
 		// Creamos un hash de la contraseña utilizando el salt
 		const hashedPassword = await bcrypt.hash(password, salt);
-
+		console.log('hashed', hashedPassword);
 		// Creamos un nuevo usuario en la base de datos con los datos proporcionados y la contraseña hasheada
 		const newUser = await User.create({
 			email,
@@ -164,18 +168,13 @@ const forgotPassword = async (req, res) => {
 					'No existe una cuenta asociada a ese correo electrónico.',
 			});
 		}
+
 		// Generar token de reseteo de contraseña
-		const token = jwt.sign(
-			{
-				id: user.id,
-				email: user.email,
-			},
-			process.env.JWT_SECRET,
-			{ expiresIn: '1d' },
-		);
+		const verificationCode = generateVerificationToken();
+
 		// Guardar el token en la base de datos
 		await user.update({
-			resetPasswordToken: token,
+			resetPasswordToken: verificationCode,
 			resetPasswordExpires: Date.now() + 3600000,
 		});
 		// Crear el transportador de nodemailer
@@ -186,6 +185,7 @@ const forgotPassword = async (req, res) => {
 				pass: process.env.OUTLOOK_PASSWORD,
 			},
 		});
+
 		// Crear el mensaje de correo electrónico
 		const mailOptions = {
 			from: `Portfolio <${process.env.OUTLOOK_USER}>`,
@@ -240,7 +240,10 @@ const forgotPassword = async (req, res) => {
     <hr style="border:none;border-top:1px solid #eee;margin-top: 16px;" />
     <p style="font-size:1.1em; color: #202124;">Hola ${user.email},</p>
     <p style="color: #5f6368;">Para restablecer la contraseña de tu cuenta, haz clic en el siguiente enlace o pégalo en tu navegador:</p>
-    <a href="${process.env.VITE_BASE_URL}/reset-password/${token}" target="_blank" class="button">Restablecer Contraseña</a>
+    <a href="${process.env.VITE_BASE_URL}/reset-password/${verificationCode}" target="_blank" class="button">Restablecer Contraseña</a>
+    <p style="color: #5f6368;">Este enlace expirará en 24 horas.</p>
+    <p style="color: #5f6368;">Si por algun motivo no puedes dar clic en el boton, ingresa a este link</p>
+    <a href="${process.env.VITE_BASE_URL}/reset-password/${verificationCode}" target="_blank">Aquí</a>
     <p style="color: #5f6368;">Si no solicitaste restablecer la contraseña, ignora este correo electrónico y tu contraseña permanecerá sin cambios.</p>
     <p style="font-size:0.9em; color: #5f6368;">Saludos,<br />Portfolio</p>
     <hr style="border:none;border-top:1px solid #eee;margin-top: 24px;" />
@@ -271,10 +274,9 @@ const forgotPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
 	try {
-		const { token } = req.params;
-		const { password } = req.body;
+		const { verificationCode, password } = req.body;
 
-		if (!token || !password) {
+		if (!verificationCode || !password) {
 			return res.status(400).json({
 				message:
 					'Token de restablecimiento de contraseña no válido o expirado.',
@@ -283,7 +285,7 @@ const resetPassword = async (req, res) => {
 		// Buscar usuario con el token de reseteo de contraseña
 		const user = await User.findOne({
 			where: {
-				resetPasswordToken: token,
+				resetPasswordToken: verificationCode,
 				resetPasswordExpires: { [Op.gt]: Date.now() },
 			},
 		});
