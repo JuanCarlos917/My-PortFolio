@@ -72,7 +72,7 @@ function App() {
 					element={<ForgotPasswordAcount />}
 				/>
 				<Route
-					path='/reset-password/:token'
+					path='/reset-password/:verificationCode'
 					element={<ResetPassword />}
 				/>
 

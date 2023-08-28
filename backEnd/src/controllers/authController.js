@@ -37,10 +37,10 @@ const registerUser = async (req, res) => {
 
 		// Generamos un 'salt' para el hashing de la contraseña
 		const salt = await bcrypt.genSalt(10);
-		console.log('salt', salt);
+
 		// Creamos un hash de la contraseña utilizando el salt
 		const hashedPassword = await bcrypt.hash(password, salt);
-		console.log('hashed', hashedPassword);
+
 		// Creamos un nuevo usuario en la base de datos con los datos proporcionados y la contraseña hasheada
 		const newUser = await User.create({
 			email,
