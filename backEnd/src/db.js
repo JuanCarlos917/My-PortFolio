@@ -9,6 +9,12 @@ const sequelize = new Sequelize(
 	{
 		logging: false,
 		native: false,
+		dialectOptions: {
+			ssl: {
+				require: true,
+				rejectUnauthorized: false, // Esto es necesario si estás usando un certificado autofirmado; para un certificado válido, deberías usar 'true'
+			},
+		},
 	},
 );
 
