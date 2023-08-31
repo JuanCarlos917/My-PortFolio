@@ -13,7 +13,7 @@ server.name = 'API';
 
 // Configurar opciones de CORS
 const corsOptions = {
-	origin: 'http://localhost:5173', // Replace with the exact origin of your application
+	origin: 'https://main.d3e68ocmtnsgjj.amplifyapp.com', // Replace with the exact origin of your application
 	credentials: true,
 	methods: 'GET, POST, OPTIONS, PUT, DELETE',
 	allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
