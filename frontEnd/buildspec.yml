@@ -2,8 +2,6 @@ version: 0.2
 
 phases:
     install:
-        runtime-versions:
-            nodejs: 14
         commands:
             - cd frontEnd
             - npm install
@@ -15,4 +13,5 @@ artifacts:
     files:
         - frontEnd/dist/**/*
         - frontEnd/dist/index.html
+    base-directory: frontEnd/dist # Especifica la carpeta desde la que se recogerán los artefactos
     discard-paths: yes
