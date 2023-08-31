@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+    install:
+        runtime-versions:
+            nodejs: 14
+        commands:
+            - cd frontEnd
+            - npm install
+    build:
+        commands:
+            - npm run build
+
+artifacts:
+    files:
+        - frontEnd/dist/**/*
+        - frontEnd/dist/index.html
+    discard-paths: yes
