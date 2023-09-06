@@ -14,17 +14,13 @@ const updateEducationValidations = [
 	body('startDate')
 		.notEmpty()
 		.withMessage(
-			'El campo startDate es obligatorio y debe estar en formato YY-MM-DD',
-		)
-		.isDate()
-		.withMessage('El campo startDate debe estar en formato YY-MM-DD'),
+			'El campo startDate es obligatorio',
+		),
 	body('endDate')
 		.notEmpty()
 		.withMessage(
-			'El campo startDate es obligatorio y debe estar en formato YY-MM-DD',
+			'El campo startDate es obligatorio ',
 		)
-		.isDate()
-		.withMessage('El campo startDate debe estar en formato YY-MM-DD'),
 ];
 
 const handleValidationErrors = (req, res, next) => {

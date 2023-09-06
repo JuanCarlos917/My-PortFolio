@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAbout } from '../features/about/aboutSlice';
+import { Loading } from './Loading/Loading';
 
 export const AboutMe = () => {
 	const dispatch = useDispatch();
@@ -17,12 +18,16 @@ export const AboutMe = () => {
 	let content;
 
 	if (status === 'loading') {
-		content = <div>Loading...</div>;
+		content = (
+			<div>
+				<Loading />
+			</div>
+		);
 	} else if (status === 'succeeded') {
 		content = (
 			<div>
 				<h2>Biografía:</h2>
-                <p>{aboutInfo?.bio}</p>
+				<p>{aboutInfo?.bio}</p>
 				<h2>Habilidades </h2>
 				<h3>Diseño Front end:</h3>
 				<ul>
