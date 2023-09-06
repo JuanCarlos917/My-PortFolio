@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { getProfessionalExp } from '../features/professionalExp/professionalExpSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Loading } from './Loading/Loading';
 
 export const ProfessionalExp = () => {
 	const dispatch = useDispatch();
@@ -18,7 +19,11 @@ export const ProfessionalExp = () => {
 
 	let content;
 	if (status === 'loading') {
-		content = <div>Loading...</div>;
+		content = (
+			<div>
+				<Loading />
+			</div>
+		);
 	} else if (status === 'succeeded') {
 		content = (
 			<div>

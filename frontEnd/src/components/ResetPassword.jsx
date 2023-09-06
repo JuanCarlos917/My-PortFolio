@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { resetPassword } from '../features/auth/authSlice';
 import FormValidationsResetP from '../utils/FormValidationsResetP';
+import { Loading } from './Loading/Loading';
 
 export const ResetPassword = () => {
 	const dispatch = useDispatch();
@@ -28,7 +29,9 @@ export const ResetPassword = () => {
 		<div className='container'>
 			<h1>Reset Password</h1>
 			{status === 'loading' ? (
-				<div>Loading...</div>
+				<div>
+					<Loading />
+				</div>
 			) : (
 				<Formik
 					initialValues={{ password: '', confirmPassword: '' }}

@@ -6,13 +6,13 @@ export default {
 		extend: {
 			colors: {
 				blue: {
-					dark: '#003366',
+					dark: '#1A2C56 ',
 				},
 				green: {
-					emerald: '#00a99d',
+					emerald: '#74AED7 ',
 				},
 				gray: {
-					steel: '#999999',
+					coral: '#FF6B6B',
 				},
 				yellow: {
 					golden: '#ffc107',

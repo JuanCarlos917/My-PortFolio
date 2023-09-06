@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEducation } from '../features/education/educationSlice';
+import { Loading } from './Loading/Loading';
 
 export const Education = () => {
 	const dispatch = useDispatch();
@@ -17,7 +18,11 @@ export const Education = () => {
 	let content;
 
 	if (status === 'loading') {
-		content = <div>Loading...</div>;
+		content = (
+			<div>
+				<Loading />
+			</div>
+		);
 	} else if (Array.isArray(educationInfo) && status === 'succeeded') {
 		content = educationInfo.map((edu, index) => (
 			<div key={index}>
@@ -42,4 +47,3 @@ export const Education = () => {
 
 	return <div>{content}</div>;
 };
-
