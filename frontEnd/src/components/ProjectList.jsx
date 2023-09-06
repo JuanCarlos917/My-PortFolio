@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProject } from '../features/project/projectSlice';
+import { Loading } from './Loading/Loading';
 
 export const ProjectList = () => {
-
 	const dispatch = useDispatch();
 	const projectInfo = useSelector((state) => state.project.projectInfo);
 	const status = useSelector((state) => state.project.status);
@@ -17,7 +17,11 @@ export const ProjectList = () => {
 
 	let content;
 	if (status === 'loading') {
-		content = <div>Loading...</div>;
+		content = (
+			<div>
+				<Loading />
+			</div>
+		);
 	} else if (status === 'succeeded') {
 		content = (
 			<div>

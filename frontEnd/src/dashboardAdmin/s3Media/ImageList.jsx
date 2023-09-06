@@ -5,7 +5,6 @@ import { getListImages } from '../../features/s3Media/s3MediaSlice';
 export const ImageList = () => {
 	const dispatch = useDispatch();
 	const images = useSelector((state) => state.s3Media?.s3mediaInfo) || [];
-    console.log(images);
 	const loading = useSelector((state) => state.s3Media?.loading);
 	const error = useSelector((state) => state.s3Media.error);
 

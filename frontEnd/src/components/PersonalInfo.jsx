@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCV } from '../features/cv/cvSlice';
+import { Loading } from './Loading/Loading';
 
 export const PersonalInfo = () => {
 	const dispatch = useDispatch();
@@ -14,13 +15,16 @@ export const PersonalInfo = () => {
 		}
 	}, [status, dispatch]);
 
-    let content;
+	let content;
 
-    if (status === 'loading') {
-		content = <div>Loading...</div>;
+	if (status === 'loading') {
+		content = (
+			<div>
+				<Loading />
+			</div>
+		);
 	} else if (status === 'succeeded') {
-
-        content = (
+		content = (
 			<div>
 				<h2>CV:</h2>
 				<h3>Nombre: {cvInfo?.name}</h3>
@@ -32,9 +36,7 @@ export const PersonalInfo = () => {
 				<a href={cvInfo?.social_media?.github}>Github</a>
 			</div>
 		);
-        } else if (
-		status === 'failed'
-	) {
+	} else if (status === 'failed') {
 		content = <div> {error}</div>;
 	}
 	return <div>{content}</div>;

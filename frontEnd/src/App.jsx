@@ -10,6 +10,7 @@ import {
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 //client
+import { Home } from './components/Home';
 import { NavBar } from './components/NavBar';
 import { AboutMe } from './components/AboutMe';
 import { Education } from './components/Education';
@@ -60,7 +61,7 @@ function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path='/' element={<Root />}>
-				<Route index element={<NavBar />} />
+                <Route path='/' element={<Home />} />
 				<Route path='/about' element={<AboutMe />} />
 				<Route path='/education' element={<Education />} />
 				<Route path='/cv' element={<Cv />} />
