@@ -47,8 +47,7 @@ export const Home = () => {
 					</div>
 					<div>
 						<img
-							src='https://s3mediapf.s3.us-east-1.amazonaws.com/Captura%20de%20pantalla%202023-06-21%20a%20la%28s%29%2020.42.11.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAXLCS7UOKL45CJ3TG%2F20230906%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230906T190136Z&X-Amz-Expires=3600&X-Amz-Signature=1bba7d164c730d17d1d54137b9a4852305bb7ec9cb0445821dadc7f6e4a099ba&X-Amz-SignedHeaders=host&x-id=GetObject'
-							alt='Profile Picture'
+							src='https://s3mediapf.s3.us-east-1.amazonaws.com/Captura%20de%20pantalla%202023-06-21%20a%20la%28s%29%2020.42.11.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAXLCS7UOKL45CJ3TG%2F20230906%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230906T221829Z&X-Amz-Expires=3600&X-Amz-Signature=d36930728e3a490f1eb226260e9cf4cbeccac0b3a156f3fa277c265e48ca63cc&X-Amz-SignedHeaders=host&x-id=GetObject'
 							className='w-full object-cover rounded-lg shadow-md'
 						/>
 					</div>

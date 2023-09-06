@@ -15,6 +15,7 @@ import { NavBar } from './components/NavBar';
 import { AboutMe } from './components/AboutMe';
 import { Education } from './components/Education';
 import { Cv } from './components/CV';
+import { Footer } from './components/Footer';
 
 //dashboard
 import { SignUp } from './components/SignUp';
@@ -61,7 +62,7 @@ function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path='/' element={<Root />}>
-                <Route path='/' element={<Home />} />
+				<Route path='/' element={<Home />} />
 				<Route path='/about' element={<AboutMe />} />
 				<Route path='/education' element={<Education />} />
 				<Route path='/cv' element={<Cv />} />
@@ -160,7 +161,7 @@ function App() {
 		),
 	);
 	return (
-		<div className='App'>
+		<div className='App min-h-screen flex flex-col'>
 			<RouterProvider router={router} />
 		</div>
 	);
@@ -172,15 +173,18 @@ const Root = () => {
 		return (
 			<>
 				<NavBar />
-				<div>
+				<div className='flex-grow'>
 					<Outlet />
+				</div>
+				<div>
+					<Footer />
 				</div>
 			</>
 		);
 	} else {
 		return (
 			<>
-				<div>
+				<div className='flex-grow'>
 					<Outlet />
 				</div>
 			</>
