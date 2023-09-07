@@ -35,14 +35,14 @@ export const UpdateAbout = () => {
 	}, [modified]);
 
 	return (
-		<div>
+		<div className='max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md'>
 			{modified && showForm === false ? (
-				<div>
+				<div className='text-center mb-4'>
 					¡Modificación realizada con éxito!
 					<button onClick={() => setShowForm(true)}>Modificar</button>
 				</div>
 			) : cancelledModification ? ( // Comprobar si la modificación fue cancelada
-				<div>
+				<div className='text-center mb-4'>
 					¡No se modificó nada!
 					<button
 						onClick={() => {
@@ -54,8 +54,12 @@ export const UpdateAbout = () => {
 				</div>
 			) : (
 				<>
-					{status === 'loading' && <div>Actualizando...</div>}
-					{status === 'failed' && <div>{error}</div>}
+					{status === 'loading' && (
+						<div className='text-yellow-500'>Actualizando...</div>
+					)}
+					{status === 'failed' && (
+						<div className='text-red-500'>{error}</div>
+					)}
 
 					{!aboutInfo ? (
 						<div>
@@ -70,17 +74,9 @@ export const UpdateAbout = () => {
 							initialValues={{
 								bio: aboutInfo?.bio || '',
 								skills: {
-									frontend:
-										aboutInfo?.skills?.frontend.join(
-											', ',
-										) || '',
-									backend:
-										aboutInfo?.skills?.backend.join(', ') ||
-										'',
-									database:
-										aboutInfo?.skills?.database.join(
-											', ',
-										) || '',
+									frontend: aboutInfo?.skills?.frontend || '',
+									backend: aboutInfo?.skills?.backend || '',
+									database: aboutInfo?.skills?.database || '',
 								},
 							}}
 							validationSchema={FormValidationsAbout}
@@ -123,52 +119,89 @@ export const UpdateAbout = () => {
 								}
 							}}>
 							{() => (
-								<Form>
-									<label>
-										Biografía:
-										<Field as='textarea' name='bio' />
+								<Form className='space-y-4'>
+									<div>
+										<label
+											htmlFor='bio'
+											className='block text-sm font-medium text-gray-600'>
+											Biografía
+										</label>
+										<Field
+											as='textarea'
+											name='bio'
+											className='mt-1 p-2 w-full border rounded-md min-h-[9rem]'
+										/>
 										<ErrorMessage
 											name='bio'
 											component='div'
+											className='text-red-500 text-sm'
 										/>
-									</label>
+									</div>
 
-									<label>
-										Skills - Frontend:
+									<div>
+										<label
+											htmlFor='skills.frontend'
+											className='block text-sm font-medium text-gray-600'>
+											Frontend
+										</label>
 										<Field
 											type='text'
 											name='skills.frontend'
+											className='mt-1 p-2 w-full border rounded-md'
+											placeholder='habilidad1, habilidad2, habilidad3'
 										/>
 										<ErrorMessage
 											name='skills.frontend'
 											component='div'
+											className='text-red-500 text-sm'
 										/>
-									</label>
+									</div>
 
-									<label>
-										Skills - Backend:
+									<div>
+										<label
+											htmlFor='skills.backend'
+											className='block text-sm font-medium text-gray-600'>
+											Backend
+										</label>
 										<Field
 											type='text'
 											name='skills.backend'
+											className='mt-1 p-2 w-full border rounded-md'
+											placeholder='habilidad1, habilidad2, habilidad3'
 										/>
 										<ErrorMessage
 											name='skills.backend'
 											component='div'
+											className='text-red-500 text-sm'
 										/>
-									</label>
+									</div>
 
-									<label>
-										Skills - Database:
+									<div>
+										<label
+											htmlFor='skills.database'
+											className='block text-sm font-medium text-gray-600'>
+											Base de Datos
+										</label>
 										<Field
 											type='text'
 											name='skills.database'
+											className='mt-1 p-2 w-full border rounded-md'
+											placeholder='habilidad1, habilidad2, habilidad3'
 										/>
 										<ErrorMessage
 											name='skills.database'
 											component='div'
+											className='text-red-500 text-sm'
 										/>
-									</label>
-									<button type='submit'>Update</button>
+									</div>
+
+									<div className='text-center'>
+										<button
+											type='submit'
+											className='mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+											modificar
+										</button>
+									</div>
 								</Form>
 							)}
 						</Formik>

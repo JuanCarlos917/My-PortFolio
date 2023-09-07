@@ -37,10 +37,16 @@ export const FormEducation = () => {
 		],
 	};
 	return (
-		<div>
-			{educationAdded && <div>¡Educación agregada con éxito!</div>}
-			{status === 'loading' && <div>Actualizando...</div>}
-			{status === 'failed' && <div>{error}</div>}
+		<div className='max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md'>
+			{educationAdded && (
+				<div className='text-center mb-4'>
+					¡Educación agregada con éxito!
+				</div>
+			)}
+			{status === 'loading' && (
+				<div className='text-yellow-500'>Actualizando...</div>
+			)}
+			{status === 'failed' && <div className='text-red-500'>{error}</div>}
 			<Formik
 				initialValues={initialValues}
 				validationSchema={FormValidationsEduca}
@@ -50,27 +56,80 @@ export const FormEducation = () => {
 				}}>
 				{({ isSubmitting }) => (
 					<Form>
-						<label htmlFor='degree'>Grado</label>
-						<Field type='text' name='degree' />
+						<label
+							htmlFor='degree'
+							className='block text-sm font-medium text-gray-600'>
+							Grado
+						</label>
+						<Field
+							type='text'
+							name='degree'
+							className='mt-1 p-2 w-full border rounded-md'
+						/>
 						<ErrorMessage name='degree' component='div' />
-						<label htmlFor='description'>Descripción</label>
-						<Field as='textarea' name='description' />
+						<label
+							htmlFor='description'
+							className='block text-sm font-medium text-gray-600'>
+							Descripción
+						</label>
+						<Field
+							as='textarea'
+							name='description'
+							className='mt-1 p-2 w-full border rounded-md min-h-[9rem]'
+						/>
 						<ErrorMessage name='description' component='div' />
-						<label htmlFor='institution'>Institución</label>
-						<Field type='text' name='institution' />
+						<label
+							htmlFor='institution'
+							className='block text-sm font-medium text-gray-600'>
+							Institución
+						</label>
+						<Field
+							type='text'
+							name='institution'
+							className='mt-1 p-2 w-full border rounded-md'
+						/>
 						<ErrorMessage name='institution' component='div' />
-						<label htmlFor='field_of_study'>Campo de estudio</label>
-						<Field type='text' name='field_of_study' />
+						<label
+							htmlFor='field_of_study'
+							className='block text-sm font-medium text-gray-600'>
+							Campo de estudio
+						</label>
+						<Field
+							type='text'
+							name='field_of_study'
+							className='mt-1 p-2 w-full border rounded-md'
+						/>
 						<ErrorMessage name='field_of_study' component='div' />
-						<label htmlFor='startDate'>Fecha de inicio</label>
-						<Field type='date' name='startDate' />
+						<label
+							htmlFor='startDate'
+							className='block text-sm font-medium text-gray-600'>
+							Fecha de inicio
+						</label>
+						<Field
+							type='date'
+							name='startDate'
+							className='mt-1 p-2 w-full border rounded-md'
+						/>
 						<ErrorMessage name='startDate' component='div' />
-						<label htmlFor='endDate'>Fecha de finalización</label>
-						<Field type='date' name='endDate' />
+						<label
+							htmlFor='endDate'
+							className='block text-sm font-medium text-gray-600'>
+							Fecha de finalización
+						</label>
+						<Field
+							type='date'
+							name='endDate'
+							className='mt-1 p-2 w-full border rounded-md'
+						/>
 						<ErrorMessage name='endDate' component='div' />
-						<button type='submit' disabled={isSubmitting}>
-							Submit
-						</button>
+						<div className='text-center'>
+							<button
+								type='submit'
+								disabled={isSubmitting}
+								className='mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+								Enviar
+							</button>
+						</div>
 					</Form>
 				)}
 			</Formik>
