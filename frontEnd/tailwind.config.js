@@ -4,19 +4,32 @@ export default {
 	darkMode: 'media', // or 'media' or 'class'
 	theme: {
 		extend: {
+			screens: {
+				sm: '640px',
+				// => @media (min-width: 640px) { ... }
+
+				md: '768px',
+				// => @media (min-width: 768px) { ... }
+
+				lg: '1024px',
+				// => @media (min-width: 1024px) { ... }
+
+				xl: '1280px',
+				// => @media (min-width: 1280px) { ... }
+
+				'2xl': '1536px',
+				// => @media (min-width: 1536px) { ... }
+			},
 			colors: {
-				blue: {
-					dark: '#1A2C56 ',
-				},
-				green: {
-					emerald: '#74AED7 ',
-				},
-				gray: {
-					coral: '#FF6B6B',
-				},
-				yellow: {
-					golden: '#ffc107',
-				},
+				Dark_Navy_Blue: '#1A2C56 ',
+
+				Sky_Blue: '#74AED7 ',
+
+				coral: '#FF6B6B',
+
+				golden: '#ffc107',
+
+				gris: '#A9A9A9',
 			},
 		},
 	},
@@ -25,7 +38,6 @@ export default {
 	},
 	plugins: [],
 	corePlugins: {
-		preflight: false,
+		preflight: true,
 	},
 };
-
