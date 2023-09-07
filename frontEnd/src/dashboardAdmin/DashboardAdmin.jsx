@@ -124,6 +124,7 @@ export const Dashboard = () => {
 			</div>
 			<div className='flex-grow p-6'>
 				<h1 className='text-3xl font-semibold'>Dashboard</h1>
+
 				<Outlet />
 			</div>
 		</div>
