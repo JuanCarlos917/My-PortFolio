@@ -14,11 +14,12 @@ server.name = 'API';
 
 // Configurar opciones de CORS
 const corsOptions = {
-	origin: `${process.env.VITE_BASE_URL}`, // Replace with the exact origin of your application
+	origin: `${process.env.BASE_URL}`, // Replace with the exact origin of your application
 	credentials: true,
 	methods: 'GET, POST, OPTIONS, PUT, DELETE',
 	allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
 };
+
 server.use(cors(corsOptions));
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
