@@ -30,7 +30,9 @@ export const Home = () => {
 			) : (
 				<div className='grid grid-cols-1 md:grid-cols-2 gap-8 items-start'>
 					<div className='space-y-2'>
-						<h1 className='text-4xl font-bold'>{`${cvInfo?.name} ${cvInfo?.lastName}`}</h1>
+						<h1 className='text-4xl font-bold'>{`${
+							cvInfo?.name || 'Juan Carlos'
+						} ${cvInfo?.lastName || 'Gomez'}`}</h1>
 						<p className='text-lg'>{aboutInfo?.bio}</p>
 						<div className='flex space-x-4 mt-4'>
 							<a
