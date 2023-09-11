@@ -57,10 +57,18 @@ const getCV = async (req, res) => {
 const createCV = async (req, res) => {
 	try {
 		// Obtener los datos del cuerpo de la solicitud
-		const { name, lastName, email, phone, social_media } = req.body;
+		const { name, lastName, email, phone, social_media, imageUrl } =
+			req.body;
 
 		// Validar que todos los campos requeridos estén presentes en el cuerpo de la solicitud
-		if (!name || !lastName || !email || !phone || !social_media) {
+		if (
+			!name ||
+			!lastName ||
+			!email ||
+			!phone ||
+			!social_media ||
+			!imageUrl
+		) {
 			return res.status(400).json({
 				message: 'Todos los campos son obligatorios.',
 			});
@@ -92,6 +100,7 @@ const createCV = async (req, res) => {
 			email,
 			phone,
 			social_media,
+            imageUrl,
 			AboutId: about.id,
 		});
 
@@ -109,8 +118,16 @@ const createCV = async (req, res) => {
 const updateCV = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { name, lastName, email, phone, social_media } = req.body;
-		if (!name || !lastName || !email || !phone || !social_media) {
+		const { name, lastName, email, phone, social_media, imageUrl } =
+			req.body;
+		if (
+			!name ||
+			!lastName ||
+			!email ||
+			!phone ||
+			!social_media ||
+			!imageUrl
+		) {
 			return res.status(400).json({
 				message: 'Todos los campos son obligatorios.',
 			});
@@ -135,6 +152,7 @@ const updateCV = async (req, res) => {
 				email,
 				phone,
 				social_media,
+                imageUrl,
 				AboutId: about.id,
 			},
 			{ where: { id } },
