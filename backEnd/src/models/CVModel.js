@@ -69,7 +69,11 @@ module.exports = (sequelize) => {
 						}
 					},
 				},
-			}
+			},
+			imageUrl: {
+				type: DataTypes.TEXT,
+				allowNull: true,
+			},
 		},
 		{
 			timestamps: false,

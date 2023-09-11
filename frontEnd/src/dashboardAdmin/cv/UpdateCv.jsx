@@ -77,6 +77,7 @@ export const UpdateCV = () => {
 										cvInfo?.social_media?.linkedin || '',
 									github: cvInfo?.social_media?.github || '',
 								},
+								imageUrl: cvInfo?.imageUrl || ''
 							}}
 							validationSchema={FormValidationsCV}
 							onSubmit={(values) => {
@@ -86,6 +87,7 @@ export const UpdateCV = () => {
 									email,
 									phone,
 									social_media,
+                                    imageUrl
 								} = values;
 
 								const cvInfo = {
@@ -94,6 +96,7 @@ export const UpdateCV = () => {
 									email,
 									phone,
 									social_media,
+                                    imageUrl
 								};
 								const userConfirmed = window.confirm(
 									'¿Estás seguro de que deseas realizar la modificación?',
@@ -205,6 +208,16 @@ export const UpdateCV = () => {
 										component='div'
 										className='text-red-500 text-sm'
 									/>
+                                    <label
+                                        htmlFor='imageUrl'
+                                        className='block text-sm font-medium text-gray-600'>
+                                        Imagen
+                                        </label>
+                                    <Field
+                                        type='text'
+                                        name='imageUrl'
+                                        className='mt-1 p-2 w-full border rounded-md'
+                                    />
 									<div className='text-center'>
 										<button
 											type='submit'
