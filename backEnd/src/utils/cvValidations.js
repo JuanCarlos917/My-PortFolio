@@ -14,6 +14,7 @@ const updateCVValidations = [
 	body('social_media')
 		.notEmpty()
 		.withMessage('El campo social media es obligatorio'),
+	body('imageUrl').notEmpty().withMessage('El campo imageUrl es obligatorio'),
 ];
 // Función para manejar los errores de validación
 const handleValidationErrors = (req, res, next) => {
@@ -25,6 +26,6 @@ const handleValidationErrors = (req, res, next) => {
 };
 
 module.exports = {
-    updateCVValidations,
-    handleValidationErrors
-}
+	updateCVValidations,
+	handleValidationErrors,
+};

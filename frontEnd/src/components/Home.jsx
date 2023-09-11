@@ -48,10 +48,11 @@ export const Home = () => {
 						</div>
 					</div>
 					<div>
-						<img
-							src='https://s3mediapf.s3.us-east-1.amazonaws.com/Captura%20de%20pantalla%202023-06-21%20a%20la%28s%29%2020.42.11.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAXLCS7UOKL45CJ3TG%2F20230910%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230910T211028Z&X-Amz-Expires=3600&X-Amz-Signature=5eec57b9996880b596370b95bb20c029ff05ddbfef006a34de501117b709158a&X-Amz-SignedHeaders=host&x-id=GetObject'
-							className='w-full object-cover rounded-lg shadow-md'
-						/>
+                        <img
+                            src={cvInfo?.imageUrl}
+                            alt='Juan Carlos Gomez'
+                            className='rounded-full'
+                        />
 					</div>
 				</div>
 			)}

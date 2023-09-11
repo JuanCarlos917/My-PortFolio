@@ -24,6 +24,7 @@ export const FormCV = () => {
 			linkedin: '',
 			github: '',
 		},
+        imageUrl: '',
 	};
 	return (
 		<div className='max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md'>
@@ -141,6 +142,22 @@ export const FormCV = () => {
 								component='div'
 								className='text-red-500 text-sm'
 							/>
+                            {/* Image */}
+                            <label
+                                htmlFor='imageUrl'
+                                className='block text-sm font-medium text-gray-600'>
+                                Imagen
+                            </label>
+                            <Field
+                                type='text'
+                                name='imageUrl'
+                                className='mt-1 p-2 w-full border rounded-md'
+                            />
+                            <ErrorMessage
+                                name='imageUrl'
+                                component='div'
+                                className='text-red-500 text-sm'
+                            />
 							<div className='text-center'>
 								<button
 									type='submit'
