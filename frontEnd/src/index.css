@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Volkhov&family=Ysabeau+SC:wght@1&display=swap');
+
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
 body {
-	background-color: #f1e9da;
+	background-color: #ffffff;
 }
