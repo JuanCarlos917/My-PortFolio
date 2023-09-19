@@ -52,6 +52,9 @@ export const Footer = () => {
 						<Link to='/education' className='hover:underline'>
 							Educación
 						</Link>
+						<Link to='/educatio' className='hover:underline'>
+							Proyectos
+						</Link>
 						<Link to='/dashboard' className='hover:underline'>
 							Admin
 						</Link>
@@ -70,10 +73,7 @@ export const Footer = () => {
 			</div>
 			{/* Footer Bottom */}
 			<div className='w-full text-center mt-8'>
-				<small>
-					&copy;{new Date().getFullYear()} | Todos los derechos
-					reservados.
-				</small>
+				<small>&copy;{new Date().getFullYear()} | by Juan Gómez</small>
 			</div>
 		</div>
 	);
