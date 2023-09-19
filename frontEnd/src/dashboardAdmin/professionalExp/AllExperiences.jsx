@@ -46,11 +46,11 @@ export const AllExperiences = () => {
 			));
         } else {
             content = (
-                <div>
-                    <p>No existe información de experiencia, para modificar.</p>
-                    <Link to='/dashboard/form-experience'>Crear</Link>
-                </div>
-            );
+				<div>
+					<p>No existe información de experiencia, para modificar.</p>
+					<Link to='/dashboard/form-professionalExp'>Crear</Link>
+				</div>
+			);
         }
     } else if (status === 'failed') {
         content = <div>{error}</div>;

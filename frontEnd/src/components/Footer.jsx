@@ -1,14 +1,14 @@
-// Importaciones
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import logo from '../assets/images/logoFooter.svg';
 
-// Componente Footer
+
 export const Footer = () => {
 	// Obtener información del CV desde el estado de Redux
 	const cvInfo = useSelector((state) => state.cv.cvInfo);
 
 	return (
-		<div className='bg-gray-800 text-white container mx-auto p-6'>
+		<div className='bg-white text-black container mx-auto p-6 shadow-top'>
 			<div className='grid grid-cols-1 md:grid-cols-3 gap-8 items-start'>
 				{/* Primera columna de información */}
 				<div className='space-y-4'>
@@ -64,11 +64,15 @@ export const Footer = () => {
 				{/* Tercera columna: foto */}
 				<div className='space-y-4'>
 					{/* Imagen de perfil */}
-					<img
-						src={cvInfo?.imageUrl}
-						alt='Perfil'
-						className='w-full max-w-xs rounded-full shadow-lg'
-					/>
+					<span className='inline-block w-40 h-40 relative overflow-hidden'>
+						<Link to='/'>
+							<img
+								src={logo}
+								alt='logo'
+								className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 object-cover'
+							/>
+						</Link>
+					</span>
 				</div>
 			</div>
 			{/* Footer Bottom */}

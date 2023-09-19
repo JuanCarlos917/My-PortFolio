@@ -18,68 +18,42 @@ export const ProjectList = () => {
 	let content;
 	if (status === 'loading') {
 		content = (
-			<div>
+			<div className='flex justify-center items-center h-screen'>
 				<Loading />
 			</div>
 		);
 	} else if (status === 'succeeded') {
 		content = (
-			<div>
+			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 				{Array.isArray(projectInfo) &&
 					projectInfo.map((project, index) => (
-						<div key={index}>
-							<h2>Proyecto: {index + 1}</h2>
-							<h4>Nombre: </h4>
-							<p>{project.title}</p>
-							<h4>Descripción: </h4>
-							<p>{project.description}</p>
-							<h4>Imagen: </h4>
-							<img src={project.image} alt={project.title} />
-							<h4>Url: </h4>
-							<a href={project.url}>{project.title}</a>
-							<h4>Tecnologías: </h4>
-							<p>{project.technologies}</p>
-							<h3>Equipo:</h3>
-							<ul>
-								{Array.isArray(project.TeamDevs) &&
-									project.TeamDevs.map((team, teamIndex) => (
-										<li key={teamIndex}>
-											{team.name}
-											{team.social_network && (
-												<a
-													href={team.social_network}
-													target='_blank'
-													rel='noopener noreferrer'>
-													Linkedin
-												</a>
-											)}
-										</li>
-									))}
-							</ul>
-							<h3>Tags:</h3>
-							<ul>
-								{Array.isArray(project.Tags) &&
-									project.Tags.map((tag, tagIndex) => (
-										<li key={tagIndex}>{tag.name}</li>
-									))}
-							</ul>
-							<h3>Categorías:</h3>
-							<ul>
-								{Array.isArray(project.Categories) &&
-									project.Categories.map(
-										(category, categoryIndex) => (
-											<li key={categoryIndex}>
-												{category.name}
-											</li>
-										),
-									)}
-							</ul>
+						<div
+							key={index}
+							className='rounded-lg overflow-hidden shadow-lg p-6 bg-white'>
+							<img
+								src={project.image}
+								alt={project.title}
+								className='w-full object-cover h-48'
+							/>
+							<h2 className='text-xl font-semibold mt-4 mb-2'>
+								Proyecto: {project.title}
+							</h2>
+							<p className='text-gray-600 mb-4'>
+								{project.description}
+							</p>
+							<a
+								href={project.url}
+								className='text-blue-600 hover:underline'>
+								{project.title}
+							</a>
+							{/* ... Resto del contenido de la card ... */}
 						</div>
 					))}
 			</div>
 		);
 	} else if (status === 'failed') {
-		content = <div> {error}</div>;
+		content = <div className='text-red-600 font-semibold'>{error}</div>;
 	}
-	return <div>{content}</div>;
+
+	return <div className='container mx-auto p-8'>{content}</div>;
 };
