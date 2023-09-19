@@ -71,7 +71,9 @@ export const UpdateExperience = () => {
 								No existe información de experiencia, para
 								modificar.
 							</p>
-							<Link to='/dashboard/form-experience'>Crear</Link>
+							<Link to='/dashboard/form-professionalExp'>
+								Crear
+							</Link>
 						</div>
 					) : (
 						<Formik
@@ -88,23 +90,23 @@ export const UpdateExperience = () => {
 								const userConfirmed = window.confirm(
 									'¿Estás seguro de que deseas realizar la modificación?',
 								);
-                                if(userConfirmed){
-								dispatch(
-									updateProfessionalExp({
-										id: id,
-										professionalExpInfo: {
-											company: values.company,
-											position: values.position,
-											description: values.description,
-											startDate: values.startDate,
-											endDate: values.endDate,
-										},
-									}),
-								);
-                                }else {
+								if (userConfirmed) {
+									dispatch(
+										updateProfessionalExp({
+											id: id,
+											professionalExpInfo: {
+												company: values.company,
+												position: values.position,
+												description: values.description,
+												startDate: values.startDate,
+												endDate: values.endDate,
+											},
+										}),
+									);
+								} else {
 									setCancelledModification(true);
 									// Guardar el proyecto actualizado en localStorage
-                                    saveToLocalStorage('experienceInfoUpdate', {
+									saveToLocalStorage('experienceInfoUpdate', {
 										professionalExpInfo: {
 											company: values.company,
 											position: values.position,

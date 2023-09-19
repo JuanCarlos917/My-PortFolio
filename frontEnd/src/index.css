@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Volkhov&family=Ysabeau+SC:wght@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Volkhov&family=Ysabeau+SC:wght@1;200;600&display=swap');
 
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
@@ -6,4 +6,19 @@
 
 body {
 	background-color: #ffffff;
+}
+
+.shadow-top {
+	position: relative;
+}
+
+.shadow-top::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 10px;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent);
+	z-index: 10;
 }

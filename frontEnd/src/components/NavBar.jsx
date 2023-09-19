@@ -3,20 +3,20 @@ import logo from '../assets/images/logo.svg';
 
 export const NavBar = () => {
 	return (
-		<div className='bg-white_bg flex items-center justify-between px-4 py-2 font-ysabeau'>
-			<span className='inline-block w-60 h-60 relative overflow-hidden'>
+		<div className='bg-white_bg flex items-center justify-between px-4 py-2 font-aboreto mt-[-40px]'>
+			<span className='inline-block w-40 h-40 relative overflow-hidden'>
 				<Link to='/'>
 					<img
 						src={logo}
 						alt='logo'
-						className='absolute inset-0 w-full h-full object-cover'
+						className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 object-cover'
 					/>
 				</Link>
 			</span>
 			<div className='flex items-center space-x-4'>
 				<Link
-					to='/'
-					className='text-lg font-medium text-golden hover:text-gray-800 transition duration-200'>
+					to='/home'
+					className='text-lg font-medium text-black hover:text-gray-800 transition duration-200'>
 					Home
 				</Link>
 				<Link
@@ -30,7 +30,7 @@ export const NavBar = () => {
 					CV
 				</Link>
 				<Link
-					to='/education'
+					to='/projects'
 					className='text-base font-light text-[#1a1919] hover:text-gray-600 transition duration-200'>
 					Proyectos
 				</Link>

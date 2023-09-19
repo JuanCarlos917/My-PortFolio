@@ -32,6 +32,7 @@ export default {
 				gris: '#A9A9A9',
 			},
 			fontFamily: {
+				aboreto: ['Aboreto', 'cursive'],
 				volkhov: ['Volkhov', 'serif'],
 				ysabeau: ['Ysabeau SC', 'sans-serif'],
 			},

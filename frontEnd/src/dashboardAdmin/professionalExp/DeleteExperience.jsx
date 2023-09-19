@@ -43,7 +43,9 @@ export const DeleteExperience = () => {
 								No existe información de experiencia, para
 								eliminar.
 							</p>
-							<Link to='/dashboard/form-experience'>Crear</Link>
+							<Link to='/dashboard/form-professionalExp'>
+								Crear
+							</Link>
 						</div>
 					) : (
 						<div>
@@ -63,8 +65,7 @@ export const DeleteExperience = () => {
 								}}>
 								Eliminar
 							</button>
-							<Link
-								to={`/dashboard/update-experience/${id}`}>
+							<Link to={`/dashboard/update-experience/${id}`}>
 								Modificar
 							</Link>
 						</div>

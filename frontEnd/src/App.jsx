@@ -16,7 +16,8 @@ import { AboutMe } from './components/AboutMe';
 import { Education } from './components/Education';
 import { Cv } from './components/CV';
 import { Footer } from './components/Footer';
-
+import { ProjectList } from './components/ProjectList';
+import { LandingPage } from './components/LandingPage';
 
 //dashboard
 import { SignUp } from './components/SignUp';
@@ -63,10 +64,12 @@ function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path='/' element={<Root />}>
-				<Route path='/' element={<Home />} />
+                <Route path='/' element={<LandingPage />} />
+				<Route path='/home' element={<Home />} />
 				<Route path='/about' element={<AboutMe />} />
 				<Route path='/education' element={<Education />} />
 				<Route path='/cv' element={<Cv />} />
+                <Route path='/projects' element={<ProjectList />} />
 				<Route path='/signup' element={<SignUp />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/logout' element={<Logout />} />
