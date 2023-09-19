@@ -23,13 +23,17 @@ export default {
 			colors: {
 				Dark_Navy_Blue: '#1A2C56 ',
 
-				Sky_Blue: '#74AED7 ',
+				white_bg: '#ffffff',
 
 				coral: '#FF6B6B',
 
 				golden: '#ffc107',
 
 				gris: '#A9A9A9',
+			},
+			fontFamily: {
+				volkhov: ['Volkhov', 'serif'],
+				ysabeau: ['Ysabeau SC', 'sans-serif'],
 			},
 		},
 	},
