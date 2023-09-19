@@ -20,7 +20,7 @@ export const Footer = () => {
 					</h1>
 
 					{/* Teléfono y correo electrónico */}
-					<p className='text-lg'>{cvInfo?.phone}</p>
+					<p className='text-lg'>+57 {cvInfo?.phone}</p>
 					<p className='text-lg'>{cvInfo?.email}</p>
 					<div className='flex space-x-4'>
 						<a

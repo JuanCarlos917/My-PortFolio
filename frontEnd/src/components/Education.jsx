@@ -23,22 +23,22 @@ export const Education = () => {
 				<Loading />
 			</div>
 		);
-	} else if (Array.isArray(educationInfo) && status === 'succeeded') {
-		content = educationInfo.map((edu, index) => (
+	} else if (status === 'succeeded') {
+		content = Array.isArray(educationInfo) && educationInfo.map((edu, index) => (
 			<div key={index}>
 				<h2>Educación {index + 1}:</h2>
 				<h3>Universidad:</h3>
-				<p>{edu.institution}</p>
+				<p>{edu?.institution}</p>
 				<h3>Carrera:</h3>
-				<p>{edu.degree}</p>
+				<p>{edu?.degree}</p>
 				<h3>Campo de estudio:</h3>
-				<p>{edu.field_of_study}</p>
+				<p>{edu?.field_of_study}</p>
 				<h3>Descripción:</h3>
-				<p>{edu.description}</p>
+				<p>{edu?.description}</p>
 				<h3>Fecha de inicio: </h3>
-				<p>{edu.startDate}</p>
+				<p>{edu?.startDate}</p>
 				<h3>Fecha de finalización:</h3>
-				<p>{edu.endDate}</p>
+				<p>{edu?.endDate}</p>
 			</div>
 		));
 	} else if (status === 'failed') {
