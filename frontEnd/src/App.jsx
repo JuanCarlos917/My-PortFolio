@@ -17,6 +17,7 @@ import { Education } from './components/Education';
 import { Cv } from './components/CV';
 import { Footer } from './components/Footer';
 
+
 //dashboard
 import { SignUp } from './components/SignUp';
 import { Login } from './components/Login';

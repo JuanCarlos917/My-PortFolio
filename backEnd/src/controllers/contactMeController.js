@@ -14,7 +14,7 @@ const contactMe = async (req, res) => {
 		const mailOptions = {
 			from: `Portfolio Contac me <${process.env.OUTLOOK_USER}>`,
 			to: process.env.OUTLOOK_USER,
-			subject: `Message from ${name}--Portfolio`,
+			subject: `Contactame ${name} Portfolio`,
 			html: `
                             <!DOCTYPE html>
 <html lang="en">
