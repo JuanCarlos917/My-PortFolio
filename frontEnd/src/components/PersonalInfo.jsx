@@ -19,25 +19,55 @@ export const PersonalInfo = () => {
 
 	if (status === 'loading') {
 		content = (
-			<div>
+			<div className='flex justify-center items-center h-screen'>
 				<Loading />
 			</div>
 		);
 	} else if (status === 'succeeded') {
 		content = (
-			<div>
-				<h2>CV:</h2>
-				<h3>Nombre: {cvInfo?.name}</h3>
-				<h3>Apellido: {cvInfo?.lastName}</h3>
-				<h3>Email: {cvInfo?.email}</h3>
-				<h3>Teléfono: {cvInfo?.phone}</h3>
-				<h3>Redes sociales:</h3>
-				<a href={cvInfo?.social_media?.linkedin}>Linkedin</a>
-				<a href={cvInfo?.social_media?.github}>Github</a>
+			<div className='space-y-4'>
+				<h3 className='text-xl font-aboreto'>
+					Nombre: <span className='font-ysabeau'>{cvInfo?.name}</span>
+				</h3>
+				<h3 className='text-xl font-aboreto'>
+					Apellido:{' '}
+					<span className='font-ysabeau'>{cvInfo?.lastName}</span>
+				</h3>
+				<h3 className='text-xl font-aboreto'>
+					Email: <span className='font-ysabeau'>{cvInfo?.email}</span>
+				</h3>
+				<h3 className='text-xl font-aboreto'>
+					Teléfono:{' '}
+					<span className='font-ysabeau'>+57 {cvInfo?.phone}</span>
+				</h3>
+				<h3 className='text-xl font-aboreto'>Redes sociales:</h3>
+				<div className='flex space-x-4'>
+					<a
+						href={cvInfo?.social_media?.linkedin}
+						className='text-blue-500 hover:underline'>
+						Linkedin
+					</a>
+					<a
+						href={cvInfo?.social_media?.github}
+						className='hover:underline'>
+						Github
+					</a>
+				</div>
 			</div>
 		);
 	} else if (status === 'failed') {
-		content = <div> {error}</div>;
+		content = (
+			<div className='text-red-500 font-semibold'>
+				{error}
+			</div>
+		);
 	}
-	return <div>{content}</div>;
+
+	return (
+		<div className='p-4 rounded-lg bg-white'>
+			{' '}
+			{/* Estilo de fondo y sombra */}
+			{content}
+		</div>
+	);
 };
