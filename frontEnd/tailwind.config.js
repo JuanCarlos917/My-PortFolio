@@ -28,8 +28,6 @@ export default {
 				coral: '#FF6B6B',
 
 				golden: '#ffc107',
-
-				gris: '#A9A9A9',
 			},
 			fontFamily: {
 				aboreto: ['Aboreto', 'cursive'],
