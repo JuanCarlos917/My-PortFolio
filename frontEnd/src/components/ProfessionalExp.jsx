@@ -20,7 +20,7 @@ export const ProfessionalExp = () => {
 	let content;
 	if (status === 'loading') {
 		content = (
-			<div>
+			<div className='flex justify-center items-center h-screen'>
 				<Loading />
 			</div>
 		);
@@ -30,7 +30,6 @@ export const ProfessionalExp = () => {
 				{Array.isArray(professionalExpInfo) &&
 					professionalExpInfo.map((experience, index) => (
 						<div key={index}>
-							<h2>Experiencia: {index + 1}</h2>
 							<h4>Compañía: </h4>
 							<p>{experience.company}</p>
 							<h4>Descripción: </h4>

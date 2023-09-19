@@ -35,6 +35,7 @@ export default {
 				aboreto: ['Aboreto', 'cursive'],
 				volkhov: ['Volkhov', 'serif'],
 				ysabeau: ['Ysabeau SC', 'sans-serif'],
+				sf: ['San Francisco', 'sans-serif'],
 			},
 		},
 	},

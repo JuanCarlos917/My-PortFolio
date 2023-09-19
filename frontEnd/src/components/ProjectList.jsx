@@ -33,20 +33,75 @@ export const ProjectList = () => {
 							<img
 								src={project.image}
 								alt={project.title}
-								className='w-full object-cover h-48'
+								className='w-full object-cover h-48 mb-4'
 							/>
-							<h2 className='text-xl font-semibold mt-4 mb-2'>
-								Proyecto: {project.title}
+							<h2 className='text-xl font-sf mt-4 mb-2'>
+								{project.title}
 							</h2>
-							<p className='text-gray-600 mb-4'>
+							<p className='text-gray-600 mb-4 font-ysabeau'>
 								{project.description}
 							</p>
+							<h4 className='font-sf text-lg mb-2'>
+								Tecnologías:
+							</h4>
+							<p className='text-gray-600 mb-4 font-ysabeau'>
+								{project.technologies}
+							</p>
+
+							<h4 className='font-sf text-lg mb-2'>Equipo:</h4>
+							<ul className='list-disc pl-5 mb-4 font-ysabeau'>
+								{Array.isArray(project.TeamDevs) &&
+									project.TeamDevs.map((team, teamIndex) => (
+										<li
+											key={teamIndex}
+											className='text-gray-600 flex items-center justify-between'>
+											<span>{team.name}</span>
+											{team.social_network && (
+												<a
+													href={team.social_network}
+													target='_blank'
+													rel='noopener noreferrer'
+													className='text-blue-600 hover:underline'>
+													Linkedin
+												</a>
+											)}
+										</li>
+									))}
+							</ul>
+
+							<h4 className='font-sf text-lg mb-2'>Tags:</h4>
+							<ul className='list-disc pl-5 mb-4 font-ysabeau'>
+								{Array.isArray(project.Tags) &&
+									project.Tags.map((tag, tagIndex) => (
+										<li
+											key={tagIndex}
+											className='text-gray-600 '>
+											{tag.name}
+										</li>
+									))}
+							</ul>
+
+							<h4 className='font-sf text-lg mb-2'>
+								Categorías:
+							</h4>
+							<ul className='list-disc pl-5 mb-4 font-ysabeau'>
+								{Array.isArray(project.Categories) &&
+									project.Categories.map(
+										(category, categoryIndex) => (
+											<li
+												key={categoryIndex}
+												className='text-gray-600'>
+												{category.name}
+											</li>
+										),
+									)}
+							</ul>
+
 							<a
 								href={project.url}
-								className='text-blue-600 hover:underline'>
-								{project.title}
+								className='text-blue-600 hover:underline mt-2'>
+								Ver proyecto
 							</a>
-							{/* ... Resto del contenido de la card ... */}
 						</div>
 					))}
 			</div>

@@ -4,6 +4,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@font-face {
+	font-family: 'San Francisco';
+	src: url('/fonts/SanFrancisco-Regular.otf') format('opentype');
+}
 body {
 	background-color: #ffffff;
 }

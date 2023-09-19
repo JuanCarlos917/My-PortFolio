@@ -77,7 +77,7 @@ export const Footer = () => {
 			</div>
 			{/* Footer Bottom */}
 			<div className='w-full text-center mt-8'>
-				<small>&copy;{new Date().getFullYear()} | by Juan Gómez</small>
+				<small>&copy;{new Date().getFullYear()} | by Juan Gómez </small>
 			</div>
 		</div>
 	);

@@ -19,14 +19,13 @@ export const Education = () => {
 
 	if (status === 'loading') {
 		content = (
-			<div>
+			<div className='flex justify-center items-center h-screen'>
 				<Loading />
 			</div>
 		);
 	} else if (status === 'succeeded') {
 		content = Array.isArray(educationInfo) && educationInfo.map((edu, index) => (
 			<div key={index}>
-				<h2>Educación {index + 1}:</h2>
 				<h3>Universidad:</h3>
 				<p>{edu?.institution}</p>
 				<h3>Carrera:</h3>
