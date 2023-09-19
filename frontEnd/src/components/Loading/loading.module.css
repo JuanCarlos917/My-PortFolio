@@ -11,7 +11,7 @@
 	height: 4px;
 	width: 0%;
 	display: block;
-	background: #ff3d00;
+	background: #000000;
 	animation: 5s lineGrow linear infinite;
 }
 

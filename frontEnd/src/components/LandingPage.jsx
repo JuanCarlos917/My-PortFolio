@@ -6,11 +6,11 @@ export const LandingPage = () => {
 		<div className='flex h-screen bg-gray-50 text-gray-900'>
 			{/* Lado izquierdo: Texto */}
 			<div className='flex flex-col justify-center w-1/2 p-16 space-y-8'>
-				<h1 className='text-3xl font-semibold'>
+				<h1 className='text-3xl ont-aboreto'>
 					Desarrollador Full-stack con Especialidad en Administración
 					de Empresas
 				</h1>
-				<p className='text-lg leading-relaxed'>
+				<p className='text-lg leading-relaxed font-ysabeau'>
 					Experto en tecnologías web como Javascript, React, Node.js,
 					bases de datos PostgreSQL y despliegue en la nube con AWS.
 				</p>

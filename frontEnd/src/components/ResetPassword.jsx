@@ -29,7 +29,7 @@ export const ResetPassword = () => {
 		<div className='container'>
 			<h1>Reset Password</h1>
 			{status === 'loading' ? (
-				<div>
+				<div className='flex justify-center items-center h-screen'>
 					<Loading />
 				</div>
 			) : (

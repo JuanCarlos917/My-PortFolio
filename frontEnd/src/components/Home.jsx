@@ -31,10 +31,10 @@ export const Home = () => {
 			) : (
 				<div className='grid grid-cols-1 md:grid-cols-2 gap-8 items-start'>
 					<div className='space-y-2'>
-						<h1 className='text-4xl font-bold'>{`${
+						<h1 className='text-4xl font-sf'>{`${
 							cvInfo?.name || 'Juan Carlos'
-						} ${cvInfo?.lastName || 'Gomez'}`}</h1>
-						<p className='text-lg'>{aboutInfo?.bio}</p>
+						} ${cvInfo?.lastName || 'Gómez'}`}</h1>
+						<p className='text-lg font-ysabeau'>{aboutInfo?.bio}</p>
 						<div className='flex space-x-4 mt-4'>
 							<a
 								href={cvInfo?.social_media?.linkedin}
@@ -55,9 +55,9 @@ export const Home = () => {
 							className='rounded-full'
 						/>
 					</div>
-                    <div>
-                        <ContactMe />
-                    </div>
+					<div>
+						<ContactMe />
+					</div>
 				</div>
 			)}
 		</div>

@@ -20,33 +20,48 @@ export const ProfessionalExp = () => {
 	let content;
 	if (status === 'loading') {
 		content = (
-			<div>
+			<div className='flex justify-center items-center h-screen'>
 				<Loading />
 			</div>
 		);
 	} else if (status === 'succeeded') {
 		content = (
-			<div>
+			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto'>
 				{Array.isArray(professionalExpInfo) &&
 					professionalExpInfo.map((experience, index) => (
-						<div key={index}>
-							<h2>Experiencia: {index + 1}</h2>
-							<h4>Compañía: </h4>
-							<p>{experience.company}</p>
-							<h4>Descripción: </h4>
-							<p>{experience.description}</p>
-							<h4>Posición: </h4>
-							<p>{experience.position}</p>
-							<h4>Fecha de inicio: </h4>
-							<p>{experience.startDate}</p>
-							<h4>Fecha de finalización: </h4>
-							<p>{experience.endDate}</p>
+						<div
+							key={index}
+							className='rounded-lg overflow-hidden shadow-lg p-6 bg-white'>
+							<h2 className='text-xl font-sf mt-4 mb-2'>
+								{experience.company}
+							</h2>
+							<p className='text-gray-600 mb-4 font-ysabeau '>
+								<span className='font-sf '>Descripción:</span>{' '}
+								{experience.description}
+							</p>
+							<p className='text-gray-600 mb-4 font-ysabeau'>
+								<span className='font-sf'>Posición:</span>{' '}
+								{experience.position}
+							</p>
+							<p className='text-gray-600 mb-4 font-ysabeau'>
+								<span className='font-sf '>
+									Inicio:
+								</span>{' '}
+								{experience.startDate}
+							</p>
+							<p className='text-gray-600 font-ysabeau'>
+								<span className='font-sf '>
+									Fin:
+								</span>{' '}
+								{experience.endDate}
+							</p>
 						</div>
 					))}
 			</div>
 		);
 	} else if (status === 'failed') {
-		content = <div> {error}</div>;
+		content = <div className='text-red-600 font-semibold'>{error}</div>;
 	}
-	return <div>{content}</div>;
+
+	return <div className='container mx-auto p-8'>{content}</div>;
 };

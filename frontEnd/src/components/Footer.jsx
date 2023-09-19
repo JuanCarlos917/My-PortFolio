@@ -8,7 +8,7 @@ export const Footer = () => {
 	const cvInfo = useSelector((state) => state.cv.cvInfo);
 
 	return (
-		<div className='bg-white text-black container mx-auto p-6 shadow-top'>
+		<div className='bg-white_bg text-black container mx-auto p-6 shadow-top'>
 			<div className='grid grid-cols-1 md:grid-cols-3 gap-8 items-start'>
 				{/* Primera columna de información */}
 				<div className='space-y-4'>
@@ -77,7 +77,7 @@ export const Footer = () => {
 			</div>
 			{/* Footer Bottom */}
 			<div className='w-full text-center mt-8'>
-				<small>&copy;{new Date().getFullYear()} | by Juan Gómez</small>
+				<small>&copy;{new Date().getFullYear()} | by Juan Gómez </small>
 			</div>
 		</div>
 	);
