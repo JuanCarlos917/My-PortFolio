@@ -31,21 +31,35 @@ export const AboutMe = () => {
 				<h2>Habilidades </h2>
 				<h3>Diseño Front end:</h3>
 				<ul>
-					{aboutInfo?.skills?.frontend?.map((skill, index) => (
-						<li key={index}>{skill}</li>
-					))}
+					{Array.isArray(aboutInfo?.skills?.frontend) ? (
+						aboutInfo?.skills?.frontend.map((skill, index) => (
+							<li key={index}>{skill}</li>
+						))
+					) : (
+						<li>No hay habilidades de frontend disponibles.</li>
+					)}
 				</ul>
 				<h3>Backend:</h3>
 				<ul>
-					{aboutInfo?.skills?.backend?.map((skill, index) => (
-						<li key={index}>{skill}</li>
-					))}
+					{Array.isArray(aboutInfo?.skills?.backend) ? (
+						aboutInfo?.skills?.backend.map((skill, index) => (
+							<li key={index}>{skill}</li>
+						))
+					) : (
+						<li>No hay habilidades de backend disponibles.</li>
+					)}
 				</ul>
 				<h3>Base de datos:</h3>
 				<ul>
-					{aboutInfo?.skills?.database?.map((skill, index) => (
-						<li key={index}>{skill}</li>
-					))}
+					{Array.isArray(aboutInfo?.skills?.database) ? (
+						aboutInfo?.skills?.database.map((skill, index) => (
+							<li key={index}>{skill}</li>
+						))
+					) : (
+						<li>
+							No hay habilidades de base de datos disponibles.
+						</li>
+					)}
 				</ul>
 			</div>
 		);

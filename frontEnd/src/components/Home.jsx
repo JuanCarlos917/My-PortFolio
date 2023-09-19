@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAbout } from '../features/about/aboutSlice';
 import { Loading } from './Loading/Loading';
+import { ContactMe } from './contactMe';
 
 export const Home = () => {
 	const dispatch = useDispatch();
@@ -48,12 +49,15 @@ export const Home = () => {
 						</div>
 					</div>
 					<div>
-                        <img
-                            src={cvInfo?.imageUrl}
-                            alt='Juan Carlos Gomez'
-                            className='rounded-full'
-                        />
+						<img
+							src={cvInfo?.imageUrl}
+							alt='Juan Carlos Gomez'
+							className='rounded-full'
+						/>
 					</div>
+                    <div>
+                        <ContactMe />
+                    </div>
 				</div>
 			)}
 		</div>
