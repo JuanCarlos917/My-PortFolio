@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.svg';
+
 export const NavBar = () => {
 	return (
 		<div className='bg-white_bg flex items-center justify-between px-4 py-2 font-ysabeau'>
@@ -15,7 +16,7 @@ export const NavBar = () => {
 			<div className='flex items-center space-x-4'>
 				<Link
 					to='/'
-					className='text-lg font-medium text-[#1a1919] hover:text-gray-600 transition duration-200'>
+					className='text-lg font-medium text-golden hover:text-gray-800 transition duration-200'>
 					Home
 				</Link>
 				<Link
