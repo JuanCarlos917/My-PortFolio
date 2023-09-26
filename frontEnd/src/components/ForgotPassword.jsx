@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { forgotPassword } from '../features/auth/authSlice';
 import FormValidationsForgotP from '../utils/FormValidationsForgotP';
 import { Loading } from './Loading/Loading';
+import { Button } from '@nextui-org/react';
 
 export const ForgotPasswordAcount = () => {
 	const dispatch = useDispatch();
@@ -48,15 +49,23 @@ export const ForgotPasswordAcount = () => {
 									component='div'
 								/>
 							</div>
-							<button
-								className='btn btn-primary'
+							<Button
+								size='sm'
+								radius='sm'
+								color='warning'
+								variant='ghost'
 								type='submit'
 								disabled={isSubmitting}>
-								Submit
-							</button>
-							<p>
+								Enviar
+							</Button>
+							<Button
+								size='sm'
+								radius='sm'
+								color='success'
+								variant='ghost'
+								type='submit'>
 								<Link to='/login'>Login</Link>
-							</p>
+							</Button>
 						</Form>
 					)}
 				</Formik>

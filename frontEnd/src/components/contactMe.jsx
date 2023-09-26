@@ -3,6 +3,7 @@ import { postContactMe } from '../features/contactMe/contactMeSlice';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import FormValidationsContactMe from '../utils/FormValidationsContactMe';
 import { Loading } from './Loading/Loading';
+import { Button } from '@nextui-org/react';
 
 export const ContactMe = () => {
 	const dispatch = useDispatch();
@@ -109,11 +110,14 @@ export const ContactMe = () => {
 							</div>
 
 							<div>
-								<button
-									type='submit'
-									className='w-full bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50'>
+								<Button
+									size='md'
+									radius='sm'
+									color='success'
+									variant='ghost'
+									type='submit'>
 									Estoy Listo, ¿Y Tú?...Enviar
-								</button>
+								</Button>
 							</div>
 						</Form>
 					)}
