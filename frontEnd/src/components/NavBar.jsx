@@ -1,40 +1,57 @@
 import { Link } from 'react-router-dom';
+import {
+	Navbar,
+	NavbarBrand,
+	NavbarContent,
+	NavbarItem,
+} from '@nextui-org/react';
 import logo from '../assets/images/logo.svg';
 
 export const NavBar = () => {
 	return (
-		<div className='bg-white_bg flex items-center justify-between px-4 py-2 font-aboreto mt-[-40px]'>
-			<span className='inline-block w-40 h-40 relative overflow-hidden'>
+		<Navbar shouldHideOnScroll className='font-ysabeau pt-0'>
+			<NavbarBrand
+				className='w-40 h-40 relative overflow-hidden flex items-center
+            '>
 				<Link to='/'>
 					<img
 						src={logo}
 						alt='logo'
-						className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 object-cover'
+						className='w-16 h-16 object-cover'
 					/>
 				</Link>
-			</span>
-			<div className='flex items-center space-x-4'>
-				<Link
-					to='/home'
-					className='text-lg font-medium text-black hover:text-gray-800 transition duration-200'>
-					Home
-				</Link>
-				<Link
-					to='/about'
-					className='text-base font-light text-[#1a1919] hover:text-gray-600 transition duration-200'>
-					Acerca de mí
-				</Link>
-				<Link
-					to='/cv'
-					className='text-base font-light text-[#1a1919] hover:text-gray-600 transition duration-200'>
-					CV
-				</Link>
-				<Link
-					to='/projects'
-					className='text-base font-light text-[#1a1919] hover:text-gray-600 transition duration-200'>
-					Proyectos
-				</Link>
-			</div>
-		</div>
+			</NavbarBrand>
+
+			<NavbarContent className='hidden sm:flex gap-4' justify='center'>
+				<NavbarItem isActive className='text-Dark_Navy_Blue'>
+					<Link
+						to='/home'
+						className='hover:text-golden transition duration-300'>
+						Home
+					</Link>
+				</NavbarItem>
+				<NavbarItem>
+					<Link
+						to='/about'
+						className='hover:text-golden transition duration-300'>
+						Acerca de mí
+					</Link>
+				</NavbarItem>
+				<NavbarItem>
+					<Link
+						to='/cv'
+						className='hover:text-golden transition duration-300'>
+						CV
+					</Link>
+				</NavbarItem>
+				<NavbarItem>
+					<Link
+						to='/projects'
+						className='hover:text-golden transition duration-300'>
+						Proyectos
+					</Link>
+				</NavbarItem>
+			</NavbarContent>
+		</Navbar>
 	);
 };
