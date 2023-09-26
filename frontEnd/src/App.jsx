@@ -59,12 +59,14 @@ import { ImageList } from './dashboardAdmin/s3Media/ImageList';
 import { UploadImage } from './dashboardAdmin/s3Media/ImageUpload';
 import { DeleteImage } from './dashboardAdmin/s3Media/ImageDelete';
 import { GenerateUrl } from './dashboardAdmin/s3Media/UrlImageS3';
+import { ContactMe } from './components/contactMe';
 
 function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path='/' element={<Root />}>
                 <Route path='/' element={<LandingPage />} />
+                <Route path='/contact' element={<ContactMe />} />
 				<Route path='/home' element={<Home />} />
 				<Route path='/about' element={<AboutMe />} />
 				<Route path='/education' element={<Education />} />

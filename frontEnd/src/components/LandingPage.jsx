@@ -1,6 +1,6 @@
 import logo from '../assets/images/logoClear.svg';
 import { Link } from 'react-router-dom';
-
+import { Button } from '@nextui-org/react';
 export const LandingPage = () => {
 	return (
 		<div className='flex h-screen bg-gray-50 text-gray-900'>
@@ -14,6 +14,15 @@ export const LandingPage = () => {
 					Experto en tecnologías web como Javascript, React, Node.js,
 					bases de datos PostgreSQL y despliegue en la nube con AWS.
 				</p>
+				<Link to='/contact'>
+					<Button
+						className='text-lg font-ysabeau text-Dark_Navy_Blue'
+						color='warning'
+						variant='shadow'
+						auto>
+						Contactame
+					</Button>
+				</Link>
 			</div>
 
 			{/* Lado derecho: Imagen con fondo negro */}
