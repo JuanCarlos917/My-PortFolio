@@ -13,7 +13,7 @@ export const Loading = () => {
 					setNotFound(true);
 					return 0;
 				} else {
-					return v + 5;
+					return v + 1;
 				}
 			});
 		}, 500);
