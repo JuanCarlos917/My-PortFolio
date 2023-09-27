@@ -4,7 +4,7 @@ import { getAbout } from '../features/about/aboutSlice';
 import { Loading } from './Loading/Loading';
 import { ContactMe } from './contactMe';
 import { Image } from '@nextui-org/react';
-import Linkedin from '@mui/icons-material/Linkedin';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHub from '@mui/icons-material/GitHub';
 
 export const Home = () => {
@@ -43,7 +43,7 @@ export const Home = () => {
 							</p>
 							<div className='flex space-x-4 mt-4'>
 								<a href={cvInfo?.social_media?.linkedin}>
-									<Linkedin
+									<LinkedInIcon
 										className='hover:text-linkedin transition duration-300'
 										color='disabled'
 										fontSize='large'

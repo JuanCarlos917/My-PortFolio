@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProject } from '../features/project/projectSlice';
 import { Loading } from './Loading/Loading';
-import Linkedin from '@mui/icons-material/Linkedin';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 export const ProjectList = () => {
 	const dispatch = useDispatch();
@@ -62,7 +62,7 @@ export const ProjectList = () => {
 													href={team.social_network}
 													target='_blank'
 													rel='noopener noreferrer'>
-													<Linkedin className='text-linkedin hover:text-golden transition duration-300' />
+													<LinkedInIcon className='text-linkedin hover:text-golden transition duration-300' />
 												</a>
 											)}
 										</li>
