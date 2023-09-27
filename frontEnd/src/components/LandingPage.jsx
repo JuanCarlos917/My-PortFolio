@@ -1,7 +1,15 @@
+import { useSelector } from 'react-redux';
 import logo from '../assets/images/logoClear.svg';
 import { Link } from 'react-router-dom';
 import { Button } from '@nextui-org/react';
+import Linkedin from '@mui/icons-material/Linkedin';
+import GitHub from '@mui/icons-material/GitHub';
+
 export const LandingPage = () => {
+
+	// Obtener información del CV desde el estado de Redux
+	const cvInfo = useSelector((state) => state.cv.cvInfo);
+
 	return (
 		<div className='flex h-screen bg-gray-50 text-gray-900'>
 			{/* Lado izquierdo: Texto */}
@@ -16,13 +24,27 @@ export const LandingPage = () => {
 				</p>
 				<Link to='/contact'>
 					<Button
-						className='text-lg font-ysabeau text-Dark_Navy_Blue'
+						className='text-lg font-ysabeau text-Dark_Navy_Blue  hover:text-pale_blue transition duration-300'
 						color='warning'
 						variant='shadow'
 						auto>
 						Contactame
 					</Button>
 				</Link>
+				<div className='flex space-x-4'>
+					<a href={cvInfo?.social_media?.linkedin}>
+						<Linkedin
+							color='disabled'
+							className='hover:text-linkedin transition duration-300'
+						/>
+					</a>
+					<a href={cvInfo?.social_media?.github}>
+						<GitHub
+							color='disabled'
+							className='hover:text-darck_black transition duration-300'
+						/>
+					</a>
+				</div>
 			</div>
 
 			{/* Lado derecho: Imagen con fondo negro */}

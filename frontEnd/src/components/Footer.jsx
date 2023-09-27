@@ -1,6 +1,10 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logoFooter.svg';
+import Linkedin from '@mui/icons-material/Linkedin';
+import GitHub from '@mui/icons-material/GitHub';
+import CallIcon from '@mui/icons-material/Call';
+import EmailIcon from '@mui/icons-material/Email';
 
 
 export const Footer = () => {
@@ -8,31 +12,27 @@ export const Footer = () => {
 	const cvInfo = useSelector((state) => state.cv.cvInfo);
 
 	return (
-		<div className='bg-white_bg text-black container mx-auto p-6 shadow-top'>
+		<div className='bg-white_bg font-sf text-black container mx-auto p-6 shadow-top'>
 			<div className='grid grid-cols-1 md:grid-cols-3 gap-8 items-start'>
 				{/* Primera columna de información */}
 				<div className='space-y-4'>
 					{/* Nombre y apellido */}
-					<h1 className='text-4xl font-semibold'>
+					<h1 className='text-4xl font-sf'>
 						{`${cvInfo?.name || 'Juan Carlos'} ${
-							cvInfo?.lastName || 'Gomez'
+							cvInfo?.lastName || 'Gómez'
 						}`}
 					</h1>
 
-					{/* Teléfono y correo electrónico */}
-					<p className='text-lg'>+57 {cvInfo?.phone}</p>
-					<p className='text-lg'>{cvInfo?.email}</p>
-					<div className='flex space-x-4'>
-						<a
-							href={cvInfo?.social_media?.linkedin}
-							className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded'>
-							LinkedIn
-						</a>
-						<a
-							href={cvInfo?.social_media?.github}
-							className='bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded'>
-							GitHub
-						</a>
+					{/* Teléfono */}
+					<div className='flex items-center space-x-2'>
+						<CallIcon color='disabled' />
+						<p className='text-lg'>+57 {cvInfo?.phone}</p>
+					</div>
+
+					{/* Correo electrónico */}
+					<div className='flex items-center space-x-2'>
+						<EmailIcon color='disabled' />
+						<p className='text-lg'>{cvInfo?.email}</p>
 					</div>
 				</div>
 
@@ -40,22 +40,34 @@ export const Footer = () => {
 				<div className='space-y-4'>
 					{/* Enlaces adicionales */}
 					<div className='flex flex-col space-y-2'>
-						<Link to='/' className='hover:underline'>
+						<Link
+							to='/'
+							className='hover:text-golden hover:underline transition duration-300'>
 							Home
 						</Link>
-						<Link to='/about' className='hover:underline'>
+						<Link
+							to='/about'
+							className='hover:text-golden hover:underline transition duration-300'>
 							Acerca de mí
 						</Link>
-						<Link to='/cv' className='hover:underline'>
+						<Link
+							to='/cv'
+							className='hover:text-golden hover:underline transition duration-300'>
 							CV
 						</Link>
-						<Link to='/education' className='hover:underline'>
+						<Link
+							to='/education'
+							className='hover:text-golden hover:underline transition duration-300'>
 							Educación
 						</Link>
-						<Link to='/educatio' className='hover:underline'>
+						<Link
+							to='/projects'
+							className='hover:text-golden hover:underline transition duration-300'>
 							Proyectos
 						</Link>
-						<Link to='/dashboard' className='hover:underline'>
+						<Link
+							to='/dashboard'
+							className='hover:text-bright_red hover:underline transition duration-300'>
 							Admin
 						</Link>
 					</div>
@@ -77,6 +89,20 @@ export const Footer = () => {
 			</div>
 			{/* Footer Bottom */}
 			<div className='w-full text-center mt-8'>
+				<div className='flex-center pb-2'>
+					<a href={cvInfo?.social_media?.linkedin}>
+						<Linkedin
+							className='hover:text-golden transition duration-300'
+							color='disabled'
+						/>
+					</a>
+					<a href={cvInfo?.social_media?.github}>
+						<GitHub
+							className='hover:text-golden transition duration-300'
+							color='disabled'
+						/>
+					</a>
+				</div>
 				<small>&copy;{new Date().getFullYear()} | by Juan Gómez </small>
 			</div>
 		</div>

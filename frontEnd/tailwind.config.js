@@ -27,13 +27,27 @@ export default {
 				// => @media (min-width: 1536px) { ... }
 			},
 			colors: {
-				Dark_Navy_Blue: '#1A2C56 ',
+                white:'#ffffff',
 
-				white_bg: '#ffffff',
-
-				coral: '#FF6B6B',
+				Dark_Navy_Blue: '#1A2C56',
 
 				golden: '#ffc107',
+
+				linkedin: '#0e76a8',
+
+                darck_black:'#000000',
+
+				dark_grayish_blue: '#1f2022',
+
+				light_grayish_blue: '#B9C4C9',
+
+				soft_green: '#37BD74',
+
+				bright_red: '#D81E5B',
+
+				vivid_blue: '#0D6EFD',
+
+				pale_blue: '#F0F5F9',
 			},
 			fontFamily: {
 				aboreto: ['Aboreto', 'cursive'],

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProject } from '../features/project/projectSlice';
 import { Loading } from './Loading/Loading';
+import Linkedin from '@mui/icons-material/Linkedin';
 
 export const ProjectList = () => {
 	const dispatch = useDispatch();
@@ -60,9 +61,8 @@ export const ProjectList = () => {
 												<a
 													href={team.social_network}
 													target='_blank'
-													rel='noopener noreferrer'
-													className='text-blue-600 hover:underline'>
-													Linkedin
+													rel='noopener noreferrer'>
+													<Linkedin className='text-linkedin hover:text-golden transition duration-300' />
 												</a>
 											)}
 										</li>
@@ -99,7 +99,7 @@ export const ProjectList = () => {
 
 							<a
 								href={project.url}
-								className='text-blue-600 hover:underline mt-2'>
+								className='text-vivid_blue hover:underline mt-2'>
 								Ver proyecto
 							</a>
 						</div>
