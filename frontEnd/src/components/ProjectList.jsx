@@ -25,21 +25,21 @@ export const ProjectList = () => {
 		);
 	} else if (status === 'succeeded') {
 		content = (
-			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+			<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8'>
 				{Array.isArray(projectInfo) &&
 					projectInfo.map((project, index) => (
 						<div
 							key={index}
-							className='rounded-lg overflow-hidden shadow-lg p-6 bg-white'>
+							className='rounded-lg overflow-hidden shadow-lg p-4 sm:p-6 bg-white'>
 							<img
 								src={project.image}
 								alt={project.title}
-								className='w-full object-cover h-48 mb-4'
+								className='w-full object-cover h-32 sm:h-48 mb-4'
 							/>
-							<h2 className='text-xl font-sf mt-4 mb-2'>
+							<h2 className='text-lg sm:text-xl font-sf mb-2'>
 								{project.title}
 							</h2>
-							<p className='text-gray-600 mb-4 font-ysabeau'>
+							<p className='text-gray-600 mb-3 font-ysabeau'>
 								{project.description}
 							</p>
 							<h4 className='font-sf text-lg mb-2'>
@@ -110,5 +110,5 @@ export const ProjectList = () => {
 		content = <div className='text-red-600 font-semibold'>{error}</div>;
 	}
 
-	return <div className='container mx-auto p-8'>{content}</div>;
+	return <div className='container mx-auto p-4 sm:p-8'>{content}</div>;
 };
