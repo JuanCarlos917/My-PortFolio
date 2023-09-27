@@ -66,7 +66,7 @@ export const Footer = () => {
 								Contactame
 							</Link>
 							<Link
-								to='/'
+								to='/home'
 								className='hover:text-golden hover:underline transition duration-300'>
 								Home
 							</Link>
