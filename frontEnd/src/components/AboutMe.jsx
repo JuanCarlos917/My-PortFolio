@@ -26,14 +26,14 @@ export const AboutMe = () => {
 	} else if (status === 'succeeded') {
 		content = (
 			<div className='space-y-6'>
-				<h2 className='text-2xl font-sf border-b pb-2'>Biografía:</h2>
+				<h2 className='text-2xl font-sf border-b pb-2'>Biografía </h2>
 				<p className='text-lg font-ysabeau'>{aboutInfo?.bio}</p>
 
-				<h2 className='text-2xl font-sf border-b pb-2'>Habilidades:</h2>
+				<h2 className='text-2xl font-sf border-b pb-2'>Habilidades </h2>
 
-				<div className='space-y-4 '>
+				<div className='grid grid-cols-1 md:grid-cols-3 gap-6 space-y-4 md:space-y-0'>
 					<section>
-						<h3 className='text-xl font-sf'>Diseño Front-end:</h3>
+						<h3 className='text-xl font-sf'>Diseño Front-end </h3>
 						<ul className='list-disc pl-5 font-ysabeau'>
 							{Array.isArray(aboutInfo?.skills?.frontend) ? (
 								aboutInfo?.skills?.frontend.map(
@@ -52,7 +52,7 @@ export const AboutMe = () => {
 					</section>
 
 					<section>
-						<h3 className='text-xl font-sf'>Diseño Back-end:</h3>
+						<h3 className='text-xl font-sf'>Diseño Back-end </h3>
 						<ul className='list-disc pl-5 font-ysabeau'>
 							{Array.isArray(aboutInfo?.skills?.backend) ? (
 								aboutInfo?.skills?.backend.map(
@@ -71,7 +71,7 @@ export const AboutMe = () => {
 					</section>
 
 					<section>
-						<h3 className='text-xl font-sf'>Base de datos:</h3>
+						<h3 className='text-xl font-sf'>Base de datos </h3>
 						<ul className='list-disc pl-5 font-ysabeau'>
 							{Array.isArray(aboutInfo?.skills?.database) ? (
 								aboutInfo?.skills?.database.map(
