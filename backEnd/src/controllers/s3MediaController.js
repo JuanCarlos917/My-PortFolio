@@ -32,7 +32,9 @@ const generateSignedUrl = async (key) => {
 			Bucket: AWS_BUCKET_NAME,
 			Key: key,
 		});
-		const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+		const url = await getSignedUrl(client, command, {
+			expiresIn: 3600 * 24 * 7,
+		});
 		return url;
 	} catch (error) {
 		console.error(error);

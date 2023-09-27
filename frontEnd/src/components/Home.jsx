@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAbout } from '../features/about/aboutSlice';
 import { Loading } from './Loading/Loading';
 import { ContactMe } from './contactMe';
-
+import { Image } from '@nextui-org/react';
+import Linkedin from '@mui/icons-material/Linkedin';
+import GitHub from '@mui/icons-material/GitHub';
 
 export const Home = () => {
 	const dispatch = useDispatch();
@@ -40,20 +42,25 @@ export const Home = () => {
 								{aboutInfo?.bio}
 							</p>
 							<div className='flex space-x-4 mt-4'>
-								<a
-									href={cvInfo?.social_media?.linkedin}
-									className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded'>
-									LinkedIn
+								<a href={cvInfo?.social_media?.linkedin}>
+									<Linkedin
+										className='hover:text-linkedin transition duration-300'
+										color='disabled'
+										fontSize='large'
+									/>
 								</a>
-								<a
-									href={cvInfo?.social_media?.github}
-									className='bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded'>
-									GitHub
+								<a href={cvInfo?.social_media?.github}>
+									<GitHub
+										className='hover:text-darck_black transition duration-300'
+										color='disabled'
+										fontSize='large'
+									/>
 								</a>
 							</div>
 						</div>
 						<div className='flex-1'>
-							<img
+							<Image
+								isBlurred
 								src={cvInfo?.imageUrl}
 								alt='Juan Carlos Gomez'
 								className='w-full md:w-3/4 mx-auto'
