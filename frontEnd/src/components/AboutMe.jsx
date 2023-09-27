@@ -31,7 +31,7 @@ export const AboutMe = () => {
 
 				<h2 className='text-2xl font-sf border-b pb-2'>Habilidades:</h2>
 
-				<div className='space-y-4'>
+				<div className='space-y-4 '>
 					<section>
 						<h3 className='text-xl font-sf'>Diseño Front-end:</h3>
 						<ul className='list-disc pl-5 font-ysabeau'>
