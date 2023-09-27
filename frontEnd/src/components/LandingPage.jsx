@@ -11,9 +11,9 @@ export const LandingPage = () => {
 	const cvInfo = useSelector((state) => state.cv.cvInfo);
 
 	return (
-		<div className='flex h-screen bg-gray-50 text-gray-900'>
+		<div className='flex flex-col sm:flex-row h-screen bg-gray-50 text-gray-900'>
 			{/* Lado izquierdo: Texto */}
-			<div className='flex flex-col justify-center w-1/2 p-16 space-y-8'>
+			<div className='flex flex-col justify-center p-8 space-y-8 w-full sm:w-1/2'>
 				<h1 className='text-3xl ont-aboreto'>
 					Desarrollador Full-stack con Especialidad en Administración
 					de Empresas
@@ -48,12 +48,12 @@ export const LandingPage = () => {
 			</div>
 
 			{/* Lado derecho: Imagen con fondo negro */}
-			<div className='flex items-center justify-center w-1/2 bg-black'>
+			<div className='flex items-center justify-center w-full sm:w-1/2 bg-black'>
 				<Link to='/'>
 					<img
 						src={logo}
 						alt='logo'
-						className='w-full max-h-[70%] object-cover shadow-lg rounded'
+						className='w-full max-h-[70%] sm:max-h-[90%] object-cover shadow-lg rounded'
 					/>
 				</Link>
 			</div>
