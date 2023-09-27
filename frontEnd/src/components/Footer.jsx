@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCV } from '../features/cv/cvSlice';
+import { Loading } from './Loading/Loading';
 import logo from '../assets/images/logoFooter.svg';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHub from '@mui/icons-material/GitHub';
@@ -23,7 +24,13 @@ export const Footer = () => {
 
 	let content;
 
-	if (status === 'succeeded') {
+	if (status === 'loading' || status === 'idle') {
+		content = (
+			<div className='flex justify-center items-center h-screen'>
+				<Loading />
+			</div>
+		);
+	} else if (status === 'succeeded') {
 		content = (
 			<div className='bg-white_bg font-sf text-black container mx-auto p-6 shadow-top'>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-8 items-start'>
