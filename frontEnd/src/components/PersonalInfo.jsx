@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCV } from '../features/cv/cvSlice';
 import { Loading } from './Loading/Loading';
-import Linkedin from '@mui/icons-material/Linkedin';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHub from '@mui/icons-material/GitHub';
 
 export const PersonalInfo = () => {
@@ -45,7 +45,7 @@ export const PersonalInfo = () => {
 				<h3 className='text-xl font-aboreto'>Redes sociales:</h3>
 				<div className='flex space-x-4'>
 					<a href={cvInfo?.social_media?.linkedin}>
-						<Linkedin
+						<LinkedInIcon
 							color='disabled'
 							className='hover:text-linkedin transition duration-300'
 						/>

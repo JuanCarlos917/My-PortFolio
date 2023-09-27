@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import logo from '../assets/images/logoClear.svg';
 import { Link } from 'react-router-dom';
 import { Button } from '@nextui-org/react';
-import Linkedin from '@mui/icons-material/Linkedin';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHub from '@mui/icons-material/GitHub';
 
 export const LandingPage = () => {
@@ -33,7 +33,7 @@ export const LandingPage = () => {
 				</Link>
 				<div className='flex space-x-4'>
 					<a href={cvInfo?.social_media?.linkedin}>
-						<Linkedin
+						<LinkedInIcon
 							color='disabled'
 							className='hover:text-linkedin transition duration-300'
 						/>

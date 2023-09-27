@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logoFooter.svg';
-import Linkedin from '@mui/icons-material/Linkedin';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHub from '@mui/icons-material/GitHub';
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
@@ -91,7 +91,7 @@ export const Footer = () => {
 			<div className='w-full text-center mt-8'>
 				<div className='flex-center pb-2'>
 					<a href={cvInfo?.social_media?.linkedin}>
-						<Linkedin
+						<LinkedInIcon
 							className='hover:text-golden transition duration-300'
 							color='disabled'
 						/>
