@@ -18,6 +18,7 @@ import { Cv } from './components/CV';
 import { Footer } from './components/Footer';
 import { ProjectList } from './components/ProjectList';
 import { LandingPage } from './components/LandingPage';
+import { NotFound404 } from './components/NotFound404';
 
 //dashboard
 import { SignUp } from './components/SignUp';
@@ -65,13 +66,13 @@ function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path='/' element={<Root />}>
-                <Route path='/' element={<LandingPage />} />
-                <Route path='/contact' element={<ContactMe />} />
+				<Route path='/' element={<LandingPage />} />
+				<Route path='/contact' element={<ContactMe />} />
 				<Route path='/home' element={<Home />} />
 				<Route path='/about' element={<AboutMe />} />
 				<Route path='/education' element={<Education />} />
 				<Route path='/cv' element={<Cv />} />
-                <Route path='/projects' element={<ProjectList />} />
+				<Route path='/projects' element={<ProjectList />} />
 				<Route path='/signup' element={<SignUp />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/logout' element={<Logout />} />
@@ -163,6 +164,7 @@ function App() {
 					<Route path='delete-image' element={<DeleteImage />} />
 					<Route path='generate-url' element={<GenerateUrl />} />
 				</Route>
+				<Route path='*' element={<NotFound404 />} />
 			</Route>,
 		),
 	);
