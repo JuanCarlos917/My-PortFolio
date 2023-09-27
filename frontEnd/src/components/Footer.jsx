@@ -61,6 +61,11 @@ export const Footer = () => {
 						{/* Enlaces adicionales */}
 						<div className='flex flex-col space-y-2'>
 							<Link
+								to='/contact'
+								className='hover:text-golden hover:underline transition duration-300'>
+								Contactame
+							</Link>
+							<Link
 								to='/'
 								className='hover:text-golden hover:underline transition duration-300'>
 								Home
