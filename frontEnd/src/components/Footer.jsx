@@ -33,9 +33,9 @@ export const Footer = () => {
 	} else if (status === 'succeeded') {
 		content = (
 			<div className='bg-white_bg font-sf text-black container mx-auto p-6 shadow-top'>
-				<div className='grid grid-cols-1 md:grid-cols-3 gap-8 items-start'>
+				<div className='grid grid-cols-1 md:grid-cols-3 gap-20 space-x-4 md:space-x-0 items-start'>
 					{/* Primera columna de información */}
-					<div className='space-y-4'>
+					<div className='space-y-4 md:space-y-0'>
 						{/* Nombre y apellido */}
 						<h1 className='text-4xl font-sf'>
 							{`${cvInfo?.name || 'Juan Carlos'} ${
@@ -94,7 +94,7 @@ export const Footer = () => {
 					</div>
 
 					{/* Tercera columna: foto */}
-					<div className='space-y-4'>
+					<div className='space-y-4 md:space-y-0'>
 						{/* Imagen de perfil */}
 						<span className='inline-block w-40 h-40 relative overflow-hidden'>
 							<Link to='/'>
@@ -108,7 +108,7 @@ export const Footer = () => {
 					</div>
 				</div>
 				{/* Footer Bottom */}
-				<div className='w-full text-center mt-8'>
+				<div className='space-y-4 md:space-y-0 w-full text-center mt-8'>
 					<div className='flex-center pb-2'>
 						<a href={cvInfo?.social_media?.linkedin}>
 							<LinkedInIcon

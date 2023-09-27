@@ -29,20 +29,19 @@ export const PersonalInfo = () => {
 		content = (
 			<div className='space-y-4'>
 				<h3 className='text-xl font-aboreto'>
-					Nombre: <span className='font-ysabeau'>{cvInfo?.name}</span>
+					Nombre <span className='font-ysabeau'>{cvInfo?.name}</span>
 				</h3>
 				<h3 className='text-xl font-aboreto'>
-					Apellido:{' '}
-					<span className='font-ysabeau'>{cvInfo?.lastName}</span>
+					Apellido <span className='font-ysabeau'>{cvInfo?.lastName}</span>
 				</h3>
 				<h3 className='text-xl font-aboreto'>
-					Email: <span className='font-ysabeau'>{cvInfo?.email}</span>
+					Email <span className='font-ysabeau'>{cvInfo?.email}</span>
 				</h3>
 				<h3 className='text-xl font-aboreto'>
-					Teléfono:{' '}
+					Teléfono{' '}
 					<span className='font-ysabeau'>+57 {cvInfo?.phone}</span>
 				</h3>
-				<h3 className='text-xl font-aboreto'>Redes sociales:</h3>
+				<h3 className='text-xl font-aboreto'>Redes sociales</h3>
 				<div className='flex space-x-4'>
 					<a href={cvInfo?.social_media?.linkedin}>
 						<LinkedInIcon
