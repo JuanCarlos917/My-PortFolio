@@ -42,7 +42,7 @@ export const NavBar = () => {
 				</Link>
 			</NavbarBrand>
 
-			<NavbarContent className='sm:hidden' justify='start'>
+			<NavbarContent className='sm:hidden' justify='end'>
 				<NavbarMenuToggle
 					aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
 					onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -50,7 +50,7 @@ export const NavBar = () => {
 			</NavbarContent>
 
 			<NavbarContent
-				className='hidden sm:flex gap-4 font-ysabeau'
+				className='hidden md:flex gap-4 font-ysabeau'
 				justify='center'>
 				{menuItemsMax.map((item, index) => (
 					<NavbarItem key={index} isActive={item.label === 'Home'}>
