@@ -62,7 +62,7 @@ export const Footer = () => {
 						<div className='flex flex-col space-y-2'>
 							<Link
 								to='/contact'
-								className='hover:text-golden hover:underline transition duration-300'>
+								className='hover:text-soft_green hover:underline transition duration-300'>
 								Contactame
 							</Link>
 							<Link
