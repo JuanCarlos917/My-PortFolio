@@ -10,7 +10,10 @@ export const getProfessionalExp = createAsyncThunk(
     async () => {
         try {
             const response = await axios.get(`${baseURL}/professionalExp`);
-            return response.data;
+            if (Array.isArray(response.data)){
+                return response.data;
+            }
+
         } catch (error) {
             console.log(error);
         }
@@ -67,7 +70,7 @@ export const deleteProfessionalExp = createAsyncThunk(
 export const professionalExpSlice = createSlice({
     name: 'professionalExp', // Nombre del slice
     initialState: {
-        professionalExpInfo: null,
+        professionalExpInfo: [],
         id: null,
         status: 'idle',
         error: null,

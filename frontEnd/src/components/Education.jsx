@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEducation } from '../features/education/educationSlice';
 import { Loading } from './Loading/Loading';
+import { DataSorter } from '../utils/DataSorter';
 
 export const Education = () => {
 	const dispatch = useDispatch();
@@ -15,6 +16,11 @@ export const Education = () => {
 		}
 	}, [status, dispatch]);
 
+	// Ordenar los datos por fecha
+	const sortedEducationInfo = Array.isArray(educationInfo)
+		? DataSorter({ data: educationInfo, dateField: 'startDate' })
+		: [];
+
 	let content;
 
 	if (status === 'loading') {
@@ -26,8 +32,8 @@ export const Education = () => {
 	} else if (status === 'succeeded') {
 		content = (
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 max-w-6xl mx-auto'>
-				{Array.isArray(educationInfo) &&
-					educationInfo.map((edu, index) => (
+				{Array.isArray(sortedEducationInfo) &&
+					sortedEducationInfo.map((edu, index) => (
 						<div
 							key={index}
 							className='rounded-lg overflow-hidden shadow-lg p-4 sm:p-6 bg-white'>
