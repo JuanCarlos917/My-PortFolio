@@ -8,7 +8,9 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 export const getEducation = createAsyncThunk('/education', async () => {
 	try {
 		const response = await axios.get(`${baseURL}/education`);
-		return response.data;
+		if (Array.isArray(response.data)) {
+			return response.data;
+		}
 	} catch (error) {
 		console.log(error);
 	}
@@ -62,7 +64,7 @@ export const deleteEducation = createAsyncThunk(
 export const educationSlice = createSlice({
 	name: 'education', // Nombre del slice
 	initialState: {
-		educationInfo: null,
+		educationInfo: [],
 		id: null,
 		status: 'idle',
 		error: null,
