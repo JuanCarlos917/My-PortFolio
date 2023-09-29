@@ -42,12 +42,12 @@ export const ProfessionalExp = () => {
 								{experience.company}
 							</h2>
 							<p className='text-gray-600 mb-3 font-ysabeau'>
-								<span className='font-sf '>Descripción:</span>{' '}
-								{experience.description}
-							</p>
-							<p className='text-gray-600 mb-3 font-ysabeau'>
 								<span className='font-sf'>Posición:</span>{' '}
 								{experience.position}
+							</p>
+							<p className='text-gray-600 mb-3 font-ysabeau'>
+								<span className='font-sf '>Descripción:</span>{' '}
+								{experience.description}
 							</p>
 							<p className='text-gray-600 mb-3 font-ysabeau'>
 								<span className='font-sf '>Inicio:</span>{' '}
