@@ -11,6 +11,7 @@ const s3MediaRoutes = require('./s3MediaRoutes');
 const authRoutes = require('./authRoutes');
 const ProfessionalExpRoutes = require('./professionalExpRoutes');
 const contactMe = require('./contactMe');
+const services = require('./servicesRoutes')
 
 const app = Router();
 
@@ -38,6 +39,8 @@ app.use('/auth', authRoutes);
 app.use('/professionalExp', ProfessionalExpRoutes);
 //Rutas relacionadas con contactame
 app.use('/contactMe', contactMe);
+//Rutas relacionadas con servicios
+app.use('/services', services);
 
 
 module.exports = app;

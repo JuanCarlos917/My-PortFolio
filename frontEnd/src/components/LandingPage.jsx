@@ -1,17 +1,13 @@
-import { useSelector } from 'react-redux';
+import { SocialLinks } from './SocialLinks';
 import logo from '../assets/images/logoClear.svg';
 import { Link } from 'react-router-dom';
 import { Button } from '@nextui-org/react';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHub from '@mui/icons-material/GitHub';
+
 
 export const LandingPage = () => {
 
-	// Obtener información del CV desde el estado de Redux
-	const cvInfo = useSelector((state) => state.cv.cvInfo);
-
 	return (
-		<div className='flex flex-col sm:flex-row h-screen bg-gray-50 text-gray-900'>
+		<div className='flex flex-col sm:flex-row h-screen gradient-bg text-gray-900'>
 			{/* Lado izquierdo: Texto */}
 			<div className='flex flex-col justify-center p-8 space-y-8 w-full sm:w-1/2'>
 				<h1 className='text-3xl ont-aboreto'>
@@ -32,21 +28,9 @@ export const LandingPage = () => {
 					</Button>
 				</Link>
 				<div className='flex space-x-4'>
-					<a href={cvInfo?.social_media?.linkedin}>
-						<LinkedInIcon
-							color='disabled'
-							className='hover:text-linkedin transition duration-300'
-						/>
-					</a>
-					<a href={cvInfo?.social_media?.github}>
-						<GitHub
-							color='disabled'
-							className='hover:text-darck_black transition duration-300'
-						/>
-					</a>
+                <SocialLinks/>
 				</div>
 			</div>
-
 			{/* Lado derecho: Imagen con fondo negro */}
 			<div className='flex items-center justify-center w-full sm:w-1/2 bg-black'>
 				<Link to='/'>

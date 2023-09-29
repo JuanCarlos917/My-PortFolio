@@ -61,6 +61,10 @@ import { UploadImage } from './dashboardAdmin/s3Media/ImageUpload';
 import { DeleteImage } from './dashboardAdmin/s3Media/ImageDelete';
 import { GenerateUrl } from './dashboardAdmin/s3Media/UrlImageS3';
 import { ContactMe } from './components/contactMe';
+import { FormServices } from './dashboardAdmin/services/FormServices';
+import { AllServices } from './dashboardAdmin/services/AllServices';
+import { UpdateService } from './dashboardAdmin/services/UpdateService';
+import { DeleteService } from './dashboardAdmin/services/DeleteService';
 
 function App() {
 	const router = createBrowserRouter(
@@ -163,6 +167,16 @@ function App() {
 					<Route path='upload-image' element={<UploadImage />} />
 					<Route path='delete-image' element={<DeleteImage />} />
 					<Route path='generate-url' element={<GenerateUrl />} />
+					<Route path='form-services' element={<FormServices />} />
+					<Route path='all-services' element={<AllServices />} />
+                    <Route
+                        path='update-service/:id'
+                        element={<UpdateService />}
+                    />
+                    <Route
+                        path='delete-service/:id'
+                        element={<DeleteService />}
+                    />
 				</Route>
 				<Route path='*' element={<NotFound404 />} />
 			</Route>,
