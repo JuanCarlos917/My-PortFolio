@@ -26,8 +26,11 @@ export default {
 				'2xl': '1536px',
 				// => @media (min-width: 1536px) { ... }
 			},
+			boxShadow: {
+				goldenShadow: '0 3px 1px 0px rgba(255, 193, 1, 0.7)',
+			},
 			colors: {
-                white:'#ffffff',
+				white: '#ffffff',
 
 				Dark_Navy_Blue: '#1A2C56',
 
@@ -35,7 +38,7 @@ export default {
 
 				linkedin: '#0e76a8',
 
-                darck_black:'#000000',
+				darck_black: '#000000',
 
 				dark_grayish_blue: '#1f2022',
 
