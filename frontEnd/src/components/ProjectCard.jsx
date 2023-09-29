@@ -43,12 +43,7 @@ export const ProjectCard = () => {
 									src={`${project.image}`}
 									alt={project.title}
 									loading='lazy'
-									style={{
-										width: '100%', // Asegurarse de que la imagen ocupe todo el ancho del contenedor
-										height: '100%', // Asegurarse de que la imagen ocupe todo el alto del contenedor
-										objectFit: 'cover', // Ajustar la imagen al contenedor sin estirarla
-										display: 'block', // Elimina cualquier espacio adicional alrededor de la imagen
-									}}
+
 								/>
 							</Link>
 							<ImageListItemBar
