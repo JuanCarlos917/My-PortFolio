@@ -23,7 +23,7 @@ export const SocialLinks = () => {
 
 	if (status === 'loading') {
 		content = (
-			<div className='flex justify-center items-center h-screen'>
+			<div className='flex justify-center items-center'>
 				<Loading />
 			</div>
 		);
