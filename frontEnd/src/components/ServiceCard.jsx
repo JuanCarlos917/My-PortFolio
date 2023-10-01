@@ -29,29 +29,34 @@ export const ServiceCard = () => {
 	} else if (status === 'succeeded') {
 		if (servicesInfo && Array.isArray(servicesInfo)) {
 			content = (
-				<Grid container spacing={2} className='pt-10'>
-					{servicesInfo.map((service, index) => (
-						<Grid item xs={12} md={6} key={index}>
-							<Card variant='outlined'>
-								<CardContent>
-									<Typography variant='h5' gutterBottom>
-										{service.name}
-									</Typography>
-									<Typography
-										variant='subtitle1'
-										color='textSecondary'
-										gutterBottom>
-										{service.description}
-									</Typography>
-									{/* no poner por ahora  */}
-									{/* <Typography variant='subtitle1' color='textSecondary'>
+				<>
+					<Typography variant='h3' className='pt-5 pb-3'>
+						Servicios Profesionales
+					</Typography>
+					<Grid container spacing={2} className='pt-10'>
+						{servicesInfo.map((service, index) => (
+							<Grid item xs={12} md={6} key={index}>
+								<Card variant='outlined'>
+									<CardContent>
+										<Typography variant='h5' gutterBottom>
+											{service.name}
+										</Typography>
+										<Typography
+											variant='subtitle1'
+											color='textSecondary'
+											gutterBottom>
+											{service.description}
+										</Typography>
+										{/* no poner por ahora  */}
+										{/* <Typography variant='subtitle1' color='textSecondary'>
 									${service.price}
 								</Typography> */}
-								</CardContent>
-							</Card>
-						</Grid>
-					))}
-				</Grid>
+									</CardContent>
+								</Card>
+							</Grid>
+						))}
+					</Grid>
+				</>
 			);
 		}
 	} else if (status === 'failed') {
