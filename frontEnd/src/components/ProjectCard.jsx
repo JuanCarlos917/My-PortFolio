@@ -1,18 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProject } from '../features/project/projectSlice';
-import { Loading } from './Loading/Loading';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
 import { Link } from 'react-router-dom';
+import { Loading } from './Loading/Loading';
+import { Card, CardHeader, CardBody, Image } from '@nextui-org/react';
 import Typography from '@mui/material/Typography';
 
 export const ProjectCard = () => {
 	const dispatch = useDispatch();
-
 	const projectInfo = useSelector((state) => state.project.projectInfo);
 	const status = useSelector((state) => state.project.status);
 	const error = useSelector((state) => state.project.error);
@@ -33,50 +28,44 @@ export const ProjectCard = () => {
 		);
 	} else if (status === 'succeeded') {
 		content = (
-			<ImageList sx={{ width: '100%', height: 450 }}>
-				{Array.isArray(projectInfo) &&
-					projectInfo.map((project) => (
-						<ImageListItem key={project.image}>
-							<Link to={project.url}>
-								<img
-									srcSet={`${project.image}`}
-									src={`${project.image}`}
-									alt={project.title}
-									loading='lazy'
-
-								/>
+			<div className='grid grid-cols-2 gap-4'>
+				{projectInfo.map((project) => (
+					<Card
+						className='py-4 my-2 hover:shadow-goldenShadow'
+						key={project.id}>
+						<CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
+							<p className='text-tiny uppercase font-bold'>
+								{project.title}
+							</p>
+							<small className='text-default-500'>
+								{project.description}
+							</small>
+							<Link to={`/projects`}>
+								<h4 className='font-bold text-vivid_blue hover:text-soft_green'>
+									Ver más detalles
+								</h4>
 							</Link>
-							<ImageListItemBar
-								title={project.title}
-								subtitle={
-									<Link
-										to={project.url}
-										className='text-vivid_blue hover:underline'>
-										Ver proyecto
-									</Link>
-								}
-								actionIcon={
-									<Link to={`/projects`}>
-										<IconButton
-											sx={{
-												color: 'rgba(255, 255, 255, 0.54)',
-											}}
-											aria-label={`info about ${project.title}`}>
-											<InfoIcon />
-										</IconButton>
-									</Link>
-								}
-								sx={{
-									backgroundColor: 'rgba(55, 189, 116, 0.5)',
-								}}
+						</CardHeader>
+						<CardBody className='overflow-visible py-2'>
+							<Image
+								alt={project.title}
+								className='object-cover rounded-xl'
+								src={project.image}
+								width={270}
 							/>
-						</ImageListItem>
-					))}
-			</ImageList>
+							<Link to={project.url}>
+								<h4 className='font-bold text-vivid_blue hover:text-bright_red'>
+									Ver Proyecto
+								</h4>
+							</Link>
+						</CardBody>
+					</Card>
+				))}
+			</div>
 		);
 	} else if (status === 'failed') {
 		content = <Typography color='error'>{error}</Typography>;
 	}
 
-	return <div className='container mx-auto p-4'>{content}</div>;
+	return <div className='container mx-auto p-4 '>{content}</div>;
 };
