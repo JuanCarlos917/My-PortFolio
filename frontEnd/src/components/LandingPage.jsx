@@ -1,5 +1,5 @@
 import { SocialLinks } from './SocialLinks';
-import logo from '../assets/images/logoClear.svg';
+import logo from '../assets/images/logoDark.svg';
 import { Link } from 'react-router-dom';
 import { Button } from '@nextui-org/react';
 
@@ -32,7 +32,7 @@ export const LandingPage = () => {
 				</div>
 			</div>
 			{/* Lado derecho: Imagen con fondo negro */}
-			<div className='flex items-center justify-center w-full sm:w-1/2 bg-black'>
+			<div className='flex items-center justify-center w-full sm:w-1/2'>
 				<Link to='/'>
 					<img
 						src={logo}

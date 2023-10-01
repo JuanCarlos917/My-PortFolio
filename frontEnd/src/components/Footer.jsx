@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCV } from '../features/cv/cvSlice';
 import { Loading } from './Loading/Loading';
-import logo from '../assets/images/logoFooter.svg';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHub from '@mui/icons-material/GitHub';
+import logo from '../assets/images/logoDark.svg';
+import { SocialLinks } from './SocialLinks';
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
 
@@ -115,18 +114,7 @@ export const Footer = () => {
 				{/* Footer Bottom */}
 				<div className='space-y-4 md:space-y-0 w-full text-center mt-8'>
 					<div className='flex-center pb-2'>
-						<a href={cvInfo?.social_media?.linkedin}>
-							<LinkedInIcon
-								className='hover:text-golden transition duration-300'
-								color='disabled'
-							/>
-						</a>
-						<a href={cvInfo?.social_media?.github}>
-							<GitHub
-								className='hover:text-golden transition duration-300'
-								color='disabled'
-							/>
-						</a>
+                        <SocialLinks />
 					</div>
 					<small>
 						&copy;{new Date().getFullYear()} | by Juan Gómez{' '}

@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCV } from '../features/cv/cvSlice';
 import { Loading } from './Loading/Loading';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHub from '@mui/icons-material/GitHub';
+import { SocialLinks } from './SocialLinks';
 
 export const PersonalInfo = () => {
 	const dispatch = useDispatch();
@@ -43,18 +42,7 @@ export const PersonalInfo = () => {
 				</h3>
 				<h3 className='text-xl font-aboreto'>Redes sociales</h3>
 				<div className='flex space-x-4'>
-					<a href={cvInfo?.social_media?.linkedin}>
-						<LinkedInIcon
-							fontSize='large'
-							className='hover:text-light_grayish_blue transition duration-300'
-						/>
-					</a>
-					<a href={cvInfo?.social_media?.github}>
-						<GitHub
-							fontSize='large'
-							className='hover:text-light_grayish_blue transition duration-300'
-						/>
-					</a>
+                    <SocialLinks />
 				</div>
 			</div>
 		);
