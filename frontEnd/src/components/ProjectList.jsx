@@ -68,8 +68,8 @@ export const ProjectList = () => {
 										</li>
 									))}
 							</ul>
-
-							<h4 className='font-sf text-lg mb-2'>Tags:</h4>
+                            {/* Este codigo lo uso para filtrar  Tags y Categories*/}
+							{/* <h4 className='font-sf text-lg mb-2'>Tags:</h4>
 							<ul className='list-disc pl-5 mb-4 font-ysabeau'>
 								{Array.isArray(project.Tags) &&
 									project.Tags.map((tag, tagIndex) => (
@@ -95,7 +95,7 @@ export const ProjectList = () => {
 											</li>
 										),
 									)}
-							</ul>
+							</ul> */}
 
 							<a
 								href={project.url}
