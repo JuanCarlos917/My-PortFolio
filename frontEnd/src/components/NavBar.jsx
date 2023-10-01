@@ -8,7 +8,7 @@ import {
 	NavbarMenu,
 	NavbarMenuToggle,
 } from '@nextui-org/react';
-import logo from '../assets/images/logo.svg';
+import logo from '../assets/images/logoDark.svg';
 
 export const NavBar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
