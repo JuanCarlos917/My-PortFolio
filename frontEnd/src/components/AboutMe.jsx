@@ -2,12 +2,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAbout } from '../features/about/aboutSlice';
 import { Loading } from './Loading/Loading';
+import { Image } from '@nextui-org/react';
 
 export const AboutMe = () => {
 	const dispatch = useDispatch();
 	const aboutInfo = useSelector((state) => state.about.aboutInfo);
 	const status = useSelector((state) => state.about.status);
 	const error = useSelector((state) => state.about.error);
+
+	const cvInfo = useSelector((state) => state.cv.cvInfo);
 
 	useEffect(() => {
 		if (status === 'idle') {
@@ -26,11 +29,23 @@ export const AboutMe = () => {
 	} else if (status === 'succeeded') {
 		content = (
 			<div className='space-y-6'>
-				<h2 className='text-2xl font-sf border-b pb-2'>Biografía </h2>
-				<p className='text-lg font-ysabeau'>{aboutInfo?.bio}</p>
-
+				<div className='flex flex-col md:flex-row items-center md:space-x-6'>
+					<div className='md:w-1/2'>
+						<h2 className='text-2xl font-sf border-b pb-2'>
+							Biografía{' '}
+						</h2>
+						<p className='text-lg font-ysabeau'>{aboutInfo?.bio}</p>
+					</div>
+					<div className='md:w-1/2 mt-2'>
+						<Image
+							isBlurred
+							src={cvInfo?.imageUrl}
+							alt={cvInfo?.name}
+							className='max-w-xs w-full h-auto hover:shadow-goldenShadow'
+						/>
+					</div>
+				</div>
 				<h2 className='text-2xl font-sf border-b pb-2'>Habilidades </h2>
-
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-6 space-y-4 md:space-y-0'>
 					<section>
 						<h3 className='text-xl font-sf'>Diseño Front-end </h3>
