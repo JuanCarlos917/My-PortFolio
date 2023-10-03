@@ -17,6 +17,7 @@ import { Education } from './components/Education';
 import { Cv } from './components/CV';
 import { Footer } from './components/Footer';
 import { ProjectList } from './components/ProjectList';
+import { DetailProject } from './components/DetailProject';
 import { LandingPage } from './components/LandingPage';
 import { NotFound404 } from './components/NotFound404';
 
@@ -77,6 +78,7 @@ function App() {
 				<Route path='/education' element={<Education />} />
 				<Route path='/cv' element={<Cv />} />
 				<Route path='/projects' element={<ProjectList />} />
+                <Route path='/projects/:id' element={<DetailProject />} />
 				<Route path='/signup' element={<SignUp />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/logout' element={<Logout />} />

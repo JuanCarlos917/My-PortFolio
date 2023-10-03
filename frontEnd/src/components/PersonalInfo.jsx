@@ -40,7 +40,6 @@ export const PersonalInfo = () => {
 					Teléfono{' '}
 					<span className='font-ysabeau'>+57 {cvInfo?.phone}</span>
 				</h3>
-				<h3 className='text-xl font-aboreto'>Redes sociales</h3>
 				<div className='flex space-x-4'>
                     <SocialLinks />
 				</div>
