@@ -12,6 +12,7 @@ const authRoutes = require('./authRoutes');
 const ProfessionalExpRoutes = require('./professionalExpRoutes');
 const contactMe = require('./contactMe');
 const services = require('./servicesRoutes')
+const starsRating = require('./starsRatingRoutes')
 
 const app = Router();
 
@@ -41,6 +42,8 @@ app.use('/professionalExp', ProfessionalExpRoutes);
 app.use('/contactMe', contactMe);
 //Rutas relacionadas con servicios
 app.use('/services', services);
+//Rutas relacionadas con estrellas y comentarios
+app.use('/starsRating', starsRating);
 
 
 module.exports = app;

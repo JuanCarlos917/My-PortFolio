@@ -11,6 +11,7 @@ import s3MediaSlice from '../features/s3Media/s3MediaSlice';
 import authSlice from '../features/auth/authSlice';
 import contactMe  from '../features/contactMe/contactMeSlice';
 import services from '../features/services/servicesSlice'
+import starRating from '../features/starRating/starRatingSlice'
 
 export const store = configureStore({
 	reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
         s3Media: s3MediaSlice,
         auth: authSlice,
         contactMe: contactMe,
-        services: services
+        services: services,
+        starRating: starRating
     },
 });

@@ -2,6 +2,7 @@ import { ServiceCard } from './ServiceCard';
 import { ProjectCard } from './ProjectCard';
 import { SocialLinks } from './SocialLinks';
 import { ContactMe } from './contactMe';
+import { StarRatingForm } from './StarRatingForm';
 
 export const Home = () => {
 	return (
@@ -17,6 +18,9 @@ export const Home = () => {
 			</div>
 			<div>
 				<ContactMe />
+			</div>
+			<div>
+				<StarRatingForm />
 			</div>
 		</div>
 	);

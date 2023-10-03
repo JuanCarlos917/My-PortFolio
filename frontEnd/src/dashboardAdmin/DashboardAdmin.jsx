@@ -50,11 +50,11 @@ export const Dashboard = () => {
 					to='/dashboard/form-services'>
 					Form Services
 				</Link>
-                <Link
-                    className='block py-1 text-gray-800 hover:underline'
-                    to='/dashboard/all-services'>
-                    Services List
-                </Link>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/all-services'>
+					Services List
+				</Link>
 				<h3>Professional Experience</h3>
 				<Link
 					className='block py-1 text-gray-800 hover:underline'
@@ -131,6 +131,12 @@ export const Dashboard = () => {
 					className='block py-1 text-gray-800 hover:underline'
 					to='/dashboard/generate-url'>
 					generate-url
+				</Link>
+				<h3>Star Rating</h3>
+				<Link
+					className='block py-1 text-gray-800 hover:underline'
+					to='/dashboard/all-star-rating'>
+					All Star Rating
 				</Link>
 			</div>
 			<div className='flex-grow p-6'>
