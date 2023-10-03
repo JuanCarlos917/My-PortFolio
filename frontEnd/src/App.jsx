@@ -20,6 +20,8 @@ import { ProjectList } from './components/ProjectList';
 import { DetailProject } from './components/DetailProject';
 import { LandingPage } from './components/LandingPage';
 import { NotFound404 } from './components/NotFound404';
+import { StarRating } from './components/StarRating';
+import { StarRatingForm } from './components/StarRatingForm';
 
 //dashboard
 import { SignUp } from './components/SignUp';
@@ -66,6 +68,7 @@ import { FormServices } from './dashboardAdmin/services/FormServices';
 import { AllServices } from './dashboardAdmin/services/AllServices';
 import { UpdateService } from './dashboardAdmin/services/UpdateService';
 import { DeleteService } from './dashboardAdmin/services/DeleteService';
+import { AllStarRating } from './dashboardAdmin/starRating/AllStarRating';
 
 function App() {
 	const router = createBrowserRouter(
@@ -78,7 +81,7 @@ function App() {
 				<Route path='/education' element={<Education />} />
 				<Route path='/cv' element={<Cv />} />
 				<Route path='/projects' element={<ProjectList />} />
-                <Route path='/projects/:id' element={<DetailProject />} />
+				<Route path='/projects/:id' element={<DetailProject />} />
 				<Route path='/signup' element={<SignUp />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/logout' element={<Logout />} />
@@ -90,6 +93,8 @@ function App() {
 					path='/reset-password/:verificationCode'
 					element={<ResetPassword />}
 				/>
+				<Route path='/star-rating' element={<StarRating />} />
+				<Route path='/star-rating-form' element={<StarRatingForm />} />
 
 				{/* Dashboard */}
 				<Route
@@ -171,13 +176,17 @@ function App() {
 					<Route path='generate-url' element={<GenerateUrl />} />
 					<Route path='form-services' element={<FormServices />} />
 					<Route path='all-services' element={<AllServices />} />
+					<Route
+						path='update-service/:id'
+						element={<UpdateService />}
+					/>
+					<Route
+						path='delete-service/:id'
+						element={<DeleteService />}
+					/>
                     <Route
-                        path='update-service/:id'
-                        element={<UpdateService />}
-                    />
-                    <Route
-                        path='delete-service/:id'
-                        element={<DeleteService />}
+                        path='all-star-rating'
+                        element={<AllStarRating />}
                     />
 				</Route>
 				<Route path='*' element={<NotFound404 />} />

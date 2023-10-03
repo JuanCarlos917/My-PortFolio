@@ -52,17 +52,17 @@ const updateStarRating = async (req, res) => {
 				message: 'Las estrellas no pueden estar vacías.',
 			});
 		}
-        const star = await StarRating.findOne({ where: { id } });
-        if (!star) {
+        const rating = await StarRating.findOne({ where: { id } });
+        if (!rating) {
 			return res.status(404).json({
 				message: 'No se encontró información de las estrellas.',
 			});
 		}
-        await starRating.update({
+        await rating.update({
 			starRating,
 			comment,
 		});
-        res.json(starRating);
+        res.json(rating);
     } catch (error) {
         console.error(error);
         res.status(500).json({

@@ -13,7 +13,12 @@ router.get('/', getAllStarRating);
 // Ruta para crear las estrellas y comentarios
 router.post('/', starRatingValidations, handleValidationErrors, createStarRating);
 // Ruta para actualizar las estrellas y comentarios
-router.put('/:id', starRatingValidations, handleValidationErrors, updateStarRating);
+router.put(
+	'/:id',
+	starRatingValidations,
+	handleValidationErrors,
+	updateStarRating,
+);
 // Ruta para eliminar las estrellas y comentarios
 router.delete('/:id', deleteStarRating);
 
