@@ -14,6 +14,16 @@ export const getProject = createAsyncThunk('/project', async () => {
 	}
 });
 
+// Creando una acción asíncrona para obtener el detalle de 'Project'
+export const getDetail = createAsyncThunk('/project/getDetail/:id', async (id) => {
+	try {
+		const response = await axios.get(`${baseURL}/project/${id}`);
+		return response.data; // nota que corregí el "Data" a "data", ya que axios usa "data" en minúsculas
+	} catch (error) {
+		console.log(error);
+	}
+});
+
 // Creando una acción asíncrona para actualizar la información de 'Project'
 export const updateProject = createAsyncThunk(
 	'project/updateProject',
@@ -61,15 +71,15 @@ export const deleteProject = createAsyncThunk(
 export const projectSlice = createSlice({
 	name: 'project', // Nombre del slice
 	initialState: {
-		projectInfo: null,
+		projectInfo: [],
+        projectById: null,
 		id: null,
 		status: 'idle',
 		error: null,
 		modified: false,
 		projectAdded: false,
 	},
-	reducers: {
-	},
+	reducers: {},
 	extraReducers: (builder) => {
 		builder
 			// Obteniendo la información de 'Project'
@@ -88,7 +98,17 @@ export const projectSlice = createSlice({
 				state.status = 'failed';
 				state.error = action.error.message;
 			})
-
+			.addCase(getDetail.pending, (state) => {
+				state.status = 'loading';
+			})
+			.addCase(getDetail.fulfilled, (state, action) => {
+				state.status = 'succeeded';
+				state.projectById = action.payload;
+			})
+			.addCase(getDetail.rejected, (state, action) => {
+				state.status = 'failed';
+				state.error = action.error.message;
+			})
 			// Actualizando la información de 'Project'
 			.addCase(updateProject.pending, (state) => {
 				// Al iniciar la petición, se establece el estado a 'loading'

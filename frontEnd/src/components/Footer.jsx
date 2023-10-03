@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCV } from '../features/cv/cvSlice';
 import { Loading } from './Loading/Loading';
-import logo from '../assets/images/logoDark.svg';
+import logo from '../assets/images/logoClear.svg';
 import { SocialLinks } from './SocialLinks';
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
@@ -31,7 +31,7 @@ export const Footer = () => {
 		);
 	} else if (status === 'succeeded') {
 		content = (
-			<div className='bg-white_bg font-sf text-black container mx-auto p-6 shadow-top'>
+			<div className='bg-Dark_Navy_Blue font-sf text-white mx-auto p-6 shadow-top'>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-20 space-x-4 md:space-x-0 items-start'>
 					{/* Primera columna de información */}
 					<div className='space-y-4 md:space-y-0'>
@@ -44,13 +44,13 @@ export const Footer = () => {
 
 						{/* Teléfono */}
 						<div className='flex items-center space-x-2'>
-							<CallIcon color='disabled' />
+							<CallIcon color='primary' />
 							<p className='text-lg'>+57 {cvInfo?.phone}</p>
 						</div>
 
 						{/* Correo electrónico */}
 						<div className='flex items-center space-x-2'>
-							<EmailIcon color='disabled' />
+							<EmailIcon color='primary' />
 							<p className='text-lg'>{cvInfo?.email}</p>
 						</div>
 					</div>
@@ -114,7 +114,7 @@ export const Footer = () => {
 				{/* Footer Bottom */}
 				<div className='space-y-4 md:space-y-0 w-full text-center mt-8'>
 					<div className='flex-center pb-2'>
-                        <SocialLinks />
+						<SocialLinks />
 					</div>
 					<small>
 						&copy;{new Date().getFullYear()} | by Juan Gómez{' '}
@@ -127,7 +127,7 @@ export const Footer = () => {
 	}
 
 	return (
-		<div className='p-4 rounded-lg bg-white'>
+		<div className='p-0 rounded-lg'>
 			{' '}
 			{/* Estilo de fondo y sombra */}
 			{content}

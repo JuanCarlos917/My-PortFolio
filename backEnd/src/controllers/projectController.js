@@ -58,6 +58,62 @@ const getProjects = async (req, res) => {
 	}
 };
 
+const getProjectById = async (req, res) => {
+
+	// Se valida el objeto de solicitud; si no existe, se lanza un error
+	if (!req) {
+		throw new Error('Invalid request object');
+	}
+	// Extraemos el ID del proyecto de los parámetros de la solicitud
+	const projectById = req.params.id;
+
+	try {
+		// Buscamos el proyecto en la base de datos por su ID. También incluimos información asociada.
+		const project = await Project.findByPk(projectById, {
+			// Incluir categorías relacionadas
+			include: [
+				{
+					model: Category,
+					through: {
+						// No incluir atributos adicionales de la tabla intermedia
+						attributes: [],
+					},
+				},
+				// Incluir equipo de desarrollo relacionado
+				{
+					model: TeamDev,
+					through: {
+						attributes: [],
+					},
+				},
+				// Incluir etiquetas relacionadas
+				{
+					model: Tag,
+					through: {
+						attributes: [],
+					},
+				},
+			],
+		});
+
+		// Si el proyecto no se encuentra en la base de datos
+		if (!project) {
+			return res.status(404).json({
+				message: `No se encontró el proyecto con ID ${projectById}`,
+			});
+		}
+
+		// Respondemos con el proyecto encontrado
+		res.json(project);
+	} catch (error) {
+		// En caso de error, mostramos el error y respondemos con un estado 500
+		console.error(error);
+		res.status(500).json({
+			message: 'Ha ocurrido un error al obtener el proyecto',
+		});
+	}
+};
+
 // Este controlador crea un nuevo proyecto y lo agrega a la base de datos.
 const createProject = async (req, res) => {
 	// Bloque try para manejar posibles errores durante la ejecución.
@@ -275,6 +331,7 @@ const deleteProject = async (req, res) => {
 
 module.exports = {
 	getProjects,
+    getProjectById,
 	createProject,
 	updateProject,
 	deleteProject,
