@@ -97,7 +97,7 @@ export const DetailProject = () => {
 	}
 
 	return (
-		<div className='flex flex-col items-center justify-center pb-3'>
+		<div className='flex flex-col items-center justify-center w-full px-4 pb-3 max-w-screen-lg mx-auto'>
 			{content}
 		</div>
 	);
