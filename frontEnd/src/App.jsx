@@ -22,6 +22,7 @@ import { LandingPage } from './components/LandingPage';
 import { NotFound404 } from './components/NotFound404';
 import { StarRating } from './components/StarRating';
 import { StarRatingForm } from './components/StarRatingForm';
+import { Reviews } from './components/PortfolioReviews';
 
 //dashboard
 import { SignUp } from './components/SignUp';
@@ -97,6 +98,7 @@ function App() {
 				/>
 				<Route path='/star-rating' element={<StarRating />} />
 				<Route path='/star-rating-form' element={<StarRatingForm />} />
+                <Route path='/reviews' element={<Reviews />} />
 
 				{/* Dashboard */}
 				<Route

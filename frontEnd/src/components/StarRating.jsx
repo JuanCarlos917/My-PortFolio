@@ -5,8 +5,8 @@ import { Loading } from './Loading/Loading';
 
 export const StarRating = () => {
 	const dispatch = useDispatch();
+
 	const starRating = useSelector((state) => state.starRating.starRating);
-	console.log(starRating);
 	const status = useSelector((state) => state.starRating.status);
 	const error = useSelector((state) => state.starRating.error);
 
