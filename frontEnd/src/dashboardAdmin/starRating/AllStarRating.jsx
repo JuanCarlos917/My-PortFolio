@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getStarRating } from '../../features/starRating/starRatingSlice';
 
 export const AllStarRating = () => {
 	const dispatch = useDispatch();
+
 	const starRatingInfo = useSelector((state) => state.starRating.starRating);
-	console.log(starRatingInfo);
 	const status = useSelector((state) => state.starRating.status);
-	// const error = useSelector((state) => state.starRating.error);
+	const error = useSelector((state) => state.starRating.error);
 
 	useEffect(() => {
 		dispatch(getStarRating());
@@ -24,34 +24,31 @@ export const AllStarRating = () => {
 		if (starRatingInfo && Array.isArray(starRatingInfo)) {
 			content = starRatingInfo.map((starRa, index) => (
 				<div key={index} className='p-4 border rounded mb-4'>
-					<h2 className='text-2xl font-semibold'>
-						Servicio {index + 1}:
-					</h2>
 					<div className='grid grid-cols-2'>
-						<h3 className='text-lg font-semibold'>Nombre:</h3>
+						<h3 className='text-lg font-semibold'>Estrellas</h3>
 						<p>{starRa.starRating}</p>
-						<h3 className='text-lg font-semibold'>Descripción:</h3>
+						<h3 className='text-lg font-semibold'>Comentario </h3>
 						<p>{starRa.comment}</p>
 					</div>
-					{/* <div className='flex space-x-4 mt-4'>
+					<div className='flex space-x-4 mt-4'>
 						<Link
-							to={`/dashboard/update-service/${starRatingInfo.id}`}
+							to={`/dashboard/update-star-rating/${starRa.id}`}
 							className='bg-blue-500 text-white py-2 px-4 rounded'>
 							Modificar
 						</Link>
 						<Link
-							to={`/dashboard/delete-service/${starRatingInfo.id}`}
+							to={`/dashboard/delete-star-rating/${starRa.id}`}
 							className='bg-red-500 text-white py-2 px-4 rounded'>
 							Eliminar
 						</Link>
-					</div> */}
+					</div>
 				</div>
 			));
 		}
 	} else if (status === 'failed') {
 		content = (
 			<div className='text-red-500 font-semibold text-center text-xl'>
-				{/* {error} */}
+				{error}
 			</div>
 		);
 	}
@@ -63,5 +60,4 @@ export const AllStarRating = () => {
 			<>{content}</>
 		</div>
 	);
-
 };
