@@ -33,7 +33,7 @@ const generateSignedUrl = async (key) => {
 			Key: key,
 		});
 		const url = await getSignedUrl(client, command, {
-			expiresIn: 3600 * 24 * 7,
+			expiresIn: null
 		});
 		return url;
 	} catch (error) {
