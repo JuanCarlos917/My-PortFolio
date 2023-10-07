@@ -22,6 +22,7 @@ import { LandingPage } from './components/LandingPage';
 import { NotFound404 } from './components/NotFound404';
 import { StarRating } from './components/StarRating';
 import { StarRatingForm } from './components/StarRatingForm';
+import { Reviews } from './components/PortfolioReviews';
 
 //dashboard
 import { SignUp } from './components/SignUp';
@@ -69,6 +70,8 @@ import { AllServices } from './dashboardAdmin/services/AllServices';
 import { UpdateService } from './dashboardAdmin/services/UpdateService';
 import { DeleteService } from './dashboardAdmin/services/DeleteService';
 import { AllStarRating } from './dashboardAdmin/starRating/AllStarRating';
+import { UpdateStarRating } from './dashboardAdmin/starRating/UpdateStarRating';
+import { DeleteStarRating } from './dashboardAdmin/starRating/DeleteStarRating';
 
 function App() {
 	const router = createBrowserRouter(
@@ -95,6 +98,7 @@ function App() {
 				/>
 				<Route path='/star-rating' element={<StarRating />} />
 				<Route path='/star-rating-form' element={<StarRatingForm />} />
+                <Route path='/reviews' element={<Reviews />} />
 
 				{/* Dashboard */}
 				<Route
@@ -187,6 +191,14 @@ function App() {
                     <Route
                         path='all-star-rating'
                         element={<AllStarRating />}
+                    />
+                    <Route
+                        path='update-star-rating/:id'
+                        element={<UpdateStarRating />}
+                    />
+                    <Route
+                        path='delete-star-rating/:id'
+                        element={<DeleteStarRating />}
                     />
 				</Route>
 				<Route path='*' element={<NotFound404 />} />

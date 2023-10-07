@@ -10,10 +10,8 @@ export const AllServices = () => {
 	const error = useSelector((state) => state.services.error);
 
 	useEffect(() => {
-		if (status === 'idle') {
-			dispatch(getServices());
-		}
-	}, [status, dispatch]);
+		dispatch(getServices());
+	}, [dispatch]);
 
 	let content;
 	if (status === 'loading') {
@@ -24,9 +22,6 @@ export const AllServices = () => {
 		if (servicesInfo && Array.isArray(servicesInfo)) {
 			content = servicesInfo.map((service, index) => (
 				<div key={index} className='p-4 border rounded mb-4'>
-					<h2 className='text-2xl font-semibold'>
-						Servicio {index + 1}:
-					</h2>
 					<div className='grid grid-cols-2'>
 						<h3 className='text-lg font-semibold'>Nombre:</h3>
 						<p>{service.name}</p>

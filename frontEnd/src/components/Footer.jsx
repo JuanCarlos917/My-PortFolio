@@ -9,7 +9,6 @@ import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
 
 export const Footer = () => {
-
 	const dispatch = useDispatch();
 	const cvInfo = useSelector((state) => state.cv.cvInfo);
 	const status = useSelector((state) => state.cv.status);
@@ -89,6 +88,12 @@ export const Footer = () => {
 								className='hover:text-golden hover:underline transition duration-300'>
 								Proyectos
 							</Link>
+							<Link
+								to='/reviews'
+								className='hover:text-golden hover:underline transition duration-300'>
+								Portfolio reviews
+							</Link>
+
 							<Link
 								to='/dashboard'
 								className='hover:text-bright_red hover:underline transition duration-300'>

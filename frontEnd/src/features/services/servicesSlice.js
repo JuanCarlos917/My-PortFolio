@@ -96,7 +96,7 @@ const ServicesSlice = createSlice({
 				status: 'loading',
 			}))
 			.addCase(updateServices.fulfilled, (state, action) => ({
-				state,
+				...state,
 				status: 'succeeded',
 				servicesInfo: action.payload,
 				modified: true,
