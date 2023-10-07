@@ -63,10 +63,16 @@ export const deleteStarRating = createAsyncThunk(
 const StarRatingsSlice = createSlice({
 	name: 'starRating',
 	initialState: {
-		starRating: [],
-		status: null,
+		starRating: null,
+		status: 'idle',
+		error: null,
+		modified: false,
 	},
-	reducers: {},
+	reducers: {
+		resetModifiedState: (state) => {
+			state.modified = false;
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(getStarRating.pending, (state) => ({
@@ -76,11 +82,12 @@ const StarRatingsSlice = createSlice({
 			.addCase(getStarRating.fulfilled, (state, action) => ({
 				...state,
 				starRating: action.payload,
-				status: 'success',
+				status: 'succeeded',
 			}))
-			.addCase(getStarRating.rejected, (state) => ({
+			.addCase(getStarRating.rejected, (state, action) => ({
 				...state,
 				status: 'failed',
+				error: action.error.message,
 			}))
 			.addCase(updateStarRating.pending, (state) => ({
 				...state,
@@ -89,11 +96,13 @@ const StarRatingsSlice = createSlice({
 			.addCase(updateStarRating.fulfilled, (state, action) => ({
 				...state,
 				starRating: action.payload,
-				status: 'success',
+				status: 'succeeded',
+				modified: true,
 			}))
-			.addCase(updateStarRating.rejected, (state) => ({
+			.addCase(updateStarRating.rejected, (state, action) => ({
 				...state,
 				status: 'failed',
+				error: action.error.message,
 			}))
 			.addCase(createStarRating.pending, (state) => ({
 				...state,
@@ -102,11 +111,12 @@ const StarRatingsSlice = createSlice({
 			.addCase(createStarRating.fulfilled, (state, action) => ({
 				...state,
 				starRating: action.payload,
-				status: 'success',
+				status: 'succeeded',
 			}))
-			.addCase(createStarRating.rejected, (state) => ({
+			.addCase(createStarRating.rejected, (state, action) => ({
 				...state,
 				status: 'failed',
+				error: action.error.message,
 			}))
 			.addCase(deleteStarRating.pending, (state) => ({
 				...state,
@@ -115,13 +125,16 @@ const StarRatingsSlice = createSlice({
 			.addCase(deleteStarRating.fulfilled, (state, action) => ({
 				...state,
 				starRating: action.payload,
-				status: 'success',
+				status: 'succeeded',
+				modified: true,
 			}))
-			.addCase(deleteStarRating.rejected, (state) => ({
+			.addCase(deleteStarRating.rejected, (state, action) => ({
 				...state,
 				status: 'failed',
+				error: action.error.message,
 			}));
 	},
 });
 
+export const { resetModifiedState } = StarRatingsSlice.actions;
 export default StarRatingsSlice.reducer;

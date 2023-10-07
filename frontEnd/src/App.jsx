@@ -69,6 +69,7 @@ import { AllServices } from './dashboardAdmin/services/AllServices';
 import { UpdateService } from './dashboardAdmin/services/UpdateService';
 import { DeleteService } from './dashboardAdmin/services/DeleteService';
 import { AllStarRating } from './dashboardAdmin/starRating/AllStarRating';
+import { UpdateStarRating } from './dashboardAdmin/starRating/UpdateStarRating';
 
 function App() {
 	const router = createBrowserRouter(
@@ -187,6 +188,10 @@ function App() {
                     <Route
                         path='all-star-rating'
                         element={<AllStarRating />}
+                    />
+                    <Route
+                        path='update-star-rating/:id'
+                        element={<UpdateStarRating />}
                     />
 				</Route>
 				<Route path='*' element={<NotFound404 />} />
