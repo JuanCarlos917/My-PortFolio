@@ -1,20 +1,23 @@
 require('dotenv').config();
 // Carga las variables de entorno para AWS S3 desde el archivo .env
-const { AWS_BUCKET_NAME, AWS_BUCKET_REGION, AWS_PUBLIC_KEY, AWS_SECRET_KEY } =
-	process.env;
+const {
+	AWS_BUCKET_NAME,
+	AWS_BUCKET_REGION,
+	AWS_PUBLIC_KEY,
+	AWS_SECRET_KEY,
+	CLOUDFRONT_DISTRIBUTION_URL,
+} = process.env;
 
 const multer = require('multer');
 // Importa las funciones SDK de AWS
 const {
 	S3Client,
-	GetObjectCommand,
 	PutObjectCommand,
 	ListObjectsCommand,
 	HeadObjectCommand,
 	DeleteObjectCommand,
 } = require('@aws-sdk/client-s3');
-// Importa la función para generar URLs firmadas de S3
-const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+
 
 // Crea una instancia de S3Client con las credenciales y la región obtenidas de las variables de entorno
 const client = new S3Client({
@@ -26,29 +29,8 @@ const client = new S3Client({
 });
 
 // Define una función para generar una URL firmada de S3 para un archivo específico
-const generateSignedUrl = async (key) => {
-	try {
-		const command = new GetObjectCommand({
-			Bucket: AWS_BUCKET_NAME,
-			Key: key,
-		});
-		const url = await getSignedUrl(client, command, {
-			expiresIn: 3600 * 24 * 7,
-		});
-		return url;
-	} catch (error) {
-		console.error(error);
-	}
-};
-
-const generateSignedUrlMiddleware = async (req, res, next) => {
-	try {
-		const url = await generateSignedUrl(req.params.key);
-		res.status(200).json({ message: 'URL generada correctamente.', url });
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ message: 'Error al generar URL.' });
-	}
+const generateUrl = (key) => {
+	return `${CLOUDFRONT_DISTRIBUTION_URL}/${key}`;
 };
 
 const listFiles = async (req, res, next) => {
@@ -118,7 +100,8 @@ const uploadFile = async (req, res) => {
 			Key: s3FileName, // Este será el nombre del archivo en S3
 			Body: fileContent, // Y este es el contenido del archivo
 			ContentDisposition: 'inline', // Asegurarse de que el archivo se muestre en lugar de descargarse
-			ContentType: 'image/jpeg', // Este es el tipo de contenido del archivo
+			ContentType: req.file.mimetype,
+			// Este es el tipo de contenido del archivo
 		};
 
 		// Define el comando para cargar el archivo en S3
@@ -161,10 +144,9 @@ const delteFileS3 = async (req, res) => {
 };
 
 module.exports = {
-	generateSignedUrl,
+	generateUrl,
 	uploadFile,
 	upload,
 	listFiles,
-	generateSignedUrlMiddleware,
 	delteFileS3,
 };
