@@ -26,11 +26,11 @@ export const ServiceCard = () => {
 	}
 
 	return (
-		<div className='max-w-[900px] gap-2 grid grid-cols-12 grid-rows-2 px-8 '>
+		<div className='gap-2 grid grid-cols-12 grid-rows-2 px-8 '>
 			{Array.isArray(servicesInfo) &&
 				servicesInfo.map((service, index) => (
 					<Card
-						className='col-span-12 sm:col-span-4 h-[300px] '
+						className='col-span-12 sm:col-span-4 '
 						key={index}>
 						<CardHeader className='absolute z-10 top-1 flex-col !items-start'>
 							<p className='text-tiny text-black uppercase font-bold'>
