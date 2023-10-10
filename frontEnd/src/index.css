@@ -21,7 +21,7 @@ body {
 		transform: translateY(0) rotate(0);
 	}
 	100% {
-		transform: translateY(-20px) rotate(-10deg);
+		transform: translateY(-20px) rotate(-9deg);
 	}
 }
 
