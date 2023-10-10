@@ -18,7 +18,11 @@ export const ServiceCard = () => {
 	}, [status, dispatch]);
 
 	if (status === 'loading') {
-		return <Loading />;
+		return (
+			<div className='flex justify-center items-center h-screen'>
+				<Loading />
+			</div>
+		);
 	}
 
 	if (status === 'failed') {
@@ -26,17 +30,15 @@ export const ServiceCard = () => {
 	}
 
 	return (
-		<div className='gap-2 grid grid-cols-12 grid-rows-2 px-8 '>
+		<div className='gap-2 grid grid-cols-12 grid-rows-2 px-8 mt-3'>
 			{Array.isArray(servicesInfo) &&
 				servicesInfo.map((service, index) => (
-					<Card
-						className='col-span-12 sm:col-span-4 '
-						key={index}>
+					<Card className='col-span-12 sm:col-span-4 ' key={index}>
 						<CardHeader className='absolute z-10 top-1 flex-col !items-start'>
-							<p className='text-tiny text-black uppercase font-bold'>
+							<p className='text-tiny text-light_grayish_blue uppercase font-bold'>
 								{service.description}
 							</p>
-							<h4 className='text-black font-medium text-large'>
+							<h4 className='text-white font-medium text-large'>
 								{service.name}
 							</h4>
 						</CardHeader>
