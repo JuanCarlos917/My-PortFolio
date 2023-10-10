@@ -1,7 +1,7 @@
-import { useEffect, useState,  } from 'react';
+import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import {Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import FormValidationsService from '../../utils/FormValidationsService';
 
 import {
@@ -26,13 +26,12 @@ export const UpdateService = () => {
 	const servicesInfo = useSelector((state) => state.services?.servicesInfo);
 	// Busca el servicio específico basándote en el ID
 	const specificService = Array.isArray(servicesInfo)
-		? servicesInfo.find((serv) => serv.id === id)
+		? servicesInfo.find((serv) => serv.id.toString() === id)
 		: null;
 
 	const status = useSelector((state) => state.services.status);
 	const error = useSelector((state) => state.services.error);
 	const modified = useSelector((state) => state.services.modified);
-
 
 	// Solicita siempre la información de servicios al cargar el componente
 	useEffect(() => {
@@ -44,7 +43,7 @@ export const UpdateService = () => {
 			removeFromLocalStorage('servicesInfoUpdate');
 			setShowForm(false); // Esconde el formulario después de una actualización exitosa
 
-            setTimeout(() => {
+			setTimeout(() => {
 				dispatch(resetModifiedState());
 			}, 3000);
 		}
@@ -88,7 +87,7 @@ export const UpdateService = () => {
 								name: specificService.name,
 								description: specificService.description,
 								price: specificService.price,
-								image: specificService.imageUrl,
+								imageUrl: specificService.imageUrl,
 							}}
 							validationSchema={FormValidationsService}
 							onSubmit={(values) => {
@@ -97,6 +96,10 @@ export const UpdateService = () => {
 									'¿Estás seguro de que deseas realizar la modificación?',
 								);
 								if (userConfirmed) {
+									//encodeURI elimina los espacios y los reemplaza con %
+									const encodedImageUrl = encodeURI(
+										values.imageUrl,
+									);
 									dispatch(
 										updateServices({
 											id: id,
@@ -104,7 +107,7 @@ export const UpdateService = () => {
 												name: values.name,
 												description: values.description,
 												price: values.price,
-												image: values.imageUrl,
+												imageUrl: encodedImageUrl,
 											},
 										}),
 									);
@@ -144,14 +147,16 @@ export const UpdateService = () => {
 										component='div'
 									/>
 
-									<label htmlFor='image'>Imagen</label>
+									<label htmlFor='imageUrl'>
+										URL de la imagen
+									</label>
 									<Field
 										type='text'
-										name='image'
-										placeholder='Imagen'
+										name='imageUrl'
+										placeholder='URL de la imagen'
 									/>
 									<ErrorMessage
-										name='image'
+										name='imageUrl'
 										component='div'
 									/>
 

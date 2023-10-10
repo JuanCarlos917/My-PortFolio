@@ -30,17 +30,19 @@ export const ServiceCard = () => {
 	}
 
 	return (
-		<div className='gap-2 grid grid-cols-12 grid-rows-2 px-8 mt-5'>
+		<div className='gap-2 grid grid-cols-12 grid-rows-2 px-9 mt-5 '>
 			{Array.isArray(servicesInfo) &&
 				servicesInfo.map((service, index) => (
 					<Card className='col-span-12 sm:col-span-4 ' key={index}>
-						<CardHeader className='absolute z-10 top-1 flex-col !items-start'>
-							<p className='text-tiny text-white uppercase font-bold'>
-								{service.description}
-							</p>
-							<h4 className='text-white font-medium text-large'>
-								{service.name}
-							</h4>
+						<CardHeader className='absolute z-10  flex-col !items-start p-4'>
+							<div className='bg-black bg-opacity-50 p-3  rounded'>
+								<h4 className='text-2xl text-white font-playfair font-bold mb-10'>
+									{service.name}
+								</h4>
+								<p className='text-md text-pale_blue uppercase font-oswald shadow-md'>
+									{service.description}
+								</p>
+							</div>
 						</CardHeader>
 						<Image
 							removeWrapper

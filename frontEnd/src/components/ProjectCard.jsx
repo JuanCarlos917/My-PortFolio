@@ -28,7 +28,7 @@ export const ProjectCard = () => {
 		content = (
 			<>
 				<Typography variant='h3' className='pb-3'>
-					Proyectos Destacados
+					Obras Destacadas
 				</Typography>
 
 				<div className='grid grid-cols-2 gap-4'>

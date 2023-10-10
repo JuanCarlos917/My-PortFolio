@@ -20,15 +20,15 @@ export const LandingPage = () => {
 				</p>
 				<Link to='/contact'>
 					<Button
-						className='text-lg font-ysabeau text-Dark_Navy_Blue  hover:text-pale_blue transition duration-300'
+						className='text-lg font-ysabeau text-Dark_Navy_Blue hover:text-pale_blue transition duration-300 rocket-animation' // Agrega la clase rocket-animation aquí
 						color='warning'
 						variant='shadow'
 						auto>
-						Contactame
+						Contáctame 🚀
 					</Button>
 				</Link>
 				<div className='flex space-x-4'>
-                <SocialLinks/>
+					<SocialLinks />
 				</div>
 			</div>
 			{/* Lado derecho: Imagen con fondo negro */}
