@@ -13,10 +13,8 @@ export const AboutMe = () => {
 	const cvInfo = useSelector((state) => state.cv.cvInfo);
 
 	useEffect(() => {
-		if (status === 'idle') {
-			dispatch(getAbout());
-		}
-	}, [status, dispatch]);
+		dispatch(getAbout());
+	}, [dispatch]);
 
 	let content;
 
