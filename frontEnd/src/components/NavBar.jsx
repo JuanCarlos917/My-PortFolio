@@ -17,18 +17,19 @@ export const NavBar = () => {
 		{
 			label: 'Menu',
 		},
-		{ label: 'Home', path: '/home' },
-		{ label: 'Acerca de mí', path: '/about' },
-		{ label: 'CV', path: '/cv' },
-		{ label: 'Proyectos', path: '/projects' },
-		{ label: 'Contactame', path: '/contact' },
+		{ label: 'Inicio', path: '/home' },
+		{ label: 'Mi Historia', path: '/about' },
+		{ label: 'Ruta Profesional', path: '/cv' },
+		{ label: 'Mis Obras', path: '/projects' },
+		{ label: 'Contáctame 🤙', path: '/contact' },
 	];
 
-    const menuItemsMax = [
-		{ label: 'Home', path: '/home' },
-		{ label: 'Acerca de mí', path: '/about' },
-		{ label: 'CV', path: '/cv' },
-		{ label: 'Proyectos', path: '/projects' },
+	const menuItemsMax = [
+		{ label: 'Inicio', path: '/home' },
+		{ label: 'Mi Historia', path: '/about' },
+		{ label: 'Ruta Profesional', path: '/cv' },
+		{ label: 'Mis Obras', path: '/projects' },
+		{ label: 'Contáctame 🤙', path: '/contact' },
 	];
 
 	return (
@@ -54,10 +55,14 @@ export const NavBar = () => {
 				className='hidden md:flex gap-4 font-ysabeau'
 				justify='center'>
 				{menuItemsMax.map((item, index) => (
-					<NavbarItem key={index} isActive={item.label === 'Home'}>
+					<NavbarItem key={index} isActive={item.label === 'Inicio'}>
 						<Link
 							to={item.path}
-							className='hover:text-golden transition duration-300'>
+							className={`w-full transition duration-300 font-ysabeau ${
+								item.label === 'Contáctame 🤙'
+									? 'hover:text-soft_green'
+									: 'hover:text-golden'
+							}`}>
 							{item.label}
 						</Link>
 					</NavbarItem>
@@ -72,7 +77,7 @@ export const NavBar = () => {
 						<Link
 							to={item.path}
 							className={`w-full transition duration-300 font-ysabeau ${
-								item.label === 'Contactame'
+								item.label === 'Contáctame 🤙'
 									? 'hover:text-soft_green'
 									: 'hover:text-golden'
 							}`}>

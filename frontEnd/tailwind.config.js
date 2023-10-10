@@ -57,6 +57,12 @@ export default {
 				volkhov: ['Volkhov', 'serif'],
 				ysabeau: ['Ysabeau SC', 'sans-serif'],
 				sf: ['San Francisco', 'sans-serif'],
+				oswald: ['Oswald', 'sans-serif'],
+				playfair: ['Playfair Display', 'serif'],
+			},
+			fontWeight: {
+				light: 300,
+				bold: 700,
 			},
 		},
 	},
