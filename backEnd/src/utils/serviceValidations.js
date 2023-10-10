@@ -9,6 +9,9 @@ const serviceValidations = [
     body('description')
         .isLength({ min: 5 })
         .withMessage('La descripción debe tener al menos 5 caracteres'),
+    body('imageUrl')
+        .isURL()
+        .withMessage('La URL de la imagen no es válida'),
 ];
 
 // Función para manejar los errores de validación
