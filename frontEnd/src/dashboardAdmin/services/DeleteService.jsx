@@ -64,6 +64,12 @@ export const DeleteService = () => {
 								<p>{specificService.description}</p>
 								<h4 className='text-lg font-semibold'>Precio</h4>
 								<p>{specificService.price}</p>
+                                <h4 className='text-lg font-semibold'>Imagen</h4>
+                                <img
+                                    className='w-1/2'
+                                    src={specificService.imageUrl}
+                                    alt={specificService.name}
+                                />
 							</div>
 							<button
 								onClick={() => dispatch(deleteServices(id))}

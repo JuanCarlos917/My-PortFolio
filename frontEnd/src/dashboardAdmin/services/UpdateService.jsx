@@ -86,9 +86,9 @@ export const UpdateService = () => {
 						<Formik
 							initialValues={{
 								name: specificService.name,
-								description:
-									specificService.description,
+								description: specificService.description,
 								price: specificService.price,
+								image: specificService.imageUrl,
 							}}
 							validationSchema={FormValidationsService}
 							onSubmit={(values) => {
@@ -104,6 +104,7 @@ export const UpdateService = () => {
 												name: values.name,
 												description: values.description,
 												price: values.price,
+												image: values.imageUrl,
 											},
 										}),
 									);
@@ -115,6 +116,7 @@ export const UpdateService = () => {
 											name: values.name,
 											description: values.description,
 											price: values.price,
+											image: values.imageUrl,
 										},
 									});
 								}
@@ -139,6 +141,17 @@ export const UpdateService = () => {
 									/>
 									<ErrorMessage
 										name='description'
+										component='div'
+									/>
+
+									<label htmlFor='image'>Imagen</label>
+									<Field
+										type='text'
+										name='image'
+										placeholder='Imagen'
+									/>
+									<ErrorMessage
+										name='image'
 										component='div'
 									/>
 

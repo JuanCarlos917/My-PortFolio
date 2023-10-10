@@ -27,6 +27,8 @@ export const AllServices = () => {
 						<p>{service.name}</p>
 						<h3 className='text-lg font-semibold'>Descripción:</h3>
 						<p>{service.description}</p>
+						<h3 className='text-lg font-semibold'>URL imagen:</h3>
+						<img src={service.imageUrl} alt={service.name} />
 						<h3 className='text-lg font-semibold'>Precio:</h3>
 						<p>{service.price}</p>
 					</div>

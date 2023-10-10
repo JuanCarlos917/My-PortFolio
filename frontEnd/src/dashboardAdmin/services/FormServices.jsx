@@ -16,6 +16,7 @@ export const FormServices = () => {
 				name: '',
 				description: '',
 				price: 0,
+				imageUrl: ''
 			},
 		],
 	};
@@ -53,6 +54,13 @@ export const FormServices = () => {
 					<label htmlFor='price'>Precio</label>
 					<Field type='number' name='price' placeholder='Precio' />
 					<ErrorMessage name='price' component='div' />
+                    <label htmlFor='imageUrl'>URL de la imagen</label>
+                    <Field
+                        type='text'
+                        name='imageUrl'
+                        placeholder='URL de la imagen'
+                    />
+                    <ErrorMessage name='imageUrl' component='div' />
 					<button type='submit'>Agregar Servicio</button>
 				</Form>
 			</Formik>

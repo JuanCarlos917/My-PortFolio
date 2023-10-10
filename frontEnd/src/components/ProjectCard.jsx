@@ -32,7 +32,7 @@ export const ProjectCard = () => {
 				</Typography>
 
 				<div className='grid grid-cols-2 gap-4'>
-					{projectInfo &&
+					{Array.isArray(projectInfo) &&
 						projectInfo.map((project) => (
 							<Card
 								className='py-4 my-2 hover:shadow-goldenShadow'
