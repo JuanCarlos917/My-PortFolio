@@ -20,13 +20,12 @@ const getServices = async (req, res) => {
 
 const createService = async (req, res) => {
     try {
-        const { name, description, price } = req.body;
-        if (!name || !description) {
-            return res.status(400).json({
-                message:
-                    'El nombre y la descripción no pueden estar vacíos.',
-            });
-        }
+        const { name, description, price, imageUrl } = req.body;
+        if (!name || !description || !imageUrl) {
+			return res.status(400).json({
+				message: 'El nombre la descripción y la Url de la imagen no pueden estar vacíos.',
+			});
+		}
         const existingService = await Services.findOne({ where: { name } });
         if (existingService) {
             return res.status(400).json({
@@ -35,10 +34,11 @@ const createService = async (req, res) => {
             });
         }
         const newService = await Services.create({
-            name,
-            description,
-            price,
-        });
+			name,
+			description,
+			price,
+			imageUrl,
+		});
         res.json(newService);
     } catch (error) {
         console.error(error);
@@ -52,13 +52,12 @@ const createService = async (req, res) => {
 const updateService = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, description, price } = req.body;
-        if (!name || !description) {
-            return res.status(400).json({
-                message:
-                    'El nombre y la descripción no pueden estar vacíos.',
-            });
-        }
+        const { name, description, price, imageUrl } = req.body;
+        if (!name || !description || !imageUrl) {
+			return res.status(400).json({
+				message: 'El nombre la descripción y la URL de la imagen no pueden estar vacíos.',
+			});
+		}
         const existingService = await Services.findOne({ where: { id } });
         if (!existingService) {
             return res.status(400).json({
@@ -66,17 +65,22 @@ const updateService = async (req, res) => {
                     'El servicio no existe. Se debe crear uno nuevo.',
             });
         }
-        const updatedService = await Services.update(
-            {
-                name,
-                description,
-                price,
-            },
-            {
-                where: { id },
-            },
-        );
-        res.json(updatedService);
+        await Services.update(
+			{
+				name,
+				description,
+				price,
+				imageUrl,
+			},
+			{
+				where: { id },
+			},
+		);
+        const updatedService = await Services.findOne({ where: { id } });
+        return res.status(200).json({
+			message: 'Se modifico correctamente el servicio.',
+			updatedService: updatedService,
+		});
     } catch (error) {
         console.error(error);
         res.status(500).json({
