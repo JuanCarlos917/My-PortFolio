@@ -1,5 +1,9 @@
 const { body, validationResult } = require('express-validator');
 
+
+const currentYear = new Date().getFullYear();
+const currentMonth = new Date().getMonth() + 1;
+
 const profesionalExpValidations = [
 	body('company').notEmpty().withMessage('El campo company es obligatorio'),
 	body('description')
@@ -18,7 +22,16 @@ const profesionalExpValidations = [
 		.notEmpty()
 		.withMessage('El campo startMonth es obligatorio')
 		.isInt({ min: 1, max: 12 })
-		.withMessage('El campo startMonth debe estar entre 1 y 12'),
+		.withMessage('El campo startMonth debe estar entre 1 y 12')
+		.custom((value, { req }) => {
+			if (
+				parseInt(req.body.startYear) === currentYear &&
+				value > currentMonth
+			) {
+				throw new Error('El mes de inicio no puede estar en el futuro');
+			}
+			return true;
+		}),
 	body('endYear')
 		.optional()
 		.isInt({ min: 1900, max: new Date().getFullYear() })
@@ -27,7 +40,18 @@ const profesionalExpValidations = [
 	body('endMonth')
 		.optional()
 		.isInt({ min: 1, max: 12 })
-		.withMessage('El campo endMonth debe estar entre 1 y 12'),
+		.withMessage('El campo endMonth debe estar entre 1 y 12')
+		.custom((value, { req }) => {
+			if (
+				parseInt(req.body.endYear) === currentYear &&
+				value > currentMonth
+			) {
+				throw new Error(
+					'El mes de finalización no puede estar en el futuro',
+				);
+			}
+			return true;
+		}),
 ];
 
 const handleValidationErrors = (req, res, next) => {

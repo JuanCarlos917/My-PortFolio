@@ -39,7 +39,7 @@ export const UpdateExperience = () => {
 		dispatch(getProfessionalExp());
 	}, [dispatch]);
 
-    useEffect(() => {
+	useEffect(() => {
 		if (modified) {
 			removeFromLocalStorage('experienceInfoUpdate');
 			setShowForm(false); // Esconde el formulario después de una actualización exitosa
@@ -76,102 +76,136 @@ export const UpdateExperience = () => {
 							</Link>
 						</div>
 					) : (
-						<Formik
-							initialValues={{
-								company: specificExperience.company,
-								position: specificExperience.position,
-								description: specificExperience.description,
-								startDate: specificExperience.startDate,
-								endDate: specificExperience.endDate,
-							}}
-							validationSchema={FormValidationsExp}
-							onSubmit={(values) => {
-								// Pide confirmación al usuario
-								const userConfirmed = window.confirm(
-									'¿Estás seguro de que deseas realizar la modificación?',
-								);
-								if (userConfirmed) {
-									dispatch(
-										updateProfessionalExp({
-											id: id,
-											professionalExpInfo: {
-												company: values.company,
-												position: values.position,
-												description: values.description,
-												startDate: values.startDate,
-												endDate: values.endDate,
-											},
-										}),
+						<>
+							<Formik
+								initialValues={{
+									company: specificExperience.company,
+									position: specificExperience.position,
+									description: specificExperience.description,
+									startYearMonth: `${specificExperience.startYear}-${specificExperience.startMonth}`,
+									endYearMonth: `${specificExperience.endYear}-${specificExperience.endMonth}`,
+								}}
+								validationSchema={FormValidationsExp}
+								onSubmit={(values) => {
+									// Divide los valores "YYYY-MM" en año y mes
+									const [startYear, startMonth] =
+										values.startYearMonth.split('-');
+									let endYear, endMonth;
+									if (values.endYearMonth) {
+										[endYear, endMonth] =
+											values.endYearMonth.split('-');
+									} else {
+										endYear = '';
+										endMonth = '';
+									}
+
+									// Luego puedes usar startYear, startMonth, endYear, y endMonth
+									// en la forma que necesitas en tu lógica.
+
+									const userConfirmed = window.confirm(
+										'¿Estás seguro de que deseas realizar la modificación?',
 									);
-								} else {
-									setCancelledModification(true);
-									// Guardar el proyecto actualizado en localStorage
-									saveToLocalStorage('experienceInfoUpdate', {
-										professionalExpInfo: {
-											company: values.company,
-											position: values.position,
-											description: values.description,
-											startDate: values.startDate,
-											endDate: values.endDate,
-										},
-									});
-								}
-							}}>
-							<Form>
-								<div>
-									<label htmlFor='company'>Empresa:</label>
-									<Field
-										type='text'
-										name='company'
-										id='company'
-									/>
-									<ErrorMessage name='company' />
-								</div>
-								<div>
-									<label htmlFor='position'>Puesto:</label>
-									<Field
-										type='text'
-										name='position'
-										id='position'
-									/>
-									<ErrorMessage name='position' />
-								</div>
-								<div>
-									<label htmlFor='description'>
-										Descripción:
-									</label>
-									<Field
-										as='textarea'
-										name='description'
-										id='description'
-									/>
-									<ErrorMessage name='description' />
-								</div>
-								<div>
-									<label htmlFor='startDate'>
-										Fecha de inicio:
-									</label>
-									<Field
-										type='date'
-										name='startDate'
-										id='startDate'
-									/>
-									<ErrorMessage name='startDate' />
-								</div>
-								<div>
-									<label htmlFor='endDate'>
-										Fecha de finalización:
-									</label>
-									<Field
-										type='date'
-										name='endDate'
-										id='endDate'
-									/>
-									<ErrorMessage name='endDate' />
-								</div>
-								<button type='submit'>Actualizar</button>
-							</Form>
-						</Formik>
+
+									if (userConfirmed) {
+										dispatch(
+											updateProfessionalExp({
+												id: id,
+												professionalExpInfo: {
+													company: values.company,
+													position: values.position,
+													description:
+														values.description,
+													startYear: startYear,
+													startMonth: startMonth,
+													endYear: endYear,
+													endMonth: endMonth,
+												},
+											}),
+										);
+									} else {
+										setCancelledModification(true);
+										// Guardar el proyecto actualizado en localStorage
+										saveToLocalStorage(
+											'experienceInfoUpdate',
+											{
+												professionalExpInfo: {
+													company: values.company,
+													position: values.position,
+													description:
+														values.description,
+													startYear: values.startYear,
+													startMonth:
+														values.startMonth,
+													endYear: values.endYear,
+													endMonth: values.endMonth,
+												},
+											},
+										);
+									}
+								}}>
+								<Form>
+									<div>
+										<label htmlFor='company'>
+											Empresa:
+										</label>
+										<Field
+											type='text'
+											name='company'
+											id='company'
+										/>
+										<ErrorMessage name='company' />
+									</div>
+									<div>
+										<label htmlFor='position'>
+											Puesto:
+										</label>
+										<Field
+											type='text'
+											name='position'
+											id='position'
+										/>
+										<ErrorMessage name='position' />
+									</div>
+									<div>
+										<label htmlFor='description'>
+											Descripción:
+										</label>
+										<Field
+											as='textarea'
+											name='description'
+											id='description'
+										/>
+										<ErrorMessage name='description' />
+									</div>
+									<div>
+										<label htmlFor='startYearMonth'>
+											Mes y año de inicio:
+										</label>
+										<Field
+											type='month'
+											name='startYearMonth'
+											id='startYearMonth'
+										/>
+										<ErrorMessage name='startYearMonth' />
+									</div>
+									<div>
+										<label htmlFor='endYearMonth'>
+											Mes y año de finalización:
+										</label>
+										<Field
+											type='month'
+											name='endYearMonth'
+											id='endYearMonth'
+										/>
+										{!specificExperience.endYearMonth && (
+											<span>Actual</span>
+										)}
+										<ErrorMessage name='endYearMonth' />
+									</div>
+									<button type='submit'>Actualizar</button>
+								</Form>
+							</Formik>
+						</>
 					)}
 				</>
 			)}
