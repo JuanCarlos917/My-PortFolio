@@ -8,15 +8,26 @@ const profesionalExpValidations = [
 			'El campo description es obligatorio y debe tener minimo 5 caracteres ',
 		),
 	body('position').notEmpty().withMessage('El campo position es obligatorio'),
-	body('startDate')
+	body('startYear')
 		.notEmpty()
-		.withMessage(
-			'El campo startDate es obligatorio',
-		)
+		.withMessage('El campo startYear es obligatorio')
+		.isInt({ min: 1900, max: new Date().getFullYear() })
+		.withMessage('El campo startYear debe ser un año válido'),
+
+	body('startMonth')
 		.notEmpty()
-		.withMessage(
-			'El campo startDate es obligatorio',
-		)
+		.withMessage('El campo startMonth es obligatorio')
+		.isInt({ min: 1, max: 12 })
+		.withMessage('El campo startMonth debe estar entre 1 y 12'),
+	body('endYear')
+		.optional()
+		.isInt({ min: 1900, max: new Date().getFullYear() })
+		.withMessage('El campo endYear debe ser un año válido'),
+
+	body('endMonth')
+		.optional()
+		.isInt({ min: 1, max: 12 })
+		.withMessage('El campo endMonth debe estar entre 1 y 12'),
 ];
 
 const handleValidationErrors = (req, res, next) => {
