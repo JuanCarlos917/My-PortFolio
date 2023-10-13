@@ -8,7 +8,7 @@ export const FormValidationsExp = Yup.object().shape({
 		.matches(/^\d{4}-\d{2}$/, 'El formato debe ser YYYY-MM')
 		.required('El mes y año de inicio son requeridos'),
 	endYearMonth: Yup.string()
-		.matches(/^\d{4}-\d{2}$/, 'El formato debe ser YYYY-MM')
+		.matches(/^\d{4}-\d{2}$/, 'El formato debe ser a YYYY-MM')
 });
 
 export default FormValidationsExp;
