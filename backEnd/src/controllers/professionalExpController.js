@@ -29,7 +29,15 @@ const getProfessionalExp = async (req, res) => {
 
 const createProfessionalExp = async (req, res) => {
 	try {
-		const { company, position, startDate, endDate, description } = req.body;
+		const {
+			company,
+			position,
+			startYear,
+			startMonth,
+			endYear,
+			endMonth,
+			description,
+		} = req.body;
 		// Obtener la información de "CV"
 		const cv = await CV.findOne();
 		if (!cv) {
@@ -43,8 +51,10 @@ const createProfessionalExp = async (req, res) => {
 		const newProfessionalExp = await ProfessionalExp.create({
 			company,
 			position,
-			startDate,
-			endDate,
+			startYear,
+			startMonth,
+			endYear,
+			endMonth,
 			description,
 			CVId: cv.id,
 		});
@@ -66,7 +76,15 @@ const updateProfessionalExp = async (req, res) => {
 	try {
 		const { id } = req.params;
 
-		const { company, position, startDate, endDate, description } = req.body;
+		const {
+			company,
+			position,
+			startYear,
+			startMonth,
+			endYear,
+			endMonth,
+			description,
+		} = req.body;
 
 		const existingProfessionalExp = await ProfessionalExp.findOne({
 			where: { id },
@@ -83,8 +101,10 @@ const updateProfessionalExp = async (req, res) => {
 			{
 				company,
 				position,
-				startDate,
-				endDate,
+				startYear,
+				startMonth,
+				endYear,
+				endMonth,
 				description,
 			},
 			{ where: { id } },

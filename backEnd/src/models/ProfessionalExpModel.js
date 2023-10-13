@@ -20,13 +20,41 @@ module.exports = (sequelize) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
-			startDate: {
-				type: DataTypes.DATEONLY,
+			startYear: {
+				type: DataTypes.INTEGER,
 				allowNull: false,
+				validate: {
+					isNumeric: true,
+					min: 1900,
+					max: new Date().getFullYear(),
+				},
 			},
-			endDate: {
-				type: DataTypes.DATEONLY,
+			startMonth: {
+				type: DataTypes.INTEGER,
 				allowNull: false,
+				validate: {
+					isNumeric: true,
+					min: 1,
+					max: 12,
+				},
+			},
+			endYear: {
+				type: DataTypes.INTEGER,
+				allowNull: true, // Permitir nulo en caso de que la experiencia laboral esté en curso
+				validate: {
+					isNumeric: true,
+					min: 1900,
+					max: new Date().getFullYear(),
+				},
+			},
+			endMonth: {
+				type: DataTypes.INTEGER,
+				allowNull: true, // Permitir nulo en caso de que la experiencia laboral esté en curso
+				validate: {
+					isNumeric: true,
+					min: 1,
+					max: 12,
+				},
 			},
 			description: {
 				type: DataTypes.TEXT,
