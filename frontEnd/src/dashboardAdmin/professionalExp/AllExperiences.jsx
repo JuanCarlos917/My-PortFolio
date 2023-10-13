@@ -8,6 +8,7 @@ export const AllExperiences = () => {
     const professionalExpInfo = useSelector(
         (state) => state.professionalExp.professionalExpInfo,
     );
+
     const status = useSelector((state) => state.professionalExp.status);
     const error = useSelector((state) => state.professionalExp.error);
 
@@ -33,9 +34,11 @@ export const AllExperiences = () => {
 					<h3>Descripción:</h3>
 					<p>{exp.description}</p>
 					<h3>Fecha de inicio: </h3>
-					<p>{exp.startDate}</p>
+					<p>{exp.startYear}/</p>
+					<p>{exp.startMonth}</p>
 					<h3>Fecha de finalización:</h3>
-					<p>{exp.endDate}</p>
+					<p>{exp.endYear}/</p>
+					<p>{exp.endMonth}</p>
 					<Link to={`/dashboard/update-experience/${exp.id}`}>
 						Modificar
 					</Link>
