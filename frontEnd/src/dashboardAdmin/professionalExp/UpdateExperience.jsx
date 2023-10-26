@@ -98,10 +98,6 @@ export const UpdateExperience = () => {
 										endYear = '';
 										endMonth = '';
 									}
-
-									// Luego puedes usar startYear, startMonth, endYear, y endMonth
-									// en la forma que necesitas en tu lógica.
-
 									const userConfirmed = window.confirm(
 										'¿Estás seguro de que deseas realizar la modificación?',
 									);

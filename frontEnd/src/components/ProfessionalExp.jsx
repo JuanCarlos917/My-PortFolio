@@ -51,11 +51,11 @@ export const ProfessionalExp = () => {
 							</p>
 							<p className='text-gray-600 mb-3 font-ysabeau'>
 								<span className='font-sf '>Inicio:</span>{' '}
-								{experience.startDate}
+								{experience.startYear}/{experience.startMonth}
 							</p>
 							<p className='text-gray-600 font-ysabeau'>
 								<span className='font-sf '>Fin:</span>{' '}
-								{experience.endDate}
+								{experience.endYear}/{experience.endMonth}
 							</p>
 						</div>
 					))}
