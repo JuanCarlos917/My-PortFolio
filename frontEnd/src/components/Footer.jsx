@@ -41,12 +41,12 @@ export const Footer = () => {
 		);
 	} else if (status === 'succeeded') {
 		content = (
-			<div className='bg-Dark_Navy_Blue font-sf text-white mx-auto p-6 shadow-top'>
+			<div className='bg-golden font-sf text-Midnight_Blue mx-auto p-6 shadow-top'>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-20 space-x-4 md:space-x-0 items-start'>
 					{/* Primera columna de información */}
 					<div className='space-y-4 md:space-y-0'>
 						{/* Nombre y apellido */}
-						<h1 className='text-4xl font-sf'>
+						<h1 className='text-4xl font-kanit'>
 							{`${cvInfo?.name || 'Juan Carlos'} ${
 								cvInfo?.lastName || 'Gómez'
 							}`}
@@ -73,12 +73,12 @@ export const Footer = () => {
 								<div key={index}>
 									<Link
 										to={item.path}
-										className={`w-full transition duration-300 font-ysabeau ${
+										className={`w-full transition duration-300 font-sf ${
 											item.label === 'Contáctame 🤙'
 												? 'hover:text-soft_green'
 												: item.label === 'Admin'
 												? 'hover:text-bright_red'
-												: 'hover:text-golden'
+												: 'hover:text-turquoise_Blue'
 										}`}>
 										{item.label}
 									</Link>
@@ -95,7 +95,7 @@ export const Footer = () => {
 								<img
 									src={logo}
 									alt='logo'
-									className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 object-cover'
+									className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 object-cover bg-darck_black'
 								/>
 							</Link>
 						</span>

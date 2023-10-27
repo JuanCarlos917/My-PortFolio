@@ -32,9 +32,7 @@ export default {
 			colors: {
 				white: '#ffffff',
 
-				Dark_Navy_Blue: '#1A2C56',
-
-				golden: '#ffc107',
+				golden: '#ffb703',
 
 				linkedin: '#0e76a8',
 
@@ -51,14 +49,20 @@ export default {
 				vivid_blue: '#0D6EFD',
 
 				pale_blue: '#F0F5F9',
+				//new colors
+				Midnight_Blue: '#023047',
+
+				Orange_Pumpkin: '#fb8500',
+
+				turquoise_Blue: '#219ebc',
 			},
 			fontFamily: {
-				aboreto: ['Aboreto', 'cursive'],
 				volkhov: ['Volkhov', 'serif'],
-				ysabeau: ['Ysabeau SC', 'sans-serif'],
-				sf: ['San Francisco', 'sans-serif'],
 				oswald: ['Oswald', 'sans-serif'],
 				playfair: ['Playfair Display', 'serif'],
+				//new fonts
+				sf: ['San Francisco', 'sans-serif'],
+				kanit: ['Kanit', 'sans'],
 			},
 			fontWeight: {
 				light: 300,

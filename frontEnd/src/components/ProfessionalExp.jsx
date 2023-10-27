@@ -41,19 +41,19 @@ export const ProfessionalExp = () => {
 							<h2 className='text-lg sm:text-xl font-sf mb-2'>
 								{experience.company}
 							</h2>
-							<p className='text-gray-600 mb-3 font-ysabeau'>
+							<p className='text-gray-600 mb-3 font-sf'>
 								<span className='font-sf'>Posición:</span>{' '}
 								{experience.position}
 							</p>
-							<p className='text-gray-600 mb-3 font-ysabeau'>
+							<p className='text-gray-600 mb-3 font-sf'>
 								<span className='font-sf '>Descripción:</span>{' '}
 								{experience.description}
 							</p>
-							<p className='text-gray-600 mb-3 font-ysabeau'>
+							<p className='text-gray-600 mb-3 font-sf'>
 								<span className='font-sf '>Inicio:</span>{' '}
 								{experience.startYear}/{experience.startMonth}
 							</p>
-							<p className='text-gray-600 font-ysabeau'>
+							<p className='text-gray-600 font-sf'>
 								<span className='font-sf '>Fin:</span>{' '}
 								{experience.endYear}/{experience.endMonth}
 							</p>
