@@ -20,6 +20,17 @@ export const Footer = () => {
 		}
 	}, [status, dispatch]);
 
+	const menuItemsMax = [
+		{ label: 'Contáctame 🤙', path: '/contact' },
+		{ label: 'Inicio', path: '/home' },
+		{ label: 'Mi Historia', path: '/about' },
+		{ label: 'Ruta Profesional', path: '/cv' },
+		{ label: 'Mi educación', path: '/education' },
+		{ label: 'Mis Obras', path: '/projects' },
+		{ label: 'Reviews', path: '/reviews' },
+		{ label: 'Admin', path: '/dashboard' },
+	];
+
 	let content;
 
 	if (status === 'loading' || status === 'idle') {
@@ -58,47 +69,21 @@ export const Footer = () => {
 					<div className='space-y-4'>
 						{/* Enlaces adicionales */}
 						<div className='flex flex-col space-y-2'>
-							<Link
-								to='/contact'
-								className='hover:text-soft_green hover:underline transition duration-300'>
-								Contactame
-							</Link>
-							<Link
-								to='/home'
-								className='hover:text-golden hover:underline transition duration-300'>
-								Home
-							</Link>
-							<Link
-								to='/about'
-								className='hover:text-golden hover:underline transition duration-300'>
-								Acerca de mí
-							</Link>
-							<Link
-								to='/cv'
-								className='hover:text-golden hover:underline transition duration-300'>
-								CV
-							</Link>
-							<Link
-								to='/education'
-								className='hover:text-golden hover:underline transition duration-300'>
-								Educación
-							</Link>
-							<Link
-								to='/projects'
-								className='hover:text-golden hover:underline transition duration-300'>
-								Proyectos
-							</Link>
-							<Link
-								to='/reviews'
-								className='hover:text-golden hover:underline transition duration-300'>
-								Portfolio reviews
-							</Link>
-
-							<Link
-								to='/dashboard'
-								className='hover:text-bright_red hover:underline transition duration-300'>
-								Admin
-							</Link>
+							{menuItemsMax.map((item, index) => (
+								<div key={index}>
+									<Link
+										to={item.path}
+										className={`w-full transition duration-300 font-ysabeau ${
+											item.label === 'Contáctame 🤙'
+												? 'hover:text-soft_green'
+												: item.label === 'Admin'
+												? 'hover:text-bright_red'
+												: 'hover:text-golden'
+										}`}>
+										{item.label}
+									</Link>
+								</div>
+							))}
 						</div>
 					</div>
 
