@@ -45,26 +45,26 @@ export const DetailProject = () => {
 						<Typography
 							variant='h5'
 							gutterBottom
-							className='font-aboreto text-Dark_Navy_Blue mb-4'>
+							className='font-kanit text-Midnight_Blue mb-4'>
 							{projectDetail.title}
 						</Typography>
 						<Typography
 							variant='subtitle1'
 							color='textSecondary'
 							gutterBottom
-							className='mb-4 font-ysabeau text-dark_grayish_blue'>
+							className='mb-4 font-sf text-dark_grayish_blue'>
 							{projectDetail.description}
 						</Typography>
 						<Typography
 							variant='subtitle1'
 							color='textSecondary'
-							className='mb-4 font-ysabeau text-dark_grayish_blue'>
+							className='mb-4 font-sf text-dark_grayish_blue'>
 							{projectDetail.technologies}
 						</Typography>
 						<Typography
 							variant='subtitle2'
 							gutterBottom
-							className='font-volkhov text-Dark_Navy_Blue mb-4'>
+							className='font-volkhov text-Midnight_Blue mb-4'>
 							Developers:
 							<div className='mt-2'>
 								{projectDetail.TeamDevs.map((dev) => (
@@ -93,7 +93,7 @@ export const DetailProject = () => {
 			</Paper>
 		);
 	} else if (status === 'failed') {
-		content = <div className='text-bright_red font-aboreto'>{error}</div>;
+		content = <div className='text-bright_red font-kanit'>{error}</div>;
 	}
 
 	return (

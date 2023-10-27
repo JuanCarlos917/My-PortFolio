@@ -40,26 +40,26 @@ export const Education = () => {
 							<h2 className='text-lg sm:text-xl font-sf mb-2'>
 								{edu?.institution}
 							</h2>
-							<p className='text-gray-600 mb-2 font-ysabeau'>
+							<p className='text-gray-600 mb-2 font-sf'>
 								<span className='font-sf '>Carrera:</span>{' '}
 								{edu?.degree}
 							</p>
-							<p className='text-gray-600 mb-2 font-ysabeau'>
+							<p className='text-gray-600 mb-2 font-sf'>
 								<span className='font-sf '>
 									Campo de estudio:
 								</span>{' '}
 								{edu?.field_of_study}
 							</p>
-							<p className='text-gray-600 mb-2 font-ysabeau'>
+							<p className='text-gray-600 mb-2 font-sf'>
 								<span className='font-sf '>Descripción:</span>{' '}
 								{edu?.description}
 							</p>
 
-							<p className='text-gray-600 mb-2 font-ysabeau'>
+							<p className='text-gray-600 mb-2 font-sf'>
 								<span className='font-sf '>Inicio:</span>{' '}
 								{edu?.startDate}
 							</p>
-							<p className='text-gray-600 font-ysabeau'>
+							<p className='text-gray-600 font-sf'>
 								<span className='font-sf '>Final:</span>{' '}
 								{edu?.endDate}
 							</p>

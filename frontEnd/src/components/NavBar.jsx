@@ -33,7 +33,7 @@ export const NavBar = () => {
 	];
 
 	return (
-		<Navbar shouldHideOnScroll className='font-ysabeau pt-0'>
+		<Navbar shouldHideOnScroll className='font-sf pt-0'>
 			<NavbarBrand className='w-40 h-40 relative overflow-hidden flex items-center'>
 				<Link to='/'>
 					<img
@@ -52,13 +52,13 @@ export const NavBar = () => {
 			</NavbarContent>
 
 			<NavbarContent
-				className='hidden md:flex gap-4 font-ysabeau'
+				className='hidden md:flex gap-4 font-sf'
 				justify='center'>
 				{menuItemsMax.map((item, index) => (
 					<NavbarItem key={index} isActive={item.label === 'Inicio'}>
 						<Link
 							to={item.path}
-							className={`w-full transition duration-300 font-ysabeau ${
+							className={`w-full transition duration-300 font-sf ${
 								item.label === 'Contáctame 🤙'
 									? 'hover:text-soft_green'
 									: 'hover:text-golden'
@@ -76,7 +76,7 @@ export const NavBar = () => {
 						isActive={item.label === 'Menu'}>
 						<Link
 							to={item.path}
-							className={`w-full transition duration-300 font-ysabeau ${
+							className={`w-full transition duration-300 font-sf ${
 								item.label === 'Contáctame 🤙'
 									? 'hover:text-soft_green'
 									: 'hover:text-golden'

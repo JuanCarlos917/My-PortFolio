@@ -27,18 +27,18 @@ export const PersonalInfo = () => {
 	} else if (status === 'succeeded') {
 		content = (
 			<div className='space-y-4'>
-				<h3 className='text-xl font-aboreto'>
+				<h3 className='text-xl font-kanit'>
 					Nombre{' '}
-					<span className='font-ysabeau'>
+					<span className='font-sf'>
 						{cvInfo?.name} {cvInfo?.lastName}
 					</span>
 				</h3>
-				<h3 className='text-xl font-aboreto'>
-					Email <span className='font-ysabeau'>{cvInfo?.email}</span>
+				<h3 className='text-xl font-kanit'>
+					Email <span className='font-sf'>{cvInfo?.email}</span>
 				</h3>
-				<h3 className='text-xl font-aboreto'>
+				<h3 className='text-xl font-kanit'>
 					Teléfono{' '}
-					<span className='font-ysabeau'>+57 {cvInfo?.phone}</span>
+					<span className='font-sf'>+57 {cvInfo?.phone}</span>
 				</h3>
 				<div className='flex space-x-4'>
                     <SocialLinks />
