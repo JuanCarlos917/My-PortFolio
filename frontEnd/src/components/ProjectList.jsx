@@ -39,18 +39,18 @@ export const ProjectList = () => {
 							<h2 className='text-lg sm:text-xl font-sf mb-2'>
 								{project.title}
 							</h2>
-							<p className='text-gray-600 mb-3 font-ysabeau'>
+							<p className='text-gray-600 mb-3 font-sf'>
 								{project.description}
 							</p>
 							<h4 className='font-sf text-lg mb-2'>
 								Tecnologías:
 							</h4>
-							<p className='text-gray-600 mb-4 font-ysabeau'>
+							<p className='text-gray-600 mb-4 font-sf'>
 								{project.technologies}
 							</p>
 
 							<h4 className='font-sf text-lg mb-2'>Equipo:</h4>
-							<ul className='list-disc pl-5 mb-4 font-ysabeau'>
+							<ul className='list-disc pl-5 mb-4 font-sf'>
 								{Array.isArray(project.TeamDevs) &&
 									project.TeamDevs.map((team, teamIndex) => (
 										<li
@@ -70,7 +70,7 @@ export const ProjectList = () => {
 							</ul>
                             {/* Este codigo lo uso para filtrar  Tags y Categories*/}
 							{/* <h4 className='font-sf text-lg mb-2'>Tags:</h4>
-							<ul className='list-disc pl-5 mb-4 font-ysabeau'>
+							<ul className='list-disc pl-5 mb-4 font-sf'>
 								{Array.isArray(project.Tags) &&
 									project.Tags.map((tag, tagIndex) => (
 										<li
@@ -84,7 +84,7 @@ export const ProjectList = () => {
 							<h4 className='font-sf text-lg mb-2'>
 								Categorías:
 							</h4>
-							<ul className='list-disc pl-5 mb-4 font-ysabeau'>
+							<ul className='list-disc pl-5 mb-4 font-sf'>
 								{Array.isArray(project.Categories) &&
 									project.Categories.map(
 										(category, categoryIndex) => (

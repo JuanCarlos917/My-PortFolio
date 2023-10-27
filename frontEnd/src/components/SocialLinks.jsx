@@ -43,7 +43,7 @@ export const SocialLinks = () => {
 					<a href={cvInfo?.social_media?.github}>
 						<GitHub
 							fontSize='large'
-							className='hover:text-light_grayish_blue transition duration-300'
+							className='hover:text-white transition duration-300'
 						/>
 					</a>
 				</Box>

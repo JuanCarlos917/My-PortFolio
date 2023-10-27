@@ -32,7 +32,7 @@ export const Reviews = () => {
 						<div
 							key={index}
 							className='rounded-lg overflow-hidden shadow-lg p-4 sm:p-6 bg-white'>
-							<p className='text-gray-600 mb-3 font-ysabeau'>
+							<p className='text-gray-600 mb-3 font-sf'>
 								{review.comment}
 							</p>
 							<Rating
