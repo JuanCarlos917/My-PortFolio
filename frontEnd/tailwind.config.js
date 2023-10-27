@@ -32,7 +32,7 @@ export default {
 			colors: {
 				white: '#ffffff',
 
-				golden: '#ffc107',
+				golden: '#ffb703',
 
 				linkedin: '#0e76a8',
 
@@ -54,17 +54,15 @@ export default {
 
 				Orange_Pumpkin: '#fb8500',
 
-				colorp: '#ffb703',
-
-				colorp2: '#219ebc',
+				turquoise_Blue: '#219ebc',
 			},
 			fontFamily: {
 				volkhov: ['Volkhov', 'serif'],
 				oswald: ['Oswald', 'sans-serif'],
 				playfair: ['Playfair Display', 'serif'],
 				//new fonts
-				kanit: ['Kanit', 'sans'],
 				sf: ['San Francisco', 'sans-serif'],
+				kanit: ['Kanit', 'sans'],
 			},
 			fontWeight: {
 				light: 300,

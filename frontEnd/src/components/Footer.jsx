@@ -41,12 +41,12 @@ export const Footer = () => {
 		);
 	} else if (status === 'succeeded') {
 		content = (
-			<div className='bg-colorp font-sf text-Midnight_Blue mx-auto p-6 shadow-top'>
+			<div className='bg-golden font-sf text-Midnight_Blue mx-auto p-6 shadow-top'>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-20 space-x-4 md:space-x-0 items-start'>
 					{/* Primera columna de información */}
 					<div className='space-y-4 md:space-y-0'>
 						{/* Nombre y apellido */}
-						<h1 className='text-4xl font-sf'>
+						<h1 className='text-4xl font-kanit'>
 							{`${cvInfo?.name || 'Juan Carlos'} ${
 								cvInfo?.lastName || 'Gómez'
 							}`}
@@ -78,7 +78,7 @@ export const Footer = () => {
 												? 'hover:text-soft_green'
 												: item.label === 'Admin'
 												? 'hover:text-bright_red'
-												: 'hover:text-colorp2'
+												: 'hover:text-turquoise_Blue'
 										}`}>
 										{item.label}
 									</Link>
