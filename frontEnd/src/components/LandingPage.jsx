@@ -13,12 +13,12 @@ export const LandingPage = () => {
 				<h1
 					className='text-4xl font-kanit text-left text-Orange_Pumpkin
                 '>
-					Desarrollador Full-stack con Especialidad en Administración
-					de Empresas
+					Desarrollador Full-stack y Profesional en Administración de
+					Empresas
 				</h1>
 				<p className='text-lg leading-relaxed font-sf text-white'>
-					Experto en tecnologías web como Javascript, React, Node.js,
-					bases de datos PostgreSQL y despliegue en la nube con AWS.
+					Cuento con habilidades en desarrollo frontend,
+					backend, gestión de bases de datos y desplige en AWS
 				</p>
 				<Link to='/contact'>
 					<Button
