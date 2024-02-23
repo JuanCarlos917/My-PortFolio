@@ -48,7 +48,7 @@ export const SocialLinks = () => {
 					</a>
 				</Box>
 				<Box mx={2}>
-					<a href='http://wa.me/573132074757#'>
+					<a href='http://wa.me/573132074757?text=Hola, ¡acabo de visitar tu página web y me ha impresionado! Me gustaría conversar más sobre lo que ofreces. ¿Podemos hablar?'>
 						<WhatsAppIcon
 							fontSize='large'
 							className='hover:text-soft_green transition duration-300'
