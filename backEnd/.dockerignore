@@ -1,5 +1,8 @@
 node_modules
-npm-debug.log
+dist/
 .git
 .gitignore
-data
+Dockerfile
+.dockerignore
+.env
+!storage/.gitkeep

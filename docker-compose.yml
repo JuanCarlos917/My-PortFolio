@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+    postgres:
+        image: postgres:latest
+        container_name: portfolio_postgres_container
+        environment:
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_NAME}
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        ports:
+            - '5433:5432'
+        networks:
+            - portfolio_network
+
+    backend:
+        image: juancarlosgomez/porfolio-backend:latest
+        container_name: porfolio-backend
+        command: npm run dev
+        build:
+            context: ./backEnd
+            dockerfile: Dockerfile
+        env_file: .env.production
+        ports:
+            - '3000:3000'
+        depends_on:
+            - postgres
+        networks:
+            - portfolio_network
+
+    frontend:
+        image: juancarlosgomez/porfolio-frontend:latest
+        build:
+            context: ./frontEnd
+            dockerfile: Dockerfile
+        container_name: porfolio-front
+        env_file: .env.production
+        ports:
+            - '80:80'
+        depends_on:
+            - backend
+        networks:
+            - portfolio_network
+
+networks:
+    portfolio_network:
+
+volumes:
+    postgres_data:

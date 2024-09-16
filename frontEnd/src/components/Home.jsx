@@ -1,7 +1,7 @@
 import { ServiceCard } from './ServiceCard';
 import { ProjectCard } from './ProjectCard';
 import { SocialLinks } from './SocialLinks';
-import { ContactMe } from './contactMe';
+import { ContactMe } from './ContactMe';
 import { StarRatingForm } from './StarRatingForm';
 
 export const Home = () => {

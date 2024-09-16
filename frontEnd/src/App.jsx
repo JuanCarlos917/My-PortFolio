@@ -64,7 +64,7 @@ import { ImageList } from './dashboardAdmin/s3Media/ImageList';
 import { UploadImage } from './dashboardAdmin/s3Media/ImageUpload';
 import { DeleteImage } from './dashboardAdmin/s3Media/ImageDelete';
 import { GenerateUrl } from './dashboardAdmin/s3Media/UrlImageS3';
-import { ContactMe } from './components/contactMe';
+import { ContactMe } from './components/ContactMe';
 import { FormServices } from './dashboardAdmin/services/FormServices';
 import { AllServices } from './dashboardAdmin/services/AllServices';
 import { UpdateService } from './dashboardAdmin/services/UpdateService';
